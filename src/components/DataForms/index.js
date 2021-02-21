@@ -1,0 +1,10 @@
+export { default as dataFormProductos } from './dataForms/dataFormProductos'
+export { default as dataFormClientes } from './dataForms/dataFormClientes'
+export { default as dataFormUsuarios } from './dataForms/dataFormUsuarios'
+export { default as dataFormVentas } from './dataForms/dataFormVentas'
+
+export { default as dataConsultasProductos } from './dataConsultas/dataConsultasProductos'
+export { default as dataConsultasCategorias } from './dataConsultas/dataConsultasCategorias'
+export { default as dataConsultasClientes } from './dataConsultas/dataConsultasClientes'
+export { default as dataConsultasUsuarios } from './dataConsultas/dataConsultasUsuarios'
+export { default as dataConsultasVentas } from './dataConsultas/dataConsultasVentas'

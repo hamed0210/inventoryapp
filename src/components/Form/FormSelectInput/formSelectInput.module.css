@@ -1,0 +1,116 @@
+.container {
+	position: absolute;
+	right: 50%;
+	top: 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: fit-content;
+	transform: translateY(-70%) translateX(50%);
+}
+
+.error_container,
+.message_success_container {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: -50%;
+	width: max-content;
+	padding: 5px 20px;
+	border-radius: 5px;
+	background-color: white;
+	box-shadow: 0 3px 4px #00000040, 0px -1px 4px #00000040;
+	opacity: 1;
+	/* animation: fadein 0.5s forwards; */
+	/* animation: fadein 0.5s forwards, fadeout 0.5s 4s forwards; */
+}
+
+.error_container {
+	color: white;
+	background-color: rgba(211, 47, 47, 0.9);
+	/* border: 2px solid #d32f2f; */
+}
+
+.message_success_container {
+	color: white;
+	background-color: rgba(79, 169, 141, 0.9);
+}
+
+@keyframes fadein {
+	form {
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(10px);
+	}
+}
+
+@keyframes fadeout {
+	to {
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	/* width: 400px; */
+	padding: 15px 20px;
+	border-radius: 5px;
+	background-color: var(--background-primary);
+	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
+}
+
+.inputGroup {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	/* padding: 10px; */
+	margin: 10px 0 20px;
+}
+
+.label {
+	width: 40%;
+	color: var(--color-label);
+}
+
+.input {
+	width: 60%;
+	padding: 5px 0 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #f4f4f4;
+}
+
+.input:focus {
+	outline-color: var(--color-primary);
+}
+
+.input::placeholder {
+	opacity: 0.6;
+}
+
+.btn_cancelar {
+	margin-left: 5px;
+	color: var(--background-primary);
+	background-color: var(--color-label);
+	transition: transform 0.3s ease;
+}
+
+.btn_cancelar:hover {
+	transform-origin: center;
+	transform: scale(1.025);
+}
+
+/* @media screen and (max-height: 640px) {
+	.btn {
+		margin-bottom: 20px;
+	}
+} */

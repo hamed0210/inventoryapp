@@ -1,0 +1,142 @@
+.container {
+	position: relative;
+	width: 100%;
+}
+
+.message_container {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	z-index: 2;
+	/* animation: fadein 0.5s forwards; */
+	animation: fadein 0.5s forwards, fadeout 0.5s 4s forwards;
+}
+
+.error_container,
+.message_success_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: max-content;
+	padding: 5px 20px;
+	border-radius: 5px;
+	background-color: white;
+	box-shadow: 0 3px 4px #00000040, 0px -1px 4px #00000040;
+}
+
+.error_container {
+	color: white;
+	background-color: rgba(211, 47, 47, 0.8);
+}
+
+.message_success_container {
+	color: white;
+	background-color: rgba(79, 169, 141, 0.8);
+}
+
+@keyframes fadein {
+	form {
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(10px);
+	}
+}
+
+@keyframes fadeout {
+	to {
+		transform: translateY(-10px);
+		opacity: 0;
+	}
+}
+
+.filters {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 20px 0;
+	padding: 1px 5px;
+	overflow: hidden;
+}
+
+.result_container {
+	width: 100%;
+	overflow-x: auto;
+	padding: 5px 0;
+}
+
+.result_container::-webkit-scrollbar {
+	-webkit-appearance: none;
+}
+
+.result_container::-webkit-scrollbar:horizontal {
+	height: 6px;
+}
+
+.result_container::-webkit-scrollbar-thumb {
+	background-color: #797979;
+	border-radius: 5px;
+}
+
+.result {
+	width: 1280px;
+	padding: 0 10px;
+	/* width: 980px; */
+}
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	/* margin-left: auto;
+	margin-right: auto; */
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-width: max-content;
+	/* margin-bottom: 5px; */
+	padding: 4px 0;
+	border-radius: 5px;
+	color: var(--background-primary);
+	background-color: #6f86d6;
+}
+
+.title {
+	width: 100%;
+	/* height: 100%; */
+	text-align: center;
+	font-size: 14px;
+}
+
+.item {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	padding: 5px 0;
+	border-radius: 5px;
+	border: thin solid rgba(0, 0, 0, 0.1);
+	transition: all 0.5s ease;
+}
+
+.data {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	text-align: center;
+	border-right: thin solid rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 1207px) {
+	.result {
+		width: 100%;
+	}
+}

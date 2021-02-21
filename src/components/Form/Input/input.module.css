@@ -1,0 +1,190 @@
+.inputGroup {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 15px;
+}
+
+.label {
+	width: 40%;
+	color: var(--color-label);
+}
+
+.input,
+.input_select,
+.file_container,
+.radio_container {
+	width: 60%;
+	padding: 5px 0 5px 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #f4f4f4;
+}
+
+.input:focus,
+.input_select:focus {
+	outline-color: var(--color-primary);
+}
+
+.input::placeholder {
+	opacity: 0.6;
+}
+
+.select_container {
+	display: flex;
+	align-items: center;
+	width: 60%;
+}
+
+.input_select {
+	/* width: 80%; */
+	width: 90%;
+	/* width: calc(90% - 5px); */
+	color: var(--color-primary);
+}
+
+.btn_add,
+.btn_delete {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	margin-left: 10px;
+	/* padding: 3px; */
+	border: none;
+	border-radius: 50%;
+}
+
+/* .btn_add::after {
+	content: 'Nuevo';
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 2.5px 5px;
+	border-radius: 3px;
+	font-size: 13px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.6);
+	opacity: 0;
+	transform: translateY(-25px) translateX(-50%);
+	transition: opacity 0.3s ease;
+}
+
+.btn_add:hover::after {
+	opacity: 1;
+} */
+
+.btn_delete {
+	margin-left: 5px;
+}
+
+.btn_add path {
+	fill: var(--color-primary);
+}
+
+.btn_delete path {
+	fill: #d32f2f;
+}
+
+.file_container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.file_name {
+	min-width: fit-content;
+}
+
+.btn_file_container {
+	position: relative;
+	overflow: hidden;
+	margin-left: 2px;
+}
+
+.input_file {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-indent: -10000px;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.btn_file {
+	padding: 2px 5px;
+	border: none;
+	border-radius: 3px;
+	border: 2px solid var(--color-primary);
+	font-size: 15px;
+	color: var(--background-primary);
+	background-color: var(--color-primary);
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.input_file:hover + .btn_file {
+	color: var(--color-primary);
+	background-color: var(--background-primary);
+}
+
+.radio_container {
+	display: flex;
+	align-items: center;
+	background-color: var(--background-primary);
+}
+
+.radio_item {
+	display: flex;
+	align-items: center;
+}
+
+.radio_item:not(:nth-last-child(1)) {
+	margin-right: 15px;
+}
+
+.radio_input {
+	display: none;
+	/* margin-right: 5px; */
+}
+
+.radio_label {
+	position: relative;
+	padding-left: 20px;
+	font-size: 15px;
+	font-weight: bold;
+	color: var(--color-primary);
+	opacity: 0.4;
+}
+
+.radio_label::before {
+	position: absolute;
+	display: inline-block;
+	content: '';
+	top: 50%;
+	left: 0;
+	height: 12px;
+	width: 12px;
+	border-radius: 2px;
+	background-color: var(--color-primary);
+	font-family: 'Font Awesome 5 Free';
+	transform: translateY(-50%);
+}
+
+.radio_input:checked + .radio_label {
+	opacity: 1;
+}
+
+.radio_input:checked + .radio_label::before {
+	content: '\f14a';
+	top: 0;
+	height: 0;
+	width: 0;
+}
+
+.input[type='date']::-webkit-calendar-picker-indicator {
+	cursor: pointer;
+}
