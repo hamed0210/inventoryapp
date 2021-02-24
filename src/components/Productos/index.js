@@ -14,11 +14,13 @@ import {
 	obtenerProductosAccion,
 	nuevoProductoAccion,
 	eliminarProductoAccion,
+	editarProductoAccion,
 } from 'redux/productosDucks'
 import {
 	obtenerCategoriasAccion,
 	eliminarCategoriaAccion,
 	nuevaCategoriaAccion,
+	editarCategoriaAccion,
 } from 'redux/categoriasDucks'
 
 const Productos = ({ history }) => {
@@ -58,7 +60,7 @@ const Productos = ({ history }) => {
 				<Form
 					dataLabel={dataFormProductos}
 					dataHeader={dataConsultasCategorias}
-					data={categorias}
+					dataSelect={categorias}
 					dispatchNew={nuevoProductoAccion}
 					dispatchNewSelect={nuevaCategoriaAccion}
 					dispatchDelete={eliminarCategoriaAccion}
@@ -74,7 +76,10 @@ const Productos = ({ history }) => {
 			return (
 				<Consultas
 					dataHeader={dataConsultasProductos}
+					dataFormEdit={dataFormProductos}
+					dataSelect={categorias}
 					data={productos}
+					dispatchEdit={editarProductoAccion}
 					dispatchDelete={eliminarProductoAccion}
 					messageProps={productosMsgConsultas}
 					successProps={productosActionSuccess}

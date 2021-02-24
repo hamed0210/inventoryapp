@@ -139,6 +139,67 @@ export const nuevoClienteAccion = (data, history) => async (dispath) => {
 	}
 }
 
+export const editarClienteAccion = (data, history) => async (
+	dispath,
+	getState
+) => {
+	const token = getLocalStorage()
+	try {
+		const result = await axios.put(
+			`${URI}${PORT}/api/clientes/${data.id}`,
+			data,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		)
+
+		const clienteEditado = getState().clientes.array.map((el) => {
+			return el.id === result.data.data.id ? (el = result.data.data) : el
+		})
+
+		dispath({
+			type: ELIMINAR_CLIENTE_EXITO,
+			payload: {
+				array: clienteEditado,
+				message: result.data.message,
+				// message: `cliente con id ${data.id} editado correctamente`,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_CLIENTE_MESSAGE_EXITO,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+			return history.push('/login')
+		}
+		dispath({
+			type: ELIMINAR_CLIENTE_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_CLIENTE_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
 export const eliminarClienteAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {

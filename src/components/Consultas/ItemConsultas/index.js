@@ -1,13 +1,23 @@
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 import Styles from './itemConsultas.module.css'
 
-const ItemConsultas = ({ data, setItemLists, handleVerEliminar }) => {
+const ItemConsultas = ({
+	data,
+	setItemLists,
+	handleVerEliminar,
+	handleVerEditar,
+}) => {
+	const id_userStore = useSelector((store) => store.login.user.persona.id)
+
 	useEffect(() => {
 		data && setItemLists(document.querySelectorAll(`.${Styles.item}`))
 	}, [data, setItemLists])
 
-	const handleEditButton = (item) => {}
+	const handleEditButton = (item) => {
+		handleVerEditar(item)
+	}
 
 	const handleDeleteButton = (item) => {
 		let dataFiltrado = []
@@ -25,6 +35,7 @@ const ItemConsultas = ({ data, setItemLists, handleVerEliminar }) => {
 		let itemDataRender = []
 		if (data) {
 			data.map((el, index) => {
+				// console.log(el)
 				if (el.hasOwnProperty('fecha_creacion'))
 					el['fecha_creacion'] = el['fecha_creacion'].substr(0, 10)
 
@@ -35,27 +46,28 @@ const ItemConsultas = ({ data, setItemLists, handleVerEliminar }) => {
 						</td>
 					)
 				}
-				dataRender.push(
-					<tr key={index} className={Styles.item}>
-						{itemDataRender}
-						<td className={Styles.data}>
-							<span className={Styles.btns}>
-								<span
-									onClick={() => handleEditButton(el)}
-									className={Styles.btn}
-								>
-									<i className={`${Styles.btn_edit} fas fa-edit`}></i>
+				if (el.id !== id_userStore)
+					dataRender.push(
+						<tr key={index} className={Styles.item}>
+							{itemDataRender}
+							<td className={Styles.data}>
+								<span className={Styles.btns}>
+									<span
+										onClick={() => handleEditButton(el)}
+										className={Styles.btn}
+									>
+										<i className={`${Styles.btn_edit} fas fa-edit`}></i>
+									</span>
+									<span
+										onClick={() => handleDeleteButton(el.codigo || el.id)}
+										className={Styles.btn}
+									>
+										<i className={`${Styles.btn_delete} fas fa-trash-alt`}></i>
+									</span>
 								</span>
-								<span
-									onClick={() => handleDeleteButton(el.codigo || el.id)}
-									className={Styles.btn}
-								>
-									<i className={`${Styles.btn_delete} fas fa-trash-alt`}></i>
-								</span>
-							</span>
-						</td>
-					</tr>
-				)
+							</td>
+						</tr>
+					)
 				itemDataRender = []
 				return dataRender
 			})

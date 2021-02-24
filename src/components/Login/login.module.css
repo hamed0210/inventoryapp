@@ -35,16 +35,16 @@
 	justify-content: center;
 	top: -80px;
 	left: 50%;
-	width: max-content;
-	/* top: -80px; */
+	width: fit-content;
 	padding: 10px 20px;
 	border-radius: 10px;
 	border: 2px solid #d32f2f;
+	text-align: center;
 	background-color: white;
 	box-shadow: 3px 3px 4px #00000040, -1px -1px 4px #00000040;
 	transform: translateX(-50%);
 	opacity: 0;
-	/* transition: tranform .5s ease; */
+	/* transition: tranform 0.3s ease; */
 	animation: fadein 0.5s forwards;
 }
 
@@ -148,5 +148,9 @@
 
 	.login_container {
 		justify-content: flex-end;
+	}
+
+	.error_container {
+		width: max-content;
 	}
 }

@@ -4,9 +4,9 @@ import Styles from './input.module.css'
 
 const Input = ({
 	dataLabel,
-	data,
-	setCategorias,
-	setCategoriaAdd,
+	dataSelect,
+	setSelectInputs,
+	setSelectInputAdd,
 	datosInput,
 	dispatchObtenerSelect,
 }) => {
@@ -19,12 +19,12 @@ const Input = ({
 	}
 
 	const handleSelectAdd = () => {
-		setCategoriaAdd(true)
+		setSelectInputAdd(true)
 	}
 
 	const handleSelectDelete = () => {
 		dispatch(dispatchObtenerSelect())
-		setCategorias(true)
+		setSelectInputs(true)
 	}
 
 	// const handleInputFileChange = (e) => {
@@ -50,8 +50,8 @@ const Input = ({
 							required={el.required}
 						>
 							<option>{el.placeholder}</option>
-							{data &&
-								data.map((element, index) => {
+							{dataSelect &&
+								dataSelect.map((element, index) => {
 									return (
 										<option key={index} value={element.codigo}>
 											{element.nombre}

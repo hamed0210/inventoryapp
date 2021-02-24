@@ -138,6 +138,68 @@ export const nuevaVentaAccion = (data, history) => async (dispath) => {
 	}
 }
 
+export const editarVentaAccion = (data, history) => async (
+	dispath,
+	getState
+) => {
+	const token = getLocalStorage()
+	try {
+		const result = await axios.delete(
+			`${URI}${PORT}/api/ventas/${data.codido}`,
+			data,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		)
+
+		const ventaEditado = getState().ventas.array.map((el) => {
+			return el.codigo === result.data.data.codigo
+				? (el = result.data.data)
+				: el
+		})
+
+		dispath({
+			type: ELIMINAR_VENTA_EXITO,
+			payload: {
+				array: ventaEditado,
+				message: result.data.message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_VENTA_MESSAGE_EXITO,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+			return history.push('/login')
+		}
+		dispath({
+			type: ELIMINAR_VENTA_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_VENTA_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
 export const eliminarVentaAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {

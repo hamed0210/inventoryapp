@@ -147,6 +147,62 @@ export const nuevoUsuarioAccion = (data, history) => async (dispath) => {
 	}
 }
 
+export const editarUsuarioAccion = (data, history) => async (
+	dispath,
+	getState
+) => {
+	const token = getLocalStorage()
+	try {
+		const result = await axios.put(`${URI}${PORT}/api/users/${data.id}`, data, {
+			headers: {
+				authorization: `Bearer ${token}`,
+			},
+		})
+
+		const usuarioEditado = getState().usuarios.array.map((el) => {
+			return el.id === result.data.data.id ? (el = result.data.data) : el
+		})
+
+		dispath({
+			type: ELIMINAR_USUARIO_EXITO,
+			payload: {
+				array: usuarioEditado,
+				message: result.data.message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_USUARIO_MESSAGE_EXITO,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+			return history.push('/login')
+		}
+		dispath({
+			type: ELIMINAR_USUARIO_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_USUARIO_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
 export const eliminarUsuarioAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {

@@ -9,6 +9,7 @@ import { dataFormClientes, dataConsultasClientes } from 'components/DataForms'
 import {
 	obtenerClientesAccion,
 	nuevoClienteAccion,
+	editarClienteAccion,
 	eliminarClienteAccion,
 } from 'redux/clientesDucks'
 
@@ -41,7 +42,9 @@ const Clientes = ({ history }) => {
 			return (
 				<Consultas
 					dataHeader={dataConsultasClientes}
+					dataFormEdit={dataFormClientes}
 					data={clientes}
+					dispatchEdit={editarClienteAccion}
 					dispatchDelete={eliminarClienteAccion}
 					messageProps={clientesMsgConsultas}
 					successProps={clientesActionSuccess}

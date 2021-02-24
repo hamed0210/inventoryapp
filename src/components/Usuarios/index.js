@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -10,6 +10,7 @@ import {
 	obtenerUsuariosAccion,
 	nuevoUsuarioAccion,
 	eliminarUsuarioAccion,
+	editarUsuarioAccion,
 } from 'redux/usuariosDucks'
 
 const Usuarios = ({ history }) => {
@@ -22,12 +23,9 @@ const Usuarios = ({ history }) => {
 	const usuariosActionSuccess = useSelector((store) => store.usuarios.success)
 	const [components, setComponents] = useState('Nuevos')
 
-	useEffect(() => {
-		dispatch(obtenerUsuariosAccion(history))
-	}, [dispatch, history])
-
 	const handleClickTab = (e) => {
 		setComponents(e)
+		e === 'Consultas' && dispatch(obtenerUsuariosAccion(history))
 	}
 
 	const renderProps = () => {
@@ -44,7 +42,9 @@ const Usuarios = ({ history }) => {
 			return (
 				<Consultas
 					dataHeader={dataConsultasUsuarios}
+					dataFormEdit={dataFormUsuarios}
 					data={usuarios}
+					dispatchEdit={editarUsuarioAccion}
 					dispatchDelete={eliminarUsuarioAccion}
 					messageProps={usuariosMsgConsultas}
 					successProps={usuariosActionSuccess}

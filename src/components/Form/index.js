@@ -11,7 +11,7 @@ const Form = ({
 	history,
 	dataLabel,
 	dataHeader = '',
-	data,
+	dataSelect,
 	dispatchNew,
 	dispatchNewSelect = '',
 	dispatchDelete = '',
@@ -27,6 +27,7 @@ const Form = ({
 	const [datos, setDatos] = useState({
 		creado_por: id_user,
 	})
+
 	const [selectInputAdd, setSelectInputAdd] = useState(false)
 	const [selectInputs, setSelectInputs] = useState(false)
 
@@ -68,7 +69,7 @@ const Form = ({
 				<div className={Styles.inputGroup_container}>
 					<Input
 						dataLabel={dataLabel}
-						data={data}
+						dataSelect={dataSelect}
 						setSelectInputAdd={setSelectInputAdd}
 						setSelectInputs={setSelectInputs}
 						datosInput={{ datos, setDatos }}
@@ -91,7 +92,7 @@ const Form = ({
 			{selectInputs ? (
 				<SelectInputConsultas
 					dataHeader={dataHeader}
-					data={data}
+					data={dataSelect}
 					dispatchDelete={dispatchDelete}
 					messageProps={msgSelectConsultasProps}
 					successProps={successSelectProps}

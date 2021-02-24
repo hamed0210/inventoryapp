@@ -5,10 +5,14 @@ import SearchInput from './SearchInput'
 import Item from 'components/Consultas/ItemConsultas'
 import Preloader from 'components/Preloader/PreloaderItem'
 import Eliminar from 'components/Consultas/Eliminar'
+import FormEditarConsultas from 'components/Consultas/FormEditarConsultas'
 
 const Consultas = ({
 	dataHeader,
+	dataFormEdit,
 	data = [],
+	dataSelect = [],
+	dispatchEdit,
 	dispatchDelete,
 	messageProps,
 	successProps,
@@ -17,6 +21,8 @@ const Consultas = ({
 	const [loadingState, setLoadingState] = useState(false)
 	const [verEliminar, setVerEliminar] = useState(false)
 	const [dataEliminar, setDataEliminar] = useState({})
+	const [verEditar, setVerEditar] = useState(false)
+	const [dataEditar, setDataEditar] = useState()
 
 	useEffect(() => {
 		data && setLoadingState(true)
@@ -29,6 +35,16 @@ const Consultas = ({
 			item,
 			data,
 		})
+	}
+
+	const handleVerEditar = (data) => {
+		setVerEditar(true)
+		setDataEditar(data)
+	}
+
+	const handleVerEditarCerrar = () => {
+		setVerEditar(false)
+		setDataEditar('')
 	}
 
 	const handleMessage = () => {
@@ -54,6 +70,15 @@ const Consultas = ({
 
 	return (
 		<div className={Styles.container}>
+			{verEditar && (
+				<FormEditarConsultas
+					dataFormEdit={dataFormEdit}
+					dataSelect={dataSelect}
+					data={dataEditar}
+					dispatchEdit={dispatchEdit}
+					handleVerEditarCerrar={handleVerEditarCerrar}
+				/>
+			)}
 			{handleMessage()}
 			{verEliminar && (
 				<Eliminar
@@ -86,6 +111,7 @@ const Consultas = ({
 										data={data}
 										setItemLists={setItemLists}
 										handleVerEliminar={handleVerEliminar}
+										handleVerEditar={handleVerEditar}
 									/>
 								) : (
 									<tr className={Styles.item}>

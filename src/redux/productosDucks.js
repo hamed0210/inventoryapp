@@ -148,6 +148,68 @@ export const nuevoProductoAccion = (data, history) => async (dispath) => {
 	}
 }
 
+export const editarProductoAccion = (data, history) => async (
+	dispath,
+	getState
+) => {
+	const token = getLocalStorage()
+	try {
+		const result = await axios.put(
+			`${URI}${PORT}/api/productos/${data.codigo}`,
+			data,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		)
+
+		const productoEditado = getState().productos.array.map((el) => {
+			return el.codigo === result.data.data.codigo
+				? (el = result.data.data)
+				: el
+		})
+
+		dispath({
+			type: ELIMINAR_PRODUCTO_EXITO,
+			payload: {
+				array: productoEditado,
+				message: result.data.message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_PRODUCTO_MESSAGE_EXITO,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+			return history.push('/login')
+		}
+		dispath({
+			type: ELIMINAR_PRODUCTO_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: ELIMINAR_PRODUCTO_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
 export const eliminarProductoAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
