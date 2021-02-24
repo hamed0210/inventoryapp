@@ -27,13 +27,6 @@ const Input = ({
 		setSelectInputs(true)
 	}
 
-	// const handleInputFileChange = (e) => {
-	// 	setDatos({
-	// 		...datos,
-	// 		[e.target.name]: e.target.files[0].name,
-	// 	})
-	// }
-
 	return dataLabel.inputs.map((el, index) => {
 		if (el.type === 'select')
 			return (

@@ -37,119 +37,130 @@ const FormEditarConsultas = ({
 		<div className={Styles.container}>
 			<form className={Styles.form} onSubmit={handleSubmit}>
 				<div className={Styles.inputGroup_container}>
-					{dataFormEdit.inputs.map((el, index) => {
-						return Object.keys(datos).map((element, i) => {
-							if (index === i) {
-								if (el.type === 'select')
+					{
+						/*
+						 recorremos dataFormEdit el cual contiene los atributos para pintar los inputs y labels
+						*/
+						dataFormEdit.inputs.map((el, index) => {
+							/*
+								convertimos datos en un array el cual es un objeto para poder recorrerlo y pintar los valores de los inputs   
+							*/
+							return Object.keys(datos).map((element, i) => {
+								/*
+								 los datos en dataFormEdit estan ordenados de igual forma a como esta ordenado los resultados de las peticiones a la api y los pintamos igualando sus posiciones en el arreglo
+								*/
+								if (index === i) {
+									if (el.type === 'select')
+										return (
+											<div key={index} className={Styles.inputGroup}>
+												<label className={Styles.label} htmlFor={el.htmlFor}>
+													{el.label}
+												</label>
+												<div className={Styles.select_container}>
+													<select
+														onChange={handleInputChange}
+														className={Styles.input_select}
+														name={el.name}
+														id={el.id}
+														required={el.required}
+													>
+														{dataSelect &&
+															dataSelect.map((elementSelect, index) => {
+																return elementSelect.nombre ===
+																	datos.categoria ? (
+																	<option
+																		key={index}
+																		value={elementSelect.codigo}
+																		selected
+																	>
+																		{elementSelect.nombre}
+																	</option>
+																) : (
+																	<option
+																		key={index}
+																		value={elementSelect.codigo}
+																	>
+																		{elementSelect.nombre}
+																	</option>
+																)
+															})}
+													</select>
+												</div>
+											</div>
+										)
+									if (el.type === 'radio')
+										return (
+											<div key={index} className={Styles.inputGroup}>
+												<label className={Styles.label} htmlFor={el.htmlFor}>
+													{el.label}
+												</label>
+												<div className={Styles.radio_container}>
+													{el.label_radio.map((elementRadio, index) => {
+														return elementRadio.label === datos.role ? (
+															<div key={index} className={Styles.radio_item}>
+																<input
+																	onChange={handleInputChange}
+																	className={Styles.radio_input}
+																	type='radio'
+																	id={elementRadio.for}
+																	name={el.name}
+																	defaultChecked
+																	value={elementRadio.label}
+																/>
+																<label
+																	className={Styles.radio_label}
+																	htmlFor={elementRadio.for}
+																>
+																	{elementRadio.label}
+																</label>
+															</div>
+														) : (
+															<div key={index} className={Styles.radio_item}>
+																<input
+																	onChange={handleInputChange}
+																	className={Styles.radio_input}
+																	type='radio'
+																	id={elementRadio.for}
+																	name={el.name}
+																	value={elementRadio.label}
+																/>
+																<label
+																	className={Styles.radio_label}
+																	htmlFor={elementRadio.for}
+																>
+																	{elementRadio.label}
+																</label>
+															</div>
+														)
+													})}
+												</div>
+											</div>
+										)
 									return (
 										<div key={index} className={Styles.inputGroup}>
 											<label className={Styles.label} htmlFor={el.htmlFor}>
 												{el.label}
 											</label>
-											<div className={Styles.select_container}>
-												<select
-													onChange={handleInputChange}
-													className={Styles.input_select}
-													name={el.name}
-													id={el.id}
-													required={el.required}
-												>
-													{dataSelect &&
-														dataSelect.map((elementSelect, index) => {
-															return elementSelect.nombre ===
-																datos.categoria ? (
-																<option
-																	key={index}
-																	value={elementSelect.codigo}
-																	selected
-																>
-																	{elementSelect.nombre}
-																</option>
-															) : (
-																<option
-																	key={index}
-																	value={elementSelect.codigo}
-																>
-																	{elementSelect.nombre}
-																</option>
-															)
-														})}
-												</select>
-											</div>
+											<input
+												key={i}
+												onChange={handleInputChange}
+												className={Styles.input}
+												type={el.type}
+												id={el.id}
+												name={el.name}
+												required={el.required}
+												autoFocus={el.autoFocus}
+												min='0'
+												value={datos[element]}
+											/>
 										</div>
 									)
-								if (el.type === 'radio')
-									return (
-										<div key={index} className={Styles.inputGroup}>
-											<label className={Styles.label} htmlFor={el.htmlFor}>
-												{el.label}
-											</label>
-											<div className={Styles.radio_container}>
-												{el.label_radio.map((elementRadio, index) => {
-													return elementRadio.label === datos.role ? (
-														<div key={index} className={Styles.radio_item}>
-															<input
-																onChange={handleInputChange}
-																className={Styles.radio_input}
-																type='radio'
-																id={elementRadio.for}
-																name={el.name}
-																defaultChecked
-																value={elementRadio.label}
-															/>
-															<label
-																className={Styles.radio_label}
-																htmlFor={elementRadio.for}
-															>
-																{elementRadio.label}
-															</label>
-														</div>
-													) : (
-														<div key={index} className={Styles.radio_item}>
-															<input
-																onChange={handleInputChange}
-																className={Styles.radio_input}
-																type='radio'
-																id={elementRadio.for}
-																name={el.name}
-																value={elementRadio.label}
-															/>
-															<label
-																className={Styles.radio_label}
-																htmlFor={elementRadio.for}
-															>
-																{elementRadio.label}
-															</label>
-														</div>
-													)
-												})}
-											</div>
-										</div>
-									)
-								return (
-									<div key={index} className={Styles.inputGroup}>
-										<label className={Styles.label} htmlFor={el.htmlFor}>
-											{el.label}
-										</label>
-										<input
-											key={i}
-											onChange={handleInputChange}
-											className={Styles.input}
-											type={el.type}
-											id={el.id}
-											name={el.name}
-											required={el.required}
-											autoFocus={el.autoFocus}
-											min='0'
-											value={datos[element]}
-										/>
-									</div>
-								)
-							} else {
-								return null
-							}
+								} else {
+									return null
+								}
+							})
 						})
-					})}
+					}
 				</div>
 				<div className={`${Styles.btns_container}`}>
 					<button

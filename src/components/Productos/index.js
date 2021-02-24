@@ -49,6 +49,9 @@ const Productos = ({ history }) => {
 		fetchData()
 	}, [dispatch, history])
 
+	/*
+		funcion enviada al componente menutab para pintar el componente deseado dependiendo del valor
+	 */
 	const handleClickTab = (e) => {
 		setComponents(e)
 		e === 'Consultas' && dispatch(obtenerProductosAccion(history))
@@ -57,6 +60,14 @@ const Productos = ({ history }) => {
 	const renderProps = () => {
 		if (components === 'Nuevos')
 			return (
+				/*
+				  dataLabel: prop que contiene los atributos necesarios para llenar los inputs.
+					dataHeader:  prop que contiene un array con strings con los nombres necesarios para llenar los th 						de la tabla en un componente de consultas.
+					dataSelect: prop que contiene los datos para llenar un input tipo select.
+					dispatc"...": prop que contiene los action de redux para usar un useDispath en un componente 										deseado. 
+					msgProps: prop que contiene el mensaje que sera mostrado dependido el resultado al intentar crear 					un elemento 
+					successProps: prop que contiene un buleano para pintar el mensage como error o completado 											dependiendo de este
+				 */
 				<Form
 					dataLabel={dataFormProductos}
 					dataHeader={dataConsultasCategorias}
@@ -66,7 +77,7 @@ const Productos = ({ history }) => {
 					dispatchDeleteSelect={eliminarCategoriaAccion}
 					dispatchObtenerSelect={obtenerCategoriasAccion}
 					dispatchEditSelect={editarCategoriaAccion}
-					messageProps={productosMsg}
+					msgProps={productosMsg}
 					successProps={productosActionSuccess}
 					msgSelectProps={categoriasMsg}
 					msgSelectConsultasProps={categoriasMsgConsultas}

@@ -15,6 +15,9 @@ function App({ history }) {
 	const [loadingState, setLoadingState] = useState(false)
 
 	useEffect(() => {
+		/* 
+		 Con esta funcion vereficamos si el token gaurdado en el localStorage no a caducado. Si aun no lo a hecho, nos autenticamos 
+		*/
 		const cargarUsuario = async () => {
 			const token = getLocalStorage()
 			if (token) {

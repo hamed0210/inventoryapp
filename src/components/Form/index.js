@@ -17,7 +17,7 @@ const Form = ({
 	dispatchDeleteSelect = '',
 	dispatchObtenerSelect = '',
 	dispatchEditSelect = '',
-	messageProps,
+	msgProps,
 	successProps,
 	msgSelectProps = '',
 	msgSelectConsultasProps = '',
@@ -29,6 +29,9 @@ const Form = ({
 		creado_por: id_user,
 	})
 
+	/*
+		estados para poder pintar los componentes de crear una nueva opcion para el input tipo select y para ver todos las opciones de este y poder editar o eliminar
+	*/
 	const [selectInputAdd, setSelectInputAdd] = useState(false)
 	const [selectInputs, setSelectInputs] = useState(false)
 
@@ -47,17 +50,17 @@ const Form = ({
 	}
 
 	const handleMessage = () => {
-		if (messageProps !== '') {
+		if (msgProps !== '') {
 			if (successProps)
 				return (
 					<div className={`${Styles.message_success_container}`}>
-						<span className={Styles.message_success}>{messageProps}</span>
+						<span className={Styles.message_success}>{msgProps}</span>
 					</div>
 				)
 			if (!successProps)
 				return (
 					<div className={`${Styles.error_container}`}>
-						<span className={Styles.error}>{messageProps}</span>
+						<span className={Styles.error}>{msgProps}</span>
 					</div>
 				)
 		}

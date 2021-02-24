@@ -34,57 +34,59 @@ function Header({ history }) {
 	}
 
 	return (
-		<div className={Styles.header}>
-			<div className={Styles.logo_container}>
-				<Link className={Styles.logo} to='/'>
-					inventory
-				</Link>
-			</div>
-			<div className={Styles.menu}>
-				<Menu />
-			</div>
-			<div className={Styles.secundary}>
-				<div onClick={handleNotificaciones} className={Styles.notifications}>
-					<NotificationSVG />
-					{notificaciones ? (
-						<div className={Styles.notificacion_container}>
-							<ul className={Styles.notificacion_menu}>
-								<li className={Styles.notificacion_item}>notificacion 1</li>
-								<li className={Styles.notificacion_item}>notificacion 2</li>
-							</ul>
-						</div>
-					) : null}
+		<div className={Styles.container}>
+			<div className={Styles.header}>
+				<div className={Styles.logo_container}>
+					<Link className={Styles.logo} to='/'>
+						inventory
+					</Link>
 				</div>
-				<span className={Styles.separator}></span>
-				<div className={Styles.avatar_container}>
-					<div className={Styles.name}>
-						{user ? user.persona.nombres : null}
-					</div>
-					{/* <div className={Styles.avatar}>
-						<img src={avatar} alt='' />
-					</div> */}
-					<div
-						onClick={handleMenuProfile}
-						className={Styles.btn_avatar_container}
-					>
-						<div className={Styles.btn_avatar}>
-							<BtnAvatarSVG />
-						</div>
-						{profile ? (
-							<div className={Styles.profile_container}>
-								<ul className={Styles.profile_menu}>
-									<li onClick={handleProfile} className={Styles.profile_item}>
-										perfil
-									</li>
-									<li
-										onClick={handleCerrarSesion}
-										className={Styles.profile_item}
-									>
-										cerrar sesion
-									</li>
+				<div className={Styles.menu}>
+					<Menu />
+				</div>
+				<div className={Styles.secundary}>
+					<div onClick={handleNotificaciones} className={Styles.notifications}>
+						<NotificationSVG />
+						{notificaciones ? (
+							<div className={Styles.notificacion_container}>
+								<ul className={Styles.notificacion_menu}>
+									<li className={Styles.notificacion_item}>notificacion 1</li>
+									<li className={Styles.notificacion_item}>notificacion 2</li>
 								</ul>
 							</div>
 						) : null}
+					</div>
+					<span className={Styles.separator}></span>
+					<div className={Styles.avatar_container}>
+						<div className={Styles.name}>
+							{user ? user.persona.nombres : null}
+						</div>
+						{/* <div className={Styles.avatar}>
+						<img src={avatar} alt='' />
+					</div> */}
+						<div
+							onClick={handleMenuProfile}
+							className={Styles.btn_avatar_container}
+						>
+							<div className={Styles.btn_avatar}>
+								<BtnAvatarSVG />
+							</div>
+							{profile ? (
+								<div className={Styles.profile_container}>
+									<ul className={Styles.profile_menu}>
+										<li onClick={handleProfile} className={Styles.profile_item}>
+											perfil
+										</li>
+										<li
+											onClick={handleCerrarSesion}
+											className={Styles.profile_item}
+										>
+											cerrar sesion
+										</li>
+									</ul>
+								</div>
+							) : null}
+						</div>
 					</div>
 				</div>
 			</div>

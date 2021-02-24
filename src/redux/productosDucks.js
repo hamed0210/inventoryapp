@@ -80,6 +80,10 @@ export const obtenerProductosAccion = (history) => async (dispath) => {
 				authorization: `Bearer ${token}`,
 			},
 		})
+
+		/*
+			Recorremos el resultado de la peticion para cambiar codigo de campo foraneo con el nombre de la categoria
+		 */
 		result.data.data.map((el) => {
 			el['categoria'] = el['category'].nombre
 			return delete el['category']

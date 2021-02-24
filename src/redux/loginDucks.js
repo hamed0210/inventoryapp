@@ -1,8 +1,5 @@
 import axios from 'axios'
-// import { createBrowserHistory } from 'history'
 import { saveLocalStorage, removeLocalStorage } from 'helpers'
-
-// const historyApp = createBrowserHistory()
 
 // Constantes
 const URI = process.env.REACT_APP_URI

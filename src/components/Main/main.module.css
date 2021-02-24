@@ -1,8 +1,10 @@
 .container {
 	width: 100%;
+	max-width: 1366px;
 	min-height: 100%;
 	height: fit-content;
 	padding: 110px 25px 20px;
+	margin: auto;
 }
 
 @media screen and (min-width: 665px) {

@@ -35,7 +35,6 @@ const ItemConsultas = ({
 		let itemDataRender = []
 		if (data) {
 			data.map((el, index) => {
-				// console.log(el)
 				if (el.hasOwnProperty('fecha_creacion'))
 					el['fecha_creacion'] = el['fecha_creacion'].substr(0, 10)
 
@@ -46,6 +45,9 @@ const ItemConsultas = ({
 						</td>
 					)
 				}
+				/*
+				  verificamos si los datos obtenidos contiene los datos del usuario registado para no pintarlos al consultar todos los usuarios regitrados ya que este tiene su propio componente (Perfil) para ver y editar sus datos
+				 */
 				if (el.id !== id_userStore)
 					dataRender.push(
 						<tr key={index} className={Styles.item}>
