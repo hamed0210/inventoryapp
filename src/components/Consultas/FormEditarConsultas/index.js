@@ -22,8 +22,6 @@ const FormEditarConsultas = ({
 		})
 	}
 
-	console.log(datos)
-
 	const handleCerrarEditar = () => {
 		handleVerEditarCerrar()
 	}

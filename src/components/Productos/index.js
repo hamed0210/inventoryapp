@@ -63,8 +63,9 @@ const Productos = ({ history }) => {
 					dataSelect={categorias}
 					dispatchNew={nuevoProductoAccion}
 					dispatchNewSelect={nuevaCategoriaAccion}
-					dispatchDelete={eliminarCategoriaAccion}
+					dispatchDeleteSelect={eliminarCategoriaAccion}
 					dispatchObtenerSelect={obtenerCategoriasAccion}
+					dispatchEditSelect={editarCategoriaAccion}
 					messageProps={productosMsg}
 					successProps={productosActionSuccess}
 					msgSelectProps={categoriasMsg}

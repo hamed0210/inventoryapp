@@ -6,13 +6,13 @@ import Styles from './formSelectInput.module.css'
 
 function FormSelectInput({
 	history,
-	handleProps,
+	handleCerrarForm,
 	dispatchNewSelect,
 	msgSelectProps,
 	successProps,
 }) {
 	const dispatch = useDispatch()
-	const [datos, setDatos] = useState({})
+	const [datos, setDatos] = useState()
 
 	const handleInputChange = (e) => {
 		setDatos({
@@ -22,7 +22,7 @@ function FormSelectInput({
 	}
 
 	const handleCancel = () => {
-		handleProps()
+		handleCerrarForm()
 	}
 
 	const handleSubmit = (e) => {

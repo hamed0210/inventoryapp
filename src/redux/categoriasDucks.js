@@ -10,6 +10,8 @@ const PORT = process.env.REACT_APP_PORT
 const dataInicial = {
 	array: [],
 	message: '',
+	messageConsultas: '',
+	success: false,
 }
 
 // Types

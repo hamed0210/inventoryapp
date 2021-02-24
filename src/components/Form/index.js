@@ -14,8 +14,9 @@ const Form = ({
 	dataSelect,
 	dispatchNew,
 	dispatchNewSelect = '',
-	dispatchDelete = '',
+	dispatchDeleteSelect = '',
 	dispatchObtenerSelect = '',
+	dispatchEditSelect = '',
 	messageProps,
 	successProps,
 	msgSelectProps = '',
@@ -31,11 +32,11 @@ const Form = ({
 	const [selectInputAdd, setSelectInputAdd] = useState(false)
 	const [selectInputs, setSelectInputs] = useState(false)
 
-	const handleSelectAddCancel = () => {
+	const handleVerSelectAddCerrar = () => {
 		setSelectInputAdd(false)
 	}
 
-	const handleSelectCancel = () => {
+	const handleVerSelectCerrar = () => {
 		setSelectInputs(false)
 	}
 
@@ -83,7 +84,7 @@ const Form = ({
 			</form>
 			{selectInputAdd ? (
 				<FormSelectInput
-					handleProps={handleSelectAddCancel}
+					handleCerrarForm={handleVerSelectAddCerrar}
 					msgSelectProps={msgSelectProps}
 					successProps={successSelectProps}
 					dispatchNewSelect={dispatchNewSelect}
@@ -93,10 +94,11 @@ const Form = ({
 				<SelectInputConsultas
 					dataHeader={dataHeader}
 					data={dataSelect}
-					dispatchDelete={dispatchDelete}
+					dispatchDelete={dispatchDeleteSelect}
+					dispatchEdit={dispatchEditSelect}
 					messageProps={msgSelectConsultasProps}
 					successProps={successSelectProps}
-					handleProps={handleSelectCancel}
+					handleCerrarConsultas={handleVerSelectCerrar}
 				/>
 			) : null}
 		</div>
