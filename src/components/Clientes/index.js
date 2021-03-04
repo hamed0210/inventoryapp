@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import MenuTab from 'components/MenuTab'
 import Form from 'components/Form'
 import Consultas from 'components/Consultas'
+import Message from 'components/Message'
 import { dataFormClientes, dataConsultasClientes } from 'components/DataForms'
 import {
 	obtenerClientesAccion,
@@ -16,11 +17,9 @@ import {
 const Clientes = ({ history }) => {
 	const dispatch = useDispatch()
 	const clientes = useSelector((store) => store.clientes.array)
-	const clientesMsg = useSelector((store) => store.clientes.message)
-	const clientesMsgConsultas = useSelector(
-		(store) => store.clientes.messageConsultas
-	)
+	let clientesMsg = useSelector((store) => store.clientes.message)
 	const clientesActionSuccess = useSelector((store) => store.clientes.success)
+
 	const [components, setComponents] = useState('Nuevos')
 
 	const handleClickTab = (e) => {
@@ -31,12 +30,7 @@ const Clientes = ({ history }) => {
 	const renderProps = () => {
 		if (components === 'Nuevos')
 			return (
-				<Form
-					dataLabel={dataFormClientes}
-					dispatchNew={nuevoClienteAccion}
-					messageProps={clientesMsg}
-					successProps={clientesActionSuccess}
-				/>
+				<Form dataLabel={dataFormClientes} dispatchNew={nuevoClienteAccion} />
 			)
 		if (components === 'Consultas')
 			return (
@@ -46,8 +40,6 @@ const Clientes = ({ history }) => {
 					data={clientes}
 					dispatchEdit={editarClienteAccion}
 					dispatchDelete={eliminarClienteAccion}
-					messageProps={clientesMsgConsultas}
-					successProps={clientesActionSuccess}
 				/>
 			)
 	}
@@ -56,6 +48,9 @@ const Clientes = ({ history }) => {
 		<>
 			<MenuTab handleProps={handleClickTab} />
 			{renderProps()}
+			{clientesMsg !== '' && (
+				<Message msgProps={clientesMsg} successProps={clientesActionSuccess} />
+			)}
 		</>
 	)
 }

@@ -16,6 +16,7 @@ const dataInicial = {
 
 // Types
 const OBTENER_CATEGORIAS_EXITO = 'OBTENER_CATEGORIAS_EXITO'
+const OBTENER_CATEGORIAS_ERROR = 'OBTENER_CATEGORIAS_ERROR'
 const NUEVA_CATEGORIA_EXITO = 'NUEVA_CATEGORIA_EXITO'
 const NUEVA_CATEGORIA_ERROR = 'NUEVA_CATEGORIA_ERROR'
 const ELIMINAR_CATEGORIA_EXITO = 'ELIMINAR_CATEGORIA_EXITO'
@@ -29,6 +30,11 @@ export default function categoriasReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload.data,
+			}
+		case OBTENER_CATEGORIAS_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
 			}
 		case NUEVA_CATEGORIA_EXITO:
 			return {
@@ -88,6 +94,20 @@ export const obtenerCategoriasAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
+		dispath({
+			type: OBTENER_CATEGORIAS_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: OBTENER_CATEGORIAS_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
 		console.log(error.request)
 	}
 }

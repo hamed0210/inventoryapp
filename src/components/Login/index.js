@@ -4,10 +4,12 @@ import { withRouter } from 'react-router-dom'
 
 import Styles from './login.module.css'
 import { iniciarSesionAccion } from 'redux/loginDucks'
+import useButtonLoader from 'hooks/useButtonLoader'
 
 const Login = ({ history }) => {
 	const dispatch = useDispatch()
 	const loginStore = useSelector((store) => store.login)
+	const [buttonLoad, setLoading] = useButtonLoader('Entrar', Styles)
 	const [datos, setDatos] = useState({
 		email: '',
 		pass: '',
@@ -38,7 +40,8 @@ const Login = ({ history }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(iniciarSesionAccion(datos, history))
+		// setLoading(true)
+		dispatch(iniciarSesionAccion(datos, history, setLoading))
 	}
 
 	return (
@@ -78,7 +81,11 @@ const Login = ({ history }) => {
 								</span>
 							</div>
 						</div>
-						<button className={`btn btn_success ${Styles.btn}`} type='submit'>
+						<button
+							className={`btn btn_success ${Styles.btn}`}
+							type='submit'
+							ref={buttonLoad}
+						>
 							Entrar
 						</button>
 					</form>

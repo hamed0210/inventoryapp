@@ -1,5 +1,5 @@
-const dataFormVentas = {
-	title: 'Ventas',
+const dataFormCompras = {
+	title: 'Compras',
 	inputs: [
 		// {
 		// 	label: 'Código',
@@ -12,18 +12,19 @@ const dataFormVentas = {
 		// 	autoFocus: true,
 		// },
 		{
-			label: 'Id Cliente',
-			placeholder: 'Seleccione cliente',
+			label: 'Proveedor',
+			placeholder: 'Seleccione proveedor',
 			type: 'select',
-			htmlFor: 'id_cliente',
-			id: 'id_cliente',
-			name: 'id_cliente',
+			htmlFor: 'id_proveedor',
+			id: 'id_proveedor',
+			name: 'id_proveedor',
 			required: true,
 			autoFocus: false,
+			btns: false,
 		},
 		{
 			label: 'Productos',
-			placeholder: 'Escriba productos',
+			placeholder: 'Escriba producto',
 			type: 'text',
 			htmlFor: 'productos',
 			id: 'productos',
@@ -42,15 +43,14 @@ const dataFormVentas = {
 			autoFocus: false,
 		},
 		{
-			label: 'Precio Producto',
-			placeholder: 'Escriba precio del producto',
+			label: 'Precio Undidad',
+			placeholder: 'Escriba precio del preducto',
 			type: 'number',
 			htmlFor: 'precio_unidad',
 			id: 'precio_unidad',
 			name: 'precio_unidad',
-			required: false,
+			required: true,
 			autoFocus: false,
-			// step="any"
 		},
 		{
 			label: 'Total',
@@ -65,4 +65,4 @@ const dataFormVentas = {
 	],
 }
 
-export default dataFormVentas
+export default dataFormCompras

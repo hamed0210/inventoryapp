@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 import MenuTab from 'components/MenuTab'
 import Form from 'components/Form'
 import Consultas from 'components/Consultas'
+import Message from 'components/Message'
 import {
 	dataFormProductos,
 	dataConsultasProductos,
@@ -27,9 +28,6 @@ const Productos = ({ history }) => {
 	const dispatch = useDispatch()
 	const productos = useSelector((store) => store.productos.array)
 	const productosMsg = useSelector((store) => store.productos.message)
-	const productosMsgConsultas = useSelector(
-		(store) => store.productos.messageConsultas
-	)
 	const productosActionSuccess = useSelector((store) => store.productos.success)
 
 	const categorias = useSelector((store) => store.categorias.array)
@@ -64,9 +62,7 @@ const Productos = ({ history }) => {
 				  dataLabel: prop que contiene los atributos necesarios para llenar los inputs.
 					dataHeader:  prop que contiene un array con strings con los nombres necesarios para llenar los th 						de la tabla en un componente de consultas.
 					dataSelect: prop que contiene los datos para llenar un input tipo select.
-					dispatc"...": prop que contiene los action de redux para usar un useDispath en un componente 										deseado. 
-					msgProps: prop que contiene el mensaje que sera mostrado dependido el resultado al intentar crear 					un elemento 
-					successProps: prop que contiene un buleano para pintar el mensage como error o completado 											dependiendo de este
+					dispatc"...": prop que contiene los action de redux para usar un useDispath en un componente deseado.
 				 */
 				<Form
 					dataLabel={dataFormProductos}
@@ -77,8 +73,6 @@ const Productos = ({ history }) => {
 					dispatchDeleteSelect={eliminarCategoriaAccion}
 					dispatchObtenerSelect={obtenerCategoriasAccion}
 					dispatchEditSelect={editarCategoriaAccion}
-					msgProps={productosMsg}
-					successProps={productosActionSuccess}
 					msgSelectProps={categoriasMsg}
 					msgSelectConsultasProps={categoriasMsgConsultas}
 					successSelectProps={categoriasActionSuccess}
@@ -93,8 +87,6 @@ const Productos = ({ history }) => {
 					data={productos}
 					dispatchEdit={editarProductoAccion}
 					dispatchDelete={eliminarProductoAccion}
-					messageProps={productosMsgConsultas}
-					successProps={productosActionSuccess}
 				/>
 			)
 	}
@@ -103,6 +95,12 @@ const Productos = ({ history }) => {
 		<>
 			<MenuTab handleProps={handleClickTab} />
 			{renderProps()}
+			{productosMsg !== '' && (
+				<Message
+					msgProps={productosMsg}
+					successProps={productosActionSuccess}
+				/>
+			)}
 		</>
 	)
 }

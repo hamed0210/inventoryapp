@@ -3,62 +3,14 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	/* width: 100%; */
 	margin-top: 15px;
 }
-
-.error_container,
-.message_success_container {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	top: 0;
-	width: max-content;
-	padding: 5px 20px;
-	border-radius: 5px;
-	background-color: white;
-	box-shadow: 0 3px 4px #00000040, 0px -1px 4px #00000040;
-	opacity: 0;
-	animation: fadein 0.5s forwards, fadeout 0.5s 4s forwards;
-}
-
-.error_container {
-	color: white;
-	background-color: rgba(211, 47, 47, 0.8);
-	/* border: 2px solid #d32f2f; */
-}
-
-.message_success_container {
-	color: white;
-	background-color: rgba(79, 169, 141, 0.8);
-}
-
-@keyframes fadein {
-	form {
-		transform: translateY(-10px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(10px);
-	}
-}
-
-@keyframes fadeout {
-	to {
-		transform: translateY(-10px);
-		opacity: 0;
-	}
-}
-
-/* .message_success,
-.error {
-	font-weight: 600;
-} */
 
 .form {
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	margin-top: 15px;
@@ -67,7 +19,7 @@
 .inputGroup_container {
 	display: flex;
 	flex-direction: column;
-	width: 400px;
+	width: 100%;
 	padding: 25px 15px 20px;
 	border-radius: 5px;
 	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
@@ -86,8 +38,8 @@
 	transform: scale(0.98);
 }
 
-/* @media screen and (max-height: 640px) {
-	.btn {
-		margin-bottom: 20px;
+@media screen and (min-width: 450px) {
+	.inputGroup_container {
+		width: 400px;
 	}
-} */
+}

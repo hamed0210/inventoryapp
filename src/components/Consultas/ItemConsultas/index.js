@@ -48,7 +48,7 @@ const ItemConsultas = ({
 				/*
 				  verificamos si los datos obtenidos contiene los datos del usuario registado para no pintarlos al consultar todos los usuarios regitrados ya que este tiene su propio componente (Perfil) para ver y editar sus datos
 				 */
-				if (el.id !== id_userStore)
+				if (el.id !== id_userStore) {
 					dataRender.push(
 						<tr key={index} className={Styles.item}>
 							{itemDataRender}
@@ -70,6 +70,13 @@ const ItemConsultas = ({
 							</td>
 						</tr>
 					)
+				} else {
+					dataRender.push(
+						<tr key={0} className={Styles.item}>
+							<td className={Styles.data}>{'No hay datos registrados'}</td>
+						</tr>
+					)
+				}
 				itemDataRender = []
 				return dataRender
 			})

@@ -36,7 +36,7 @@ const dataFormUsuarios = {
 			autoFocus: false,
 		},
 		{
-			label: 'Nombre',
+			label: 'Nombres',
 			placeholder: 'Escriba su nombre',
 			type: 'text',
 			htmlFor: 'nombres',

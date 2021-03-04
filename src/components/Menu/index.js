@@ -74,8 +74,23 @@ const Menu = (props) => {
 					</Link>
 				</li>
 				<li className={Styles.item} onClick={handleClick}>
+					<Link className={Styles.link} to='/proveedores'>
+						Proveedores
+					</Link>
+				</li>
+				<li className={Styles.item} onClick={handleClick}>
+					<Link className={Styles.link} to='/compras'>
+						Compras
+					</Link>
+				</li>
+				<li className={Styles.item} onClick={handleClick}>
 					<Link className={Styles.link} to='/ventas'>
 						Ventas
+					</Link>
+				</li>
+				<li className={Styles.item} onClick={handleClick}>
+					<Link className={Styles.link} to='/inventario'>
+						Inventario
 					</Link>
 				</li>
 				<li className={Styles.item} onClick={handleClick}>

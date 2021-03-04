@@ -3,9 +3,8 @@ const dataConsultas = [
 	{ title: 'Cliente' },
 	{ title: 'Vendedor' },
 	{ title: 'Productos' },
-	{ title: 'Neto' },
-	{ title: 'Total' },
-	{ title: 'Fecha Compra' },
+	{ title: 'Cantidad' },
+	{ title: 'Fecha Venta' },
 	{ title: '' },
 ]
 

@@ -31,12 +31,17 @@ function App({ history }) {
 						}
 					)
 					userStore.user = result.data.user
-					if (userStore.user.id) setLoadingState(true)
+					if (userStore.user.codigo) setLoadingState(true)
 				} catch (error) {
 					if (error.request.status === 401) {
 						setLoadingState(null)
 						removeLocalStorage()
 						userStore.message = 'La sesion a caducado, inicia sesion nuevamente'
+						history.push('/login')
+					}
+					if (error.message === 'Network Error') {
+						setLoadingState(null)
+						userStore.message = 'Error de conexión con el servidor'
 						history.push('/login')
 					}
 					console.log(error)
@@ -52,7 +57,7 @@ function App({ history }) {
 	return loadingState !== false ? (
 		<main className={Styles.conatiner_body}>
 			<Switch>
-				{userStore.user.id ? (
+				{userStore.user.codigo ? (
 					<>
 						<Header />
 						<Main />

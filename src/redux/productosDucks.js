@@ -14,12 +14,12 @@ const PORT = process.env.REACT_APP_PORT
 const dataInicial = {
 	array: [],
 	message: '',
-	messageConsultas: '',
 	success: false,
 }
 
 // Types
 const OBTENER_PRODUCTOS_EXITO = 'OBTENER_PRODUCTOS_EXITO'
+const OBTENER_PRODUCTOS_ERROR = 'OBTENER_PRODUCTOS_ERROR'
 const NUEVO_PRODUCTO_EXITO = 'NUEVO_PRODUCTO_EXITO'
 const NUEVO_PRODUCTO_ERROR = 'NUEVO_PRODUCTO_ERROR'
 const ELIMINAR_PRODUCTO_EXITO = 'ELIMINAR_PRODUCTO_EXITO'
@@ -33,6 +33,11 @@ export default function productosReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload.data,
+			}
+		case OBTENER_PRODUCTOS_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
 			}
 		case NUEVO_PRODUCTO_EXITO:
 			return {
@@ -50,19 +55,19 @@ export default function productosReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload.array,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: true,
 			}
 		case ELIMINAR_PRODUCTO_MESSAGE_EXITO:
 			return {
 				...state,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: true,
 			}
 		case ELIMINAR_PRODUCTO_ERROR:
 			return {
 				...state,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: false,
 			}
 		default:
@@ -100,6 +105,20 @@ export const obtenerProductosAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
+		dispath({
+			type: OBTENER_PRODUCTOS_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: OBTENER_PRODUCTOS_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
 		console.log(error.request)
 	}
 }

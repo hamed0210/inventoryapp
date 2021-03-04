@@ -10,12 +10,12 @@ const PORT = process.env.REACT_APP_PORT
 const dataInicial = {
 	array: [],
 	message: '',
-	messageConsultas: '',
 	success: false,
 }
 
 // Types
 const OBTENER_CLIENTES_EXITO = 'OBTENER_CLIENTES_EXITO'
+const OBTENER_CLIENTES_ERROR = 'OBTENER_CLIENTES_ERROR'
 const NUEVO_CLIENTE_EXITO = 'NUEVO_CLIENTE_EXITO'
 const NUEVO_CLIENTE_ERROR = 'NUEVO_CLIENTE_ERROR'
 const ELIMINAR_CLIENTE_EXITO = 'ELIMINAR_CLIENTE_EXITO'
@@ -29,7 +29,11 @@ export default function clientesReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload,
-				message: '',
+			}
+		case OBTENER_CLIENTES_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
 			}
 		case NUEVO_CLIENTE_EXITO:
 			return {
@@ -47,19 +51,19 @@ export default function clientesReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload.array,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: true,
 			}
 		case ELIMINAR_CLIENTE_MESSAGE_EXITO:
 			return {
 				...state,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: true,
 			}
 		case ELIMINAR_CLIENTE_ERROR:
 			return {
 				...state,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: false,
 			}
 		default:
@@ -87,6 +91,20 @@ export const obtenerClientesAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
+		dispath({
+			type: OBTENER_CLIENTES_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: OBTENER_CLIENTES_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
 		console.log(error.request)
 	}
 }

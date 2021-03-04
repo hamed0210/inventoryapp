@@ -14,8 +14,6 @@ const Consultas = ({
 	dataSelect = [],
 	dispatchEdit,
 	dispatchDelete,
-	messageProps,
-	successProps,
 }) => {
 	const [itemLists, setItemLists] = useState([])
 	const [loadingState, setLoadingState] = useState(false)
@@ -47,27 +45,6 @@ const Consultas = ({
 		setDataEditar('')
 	}
 
-	const handleMessage = () => {
-		if (messageProps !== '') {
-			if (successProps)
-				return (
-					<div className={Styles.message_container}>
-						<div className={`${Styles.message_success_container}`}>
-							<span className={Styles.message_success}>{messageProps}</span>
-						</div>
-					</div>
-				)
-			if (!successProps)
-				return (
-					<div className={Styles.message_container}>
-						<div className={`${Styles.error_container}`}>
-							<span className={Styles.error}>{messageProps}</span>
-						</div>
-					</div>
-				)
-		}
-	}
-
 	return (
 		<div className={Styles.container}>
 			{verEditar && (
@@ -79,7 +56,6 @@ const Consultas = ({
 					handleVerEditarCerrar={handleVerEditarCerrar}
 				/>
 			)}
-			{handleMessage()}
 			{verEliminar && (
 				<Eliminar
 					setVerEliminar={setVerEliminar}

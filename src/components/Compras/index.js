@@ -1,26 +1,21 @@
 import { useEffect, useState } from 'react'
-import { withRouter } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
-import Styles from './ventas.module.css'
+import Styles from './compras.module.css'
 import Message from 'components/Message'
 import ProductosAdd from 'components/ProductosAddComprasVentas'
-import { obtenerClientesAccion } from 'redux/clientesDucks'
+import { obtenerProveedoresAccion } from 'redux/ProveedoresDucks'
 import { obtenerProductosAccion } from 'redux/productosDucks'
-import {
-	// obtenerVentasAccion,
-	nuevaVentaAccion,
-	// eliminarVentaAccion,
-	// editarVentaAccion,
-} from 'redux/ventasDucks'
+import { nuevaCompraAccion } from 'redux/comprasDucks'
 
-const Ventas = ({ history }) => {
+const Compras = ({ history }) => {
 	const dispatch = useDispatch()
 	const id_user = useSelector((store) => store.login.user.persona.id)
-	const clientes = useSelector((store) => store.clientes.array)
+	const comprasMsg = useSelector((store) => store.compras.message)
+	const comprasActionSuccess = useSelector((store) => store.compras.success)
+	const proveedores = useSelector((store) => store.proveedores.array)
 	const productos = useSelector((store) => store.productos.array)
-	const ventasMsg = useSelector((store) => store.ventas.message)
-	const ventasActionSuccess = useSelector((store) => store.ventas.success)
 
 	const [productosList, setProductosList] = useState([])
 	const [productoBorrado, setProductoBorrado] = useState('')
@@ -28,13 +23,13 @@ const Ventas = ({ history }) => {
 	const [precio, setPrecio] = useState(0)
 	const [total, setTotal] = useState(0)
 	const [datos, setDatos] = useState({
-		id_vendedor: id_user,
+		id_comprador: id_user,
 	})
 
 	useEffect(() => {
 		setTotal(cantidad * precio)
 		if (total !== 0) datos.precio_total = total
-		dispatch(obtenerClientesAccion(history))
+		dispatch(obtenerProveedoresAccion(history))
 		dispatch(obtenerProductosAccion(history))
 	}, [dispatch, history, datos, cantidad, precio, total])
 
@@ -84,7 +79,7 @@ const Ventas = ({ history }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(nuevaVentaAccion(datos, history))
+		dispatch(nuevaCompraAccion(datos, history))
 		//e.target.reset()
 	}
 
@@ -94,19 +89,19 @@ const Ventas = ({ history }) => {
 				<form className={Styles.form} onSubmit={handleSubmit}>
 					<div className={Styles.inputGroup_container}>
 						<div className={Styles.inputGroup}>
-							<label className={Styles.label} htmlFor='id_cliente'>
-								Cliente
+							<label className={Styles.label} htmlFor='id_proveedor'>
+								Proveedor
 							</label>
 							<select
 								onChange={handleInputChange}
 								className={Styles.input_select}
-								name='id_cliente'
-								id='id_cliente'
+								name='id_proveedor'
+								id='id_proveedor'
 								required
 							>
-								<option>Selecione Cliente</option>
-								{clientes &&
-									clientes.map((element, index) => {
+								<option>Selecione Proveedor</option>
+								{proveedores &&
+									proveedores.map((element, index) => {
 										return (
 											<option key={index} value={element.codigo || element.id}>
 												{element.nombre}
@@ -141,9 +136,7 @@ const Ventas = ({ history }) => {
 													name='precio_unidad'
 													placeholder='Precio unidad'
 													required
-													disabled
 													min='0'
-													defaultValue={el.precio_venta}
 												/>
 												<span
 													onClick={(e) => handleBorrar(el, e)}
@@ -189,11 +182,11 @@ const Ventas = ({ history }) => {
 				addProductosForm={{ productosList, setProductosList }}
 				productoBorrado={{ productoBorrado, setProductoBorrado }}
 			/>
-			{ventasMsg !== '' && (
-				<Message msgProps={ventasMsg} successProps={ventasActionSuccess} />
+			{comprasMsg !== '' && (
+				<Message msgProps={comprasMsg} successProps={comprasActionSuccess} />
 			)}
 		</div>
 	)
 }
 
-export default withRouter(Ventas)
+export default withRouter(Compras)

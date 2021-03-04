@@ -14,53 +14,53 @@ const dataInicial = {
 }
 
 // Types
-const OBTENER_VENTAS_EXITO = 'OBTENER_VENTAS_EXITO'
-const OBTENER_VENTAS_ERROR = 'OBTENER_VENTAS_ERROR'
-const NUEVA_VENTA_EXITO = 'NUEVA_VENTA_EXITO'
-const NUEVA_VENTA_ERROR = 'NUEVA_VENTA_ERROR'
-const ELIMINAR_VENTA_EXITO = 'ELIMINAR_VENTA_EXITO'
-const ELIMINAR_VENTA_MESSAGE_EXITO = 'ELIMINAR_VENTA_MESSAGE_EXITO'
-const ELIMINAR_VENTA_ERROR = 'ELIMINAR_VENTA_ERROR'
+const OBTENER_COMPRAS_EXITO = 'OBTENER_COMPRAS_EXITO'
+const OBTENER_COMPRAS_ERROR = 'OBTENER_COMPRAS_ERROR'
+const NUEVA_COMPRA_EXITO = 'NUEVA_COMPRA_EXITO'
+const NUEVA_COMPRA_ERROR = 'NUEVA_COMPRA_ERROR'
+const ELIMINAR_COMPRA_EXITO = 'ELIMINAR_COMPRA_EXITO'
+const ELIMINAR_COMPRA_MESSAGE_EXITO = 'ELIMINAR_COMPRA_MESSAGE_EXITO'
+const ELIMINAR_COMPRA_ERROR = 'ELIMINAR_COMPRA_ERROR'
 
 // Reducer
-export default function ventasReducer(state = dataInicial, action) {
+export default function comprasReducer(state = dataInicial, action) {
 	switch (action.type) {
-		case OBTENER_VENTAS_EXITO:
+		case OBTENER_COMPRAS_EXITO:
 			return {
 				...state,
 				array: action.payload,
 			}
-		case OBTENER_VENTAS_ERROR:
+		case OBTENER_COMPRAS_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
 			}
-		case NUEVA_VENTA_EXITO:
+		case NUEVA_COMPRA_EXITO:
 			return {
 				...state,
 				message: action.payload.message,
 				success: true,
 			}
-		case NUEVA_VENTA_ERROR:
+		case NUEVA_COMPRA_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
 				success: false,
 			}
-		case ELIMINAR_VENTA_EXITO:
+		case ELIMINAR_COMPRA_EXITO:
 			return {
 				...state,
 				array: action.payload.array,
 				message: action.payload.message,
 				success: true,
 			}
-		case ELIMINAR_VENTA_MESSAGE_EXITO:
+		case ELIMINAR_COMPRA_MESSAGE_EXITO:
 			return {
 				...state,
 				message: action.payload.message,
 				success: true,
 			}
-		case ELIMINAR_VENTA_ERROR:
+		case ELIMINAR_COMPRA_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
@@ -73,16 +73,16 @@ export default function ventasReducer(state = dataInicial, action) {
 
 //Acciones
 
-export const obtenerVentasAccion = (history) => async (dispath) => {
+export const obtenerComprasAccion = (history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
-		const result = await axios.get(`${URI}${PORT}/api/ventas`, {
+		const result = await axios.get(`${URI}${PORT}/api/compras`, {
 			headers: {
 				authorization: `Bearer ${token}`,
 			},
 		})
 		dispath({
-			type: OBTENER_VENTAS_EXITO,
+			type: OBTENER_COMPRAS_EXITO,
 			payload: result.data.data,
 		})
 	} catch (error) {
@@ -92,14 +92,14 @@ export const obtenerVentasAccion = (history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 		}
 		dispath({
-			type: OBTENER_VENTAS_ERROR,
+			type: OBTENER_COMPRAS_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: OBTENER_VENTAS_ERROR,
+				type: OBTENER_COMPRAS_ERROR,
 				payload: {
 					message: '',
 				},
@@ -109,24 +109,24 @@ export const obtenerVentasAccion = (history) => async (dispath) => {
 	}
 }
 
-export const nuevaVentaAccion = (data, history) => async (dispath) => {
+export const nuevaCompraAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
-		const result = await axios.post(`${URI}${PORT}/api/ventas`, data, {
+		const result = await axios.post(`${URI}${PORT}/api/compras`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
 			},
 		})
 		dispath({
-			type: NUEVA_VENTA_EXITO,
+			type: NUEVA_COMPRA_EXITO,
 			payload: {
 				message: result.data.message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: NUEVA_VENTA_EXITO,
+				type: NUEVA_COMPRA_EXITO,
 				payload: {
 					message: '',
 				},
@@ -140,14 +140,14 @@ export const nuevaVentaAccion = (data, history) => async (dispath) => {
 			return history.push('/login')
 		}
 		dispath({
-			type: NUEVA_VENTA_ERROR,
+			type: NUEVA_COMPRA_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: NUEVA_VENTA_ERROR,
+				type: NUEVA_COMPRA_ERROR,
 				payload: {
 					message: '',
 				},
@@ -157,14 +157,14 @@ export const nuevaVentaAccion = (data, history) => async (dispath) => {
 	}
 }
 
-export const editarVentaAccion = (data, history) => async (
+export const editarCompraAccion = (data, history) => async (
 	dispath,
 	getState
 ) => {
 	const token = getLocalStorage()
 	try {
 		const result = await axios.delete(
-			`${URI}${PORT}/api/ventas/${data.codido}`,
+			`${URI}${PORT}/api/compras/${data.codido}`,
 			data,
 			{
 				headers: {
@@ -173,22 +173,22 @@ export const editarVentaAccion = (data, history) => async (
 			}
 		)
 
-		const ventaEditado = getState().ventas.array.map((el) => {
+		const compraEditado = getState().compras.array.map((el) => {
 			return el.codigo === result.data.data.codigo
 				? (el = result.data.data)
 				: el
 		})
 
 		dispath({
-			type: ELIMINAR_VENTA_EXITO,
+			type: ELIMINAR_COMPRA_EXITO,
 			payload: {
-				array: ventaEditado,
+				array: compraEditado,
 				message: result.data.message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_MESSAGE_EXITO,
+				type: ELIMINAR_COMPRA_MESSAGE_EXITO,
 				payload: {
 					message: '',
 				},
@@ -202,14 +202,14 @@ export const editarVentaAccion = (data, history) => async (
 			return history.push('/login')
 		}
 		dispath({
-			type: ELIMINAR_VENTA_ERROR,
+			type: ELIMINAR_COMPRA_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_ERROR,
+				type: ELIMINAR_COMPRA_ERROR,
 				payload: {
 					message: '',
 				},
@@ -219,16 +219,19 @@ export const editarVentaAccion = (data, history) => async (
 	}
 }
 
-export const eliminarVentaAccion = (data, history) => async (dispath) => {
+export const eliminarCompraAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
-		const result = await axios.delete(`${URI}${PORT}/api/ventas/${data.item}`, {
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		})
+		const result = await axios.delete(
+			`${URI}${PORT}/api/compras/${data.item}`,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		)
 		dispath({
-			type: ELIMINAR_VENTA_EXITO,
+			type: ELIMINAR_COMPRA_EXITO,
 			payload: {
 				array: data.data,
 				message: result.data.message,
@@ -236,7 +239,7 @@ export const eliminarVentaAccion = (data, history) => async (dispath) => {
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_MESSAGE_EXITO,
+				type: ELIMINAR_COMPRA_MESSAGE_EXITO,
 				payload: {
 					message: '',
 				},
@@ -250,14 +253,14 @@ export const eliminarVentaAccion = (data, history) => async (dispath) => {
 			return history.push('/login')
 		}
 		dispath({
-			type: ELIMINAR_VENTA_ERROR,
+			type: ELIMINAR_COMPRA_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_ERROR,
+				type: ELIMINAR_COMPRA_ERROR,
 				payload: {
 					message: '',
 				},

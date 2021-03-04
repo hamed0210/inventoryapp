@@ -1,3 +1,4 @@
+// import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import Styles from './input.module.css'
@@ -11,7 +12,22 @@ const Input = ({
 	dispatchObtenerSelect,
 }) => {
 	const dispatch = useDispatch()
+	// const [cantidad, setCantidad] = useState(0)
+	// const [precio, setPrecio] = useState(0)
+	// const [total, setTotal] = useState(0)
+
+	// useEffect(() => {
+	// 	setTotal(cantidad * precio)
+	// 	if (cantidad !== 0) datosInput.datos.precio_total = total
+	// }, [cantidad, precio, datosInput, total])
+
 	const handleInputChange = (e) => {
+		// if (e.target.name === 'cantidad')
+		// 	e.target.value ? setCantidad(parseInt(e.target.value)) : setCantidad(0)
+
+		// if (e.target.name === 'precio_unidad')
+		// 	e.target.value ? setPrecio(parseInt(e.target.value)) : setPrecio(0)
+
 		datosInput.setDatos({
 			...datosInput.datos,
 			[e.target.name]: e.target.value,
@@ -46,26 +62,30 @@ const Input = ({
 							{dataSelect &&
 								dataSelect.map((element, index) => {
 									return (
-										<option key={index} value={element.codigo}>
+										<option key={index} value={element.codigo || element.id}>
 											{element.nombre}
 										</option>
 									)
 								})}
 						</select>
-						<button
-							onClick={handleSelectAdd}
-							className={Styles.btn_add}
-							type='button'
-						>
-							<i className='fas fa-plus-square fa-lg' />
-						</button>
-						<button
-							onClick={handleSelectDelete}
-							className={Styles.btn_delete}
-							type='button'
-						>
-							<i className='fas fa-minus-square fa-lg' />
-						</button>
+						{el.btns && (
+							<>
+								<button
+									onClick={handleSelectAdd}
+									className={Styles.btn_add}
+									type='button'
+								>
+									<i className='fas fa-plus-square fa-lg' />
+								</button>
+								<button
+									onClick={handleSelectDelete}
+									className={Styles.btn_delete}
+									type='button'
+								>
+									<i className='fas fa-minus-square fa-lg' />
+								</button>
+							</>
+						)}
 					</div>
 				</div>
 			)
@@ -127,6 +147,26 @@ const Input = ({
 					</div>
 				</div>
 			)
+		// if (el.label === 'Total')
+		// 	return (
+		// 		<div key={index} className={Styles.inputGroup}>
+		// 			<label className={Styles.label} htmlFor={el.htmlFor}>
+		// 				{el.label}
+		// 			</label>
+		// 			<input
+		// 				// onChange={handleInputChange}
+		// 				className={Styles.input}
+		// 				type={el.type}
+		// 				id={el.id}
+		// 				name={el.name}
+		// 				placeholder={el.placeholder}
+		// 				required={el.required}
+		// 				autoFocus={el.autoFocus}
+		// 				value={total}
+		// 				disabled
+		// 			/>
+		// 		</div>
+		// 	)
 		return (
 			<div key={index} className={Styles.inputGroup}>
 				<label className={Styles.label} htmlFor={el.htmlFor}>

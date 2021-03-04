@@ -17,8 +17,6 @@ const Form = ({
 	dispatchDeleteSelect = '',
 	dispatchObtenerSelect = '',
 	dispatchEditSelect = '',
-	msgProps,
-	successProps,
 	msgSelectProps = '',
 	msgSelectConsultasProps = '',
 	successSelectProps = '',
@@ -49,26 +47,8 @@ const Form = ({
 		//e.target.reset()
 	}
 
-	const handleMessage = () => {
-		if (msgProps !== '') {
-			if (successProps)
-				return (
-					<div className={`${Styles.message_success_container}`}>
-						<span className={Styles.message_success}>{msgProps}</span>
-					</div>
-				)
-			if (!successProps)
-				return (
-					<div className={`${Styles.error_container}`}>
-						<span className={Styles.error}>{msgProps}</span>
-					</div>
-				)
-		}
-	}
-
 	return (
 		<div className={Styles.container}>
-			{handleMessage()}
 			<form className={Styles.form} onSubmit={handleSubmit}>
 				<div className={Styles.inputGroup_container}>
 					<Input

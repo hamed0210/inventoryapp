@@ -42,8 +42,12 @@ export default function loginReducer(state = dataInicial, action) {
 
 //Acciones
 
-export const iniciarSesionAccion = (data, history) => async (dispath) => {
+export const iniciarSesionAccion = (data, history, setLoading) => async (
+	dispath
+) => {
 	try {
+		setLoading(true)
+
 		const res = await axios.post(`${URI}${PORT}/api/signin`, data)
 		if (res.data.token) {
 			const result = await axios.get(`${URI}${PORT}/api/check`, {
@@ -58,17 +62,20 @@ export const iniciarSesionAccion = (data, history) => async (dispath) => {
 					message: '',
 				},
 			})
+			setLoading(false)
 			saveLocalStorage(res.data.token)
 			history.push('/')
 		}
 	} catch (error) {
-		console.log(error.request)
-		dispath({
-			type: INICIAR_SESION_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		setLoading(false)
+		error.request.response &&
+			dispath({
+				type: INICIAR_SESION_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+		console.log(error)
 	}
 }
 

@@ -10,12 +10,12 @@ const PORT = process.env.REACT_APP_PORT
 const dataInicial = {
 	array: [],
 	message: '',
-	messageConsultas: '',
 	success: false,
 }
 
 // Types
 const OBTENER_USUARIOS_EXITO = 'OBTENER_USUARIOS_EXITO'
+const OBTENER_USUARIOS_ERROR = 'OBTENER_USUARIOS_ERROR'
 const NUEVO_USUARIO_EXITO = 'NUEVO_USUARIO_EXITO'
 const NUEVO_USUARIO_ERROR = 'NUEVO_USUARIO_ERROR'
 const ELIMINAR_USUARIO_EXITO = 'ELIMINAR_USUARIO_EXITO'
@@ -29,6 +29,11 @@ export default function usuariosReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload,
+			}
+		case OBTENER_USUARIOS_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
 			}
 		case NUEVO_USUARIO_EXITO:
 			return {
@@ -46,19 +51,19 @@ export default function usuariosReducer(state = dataInicial, action) {
 			return {
 				...state,
 				array: action.payload.array,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: true,
 			}
 		case ELIMINAR_USUARIO_MESSAGE_EXITO:
 			return {
 				...state,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: true,
 			}
 		case ELIMINAR_USUARIO_ERROR:
 			return {
 				...state,
-				messageConsultas: action.payload.message,
+				message: action.payload.message,
 				success: false,
 			}
 		default:
@@ -95,6 +100,20 @@ export const obtenerUsuariosAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
+		dispath({
+			type: OBTENER_USUARIOS_ERROR,
+			payload: {
+				message: JSON.parse(error.request.response).message,
+			},
+		})
+		setTimeout(() => {
+			dispath({
+				type: OBTENER_USUARIOS_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
 		console.log(error.request)
 	}
 }

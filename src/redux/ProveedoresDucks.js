@@ -14,53 +14,54 @@ const dataInicial = {
 }
 
 // Types
-const OBTENER_VENTAS_EXITO = 'OBTENER_VENTAS_EXITO'
-const OBTENER_VENTAS_ERROR = 'OBTENER_VENTAS_ERROR'
-const NUEVA_VENTA_EXITO = 'NUEVA_VENTA_EXITO'
-const NUEVA_VENTA_ERROR = 'NUEVA_VENTA_ERROR'
-const ELIMINAR_VENTA_EXITO = 'ELIMINAR_VENTA_EXITO'
-const ELIMINAR_VENTA_MESSAGE_EXITO = 'ELIMINAR_VENTA_MESSAGE_EXITO'
-const ELIMINAR_VENTA_ERROR = 'ELIMINAR_VENTA_ERROR'
+const OBTENER_PROVEEDORES_EXITO = 'OBTENER_PROVEEDORES_EXITO'
+const OBTENER_PROVEEDORES_ERROR = 'OBTENER_PROVEEDORES_ERROR'
+const NUEVO_PROVEEDOR_EXITO = 'NUEVO_PROVEEDOR_EXITO'
+const NUEVO_PROVEEDOR_ERROR = 'NUEVO_PROVEEDOR_ERROR'
+const ELIMINAR_PROVEEDOR_EXITO = 'ELIMINAR_PROVEEDOR_EXITO'
+const ELIMINAR_PROVEEDOR_MESSAGE_EXITO = 'ELIMINAR_PROVEEDOR_MESSAGE_EXITO'
+const ELIMINAR_PROVEEDOR_ERROR = 'ELIMINAR_PROVEEDOR_ERROR'
 
 // Reducer
-export default function ventasReducer(state = dataInicial, action) {
+export default function proveedoresReducer(state = dataInicial, action) {
 	switch (action.type) {
-		case OBTENER_VENTAS_EXITO:
+		case OBTENER_PROVEEDORES_EXITO:
 			return {
 				...state,
 				array: action.payload,
+				// message: '',
 			}
-		case OBTENER_VENTAS_ERROR:
+		case OBTENER_PROVEEDORES_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
 			}
-		case NUEVA_VENTA_EXITO:
+		case NUEVO_PROVEEDOR_EXITO:
 			return {
 				...state,
 				message: action.payload.message,
 				success: true,
 			}
-		case NUEVA_VENTA_ERROR:
+		case NUEVO_PROVEEDOR_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
 				success: false,
 			}
-		case ELIMINAR_VENTA_EXITO:
+		case ELIMINAR_PROVEEDOR_EXITO:
 			return {
 				...state,
 				array: action.payload.array,
 				message: action.payload.message,
 				success: true,
 			}
-		case ELIMINAR_VENTA_MESSAGE_EXITO:
+		case ELIMINAR_PROVEEDOR_MESSAGE_EXITO:
 			return {
 				...state,
 				message: action.payload.message,
 				success: true,
 			}
-		case ELIMINAR_VENTA_ERROR:
+		case ELIMINAR_PROVEEDOR_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
@@ -73,16 +74,16 @@ export default function ventasReducer(state = dataInicial, action) {
 
 //Acciones
 
-export const obtenerVentasAccion = (history) => async (dispath) => {
+export const obtenerProveedoresAccion = (history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
-		const result = await axios.get(`${URI}${PORT}/api/ventas`, {
+		const result = await axios.get(`${URI}${PORT}/api/proveedores`, {
 			headers: {
 				authorization: `Bearer ${token}`,
 			},
 		})
 		dispath({
-			type: OBTENER_VENTAS_EXITO,
+			type: OBTENER_PROVEEDORES_EXITO,
 			payload: result.data.data,
 		})
 	} catch (error) {
@@ -92,14 +93,14 @@ export const obtenerVentasAccion = (history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 		}
 		dispath({
-			type: OBTENER_VENTAS_ERROR,
+			type: OBTENER_PROVEEDORES_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: OBTENER_VENTAS_ERROR,
+				type: OBTENER_PROVEEDORES_ERROR,
 				payload: {
 					message: '',
 				},
@@ -109,24 +110,24 @@ export const obtenerVentasAccion = (history) => async (dispath) => {
 	}
 }
 
-export const nuevaVentaAccion = (data, history) => async (dispath) => {
+export const nuevoProveedorAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
-		const result = await axios.post(`${URI}${PORT}/api/ventas`, data, {
+		const result = await axios.post(`${URI}${PORT}/api/proveedores`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
 			},
 		})
 		dispath({
-			type: NUEVA_VENTA_EXITO,
+			type: NUEVO_PROVEEDOR_EXITO,
 			payload: {
 				message: result.data.message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: NUEVA_VENTA_EXITO,
+				type: NUEVO_PROVEEDOR_EXITO,
 				payload: {
 					message: '',
 				},
@@ -140,14 +141,14 @@ export const nuevaVentaAccion = (data, history) => async (dispath) => {
 			return history.push('/login')
 		}
 		dispath({
-			type: NUEVA_VENTA_ERROR,
+			type: NUEVO_PROVEEDOR_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: NUEVA_VENTA_ERROR,
+				type: NUEVO_PROVEEDOR_ERROR,
 				payload: {
 					message: '',
 				},
@@ -157,14 +158,14 @@ export const nuevaVentaAccion = (data, history) => async (dispath) => {
 	}
 }
 
-export const editarVentaAccion = (data, history) => async (
+export const editarProveedorAccion = (data, history) => async (
 	dispath,
 	getState
 ) => {
 	const token = getLocalStorage()
 	try {
-		const result = await axios.delete(
-			`${URI}${PORT}/api/ventas/${data.codido}`,
+		const result = await axios.put(
+			`${URI}${PORT}/api/proveedores/${data.id}`,
 			data,
 			{
 				headers: {
@@ -173,22 +174,21 @@ export const editarVentaAccion = (data, history) => async (
 			}
 		)
 
-		const ventaEditado = getState().ventas.array.map((el) => {
-			return el.codigo === result.data.data.codigo
-				? (el = result.data.data)
-				: el
+		const proveedorEditado = getState().proveedores.array.map((el) => {
+			return el.id === result.data.data.id ? (el = result.data.data) : el
 		})
 
 		dispath({
-			type: ELIMINAR_VENTA_EXITO,
+			type: ELIMINAR_PROVEEDOR_EXITO,
 			payload: {
-				array: ventaEditado,
+				array: proveedorEditado,
 				message: result.data.message,
+				// message: `proveedor con id ${data.id} editado correctamente`,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_MESSAGE_EXITO,
+				type: ELIMINAR_PROVEEDOR_MESSAGE_EXITO,
 				payload: {
 					message: '',
 				},
@@ -202,14 +202,14 @@ export const editarVentaAccion = (data, history) => async (
 			return history.push('/login')
 		}
 		dispath({
-			type: ELIMINAR_VENTA_ERROR,
+			type: ELIMINAR_PROVEEDOR_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_ERROR,
+				type: ELIMINAR_PROVEEDOR_ERROR,
 				payload: {
 					message: '',
 				},
@@ -219,24 +219,28 @@ export const editarVentaAccion = (data, history) => async (
 	}
 }
 
-export const eliminarVentaAccion = (data, history) => async (dispath) => {
+export const eliminarProveedorAccion = (data, history) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
-		const result = await axios.delete(`${URI}${PORT}/api/ventas/${data.item}`, {
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		})
+		const result = await axios.delete(
+			`${URI}${PORT}/api/proveedores/${data.item}`,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		)
 		dispath({
-			type: ELIMINAR_VENTA_EXITO,
+			type: ELIMINAR_PROVEEDOR_EXITO,
 			payload: {
 				array: data.data,
+				// message: 'PROVEEDOR eliminado correctamente',
 				message: result.data.message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_MESSAGE_EXITO,
+				type: ELIMINAR_PROVEEDOR_MESSAGE_EXITO,
 				payload: {
 					message: '',
 				},
@@ -250,14 +254,14 @@ export const eliminarVentaAccion = (data, history) => async (dispath) => {
 			return history.push('/login')
 		}
 		dispath({
-			type: ELIMINAR_VENTA_ERROR,
+			type: ELIMINAR_PROVEEDOR_ERROR,
 			payload: {
 				message: JSON.parse(error.request.response).message,
 			},
 		})
 		setTimeout(() => {
 			dispath({
-				type: ELIMINAR_VENTA_ERROR,
+				type: ELIMINAR_PROVEEDOR_ERROR,
 				payload: {
 					message: '',
 				},

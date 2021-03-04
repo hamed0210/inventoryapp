@@ -4,8 +4,11 @@ import thunk from 'redux-thunk'
 import productosDucks from './productosDucks'
 import categoriasDucks from './categoriasDucks'
 import clientesDucks from './clientesDucks'
+import ProveedoresDucks from './ProveedoresDucks'
 import ventasDucks from './ventasDucks'
+import comprasDucks from './comprasDucks'
 import usuariosDucks from './usuariosDucks'
+import inventarioDucks from './inventarioDucks'
 import loginDucks from './loginDucks'
 
 const rootReducer = combineReducers({
@@ -13,8 +16,11 @@ const rootReducer = combineReducers({
 	productos: productosDucks,
 	categorias: categoriasDucks,
 	clientes: clientesDucks,
+	proveedores: ProveedoresDucks,
 	ventas: ventasDucks,
+	compras: comprasDucks,
 	usuarios: usuariosDucks,
+	inventario: inventarioDucks,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

@@ -36,10 +36,23 @@
 
 .menu {
 	display: flex;
-	justify-content: center;
 	width: 100%;
 	/* flex: 1; */
 	order: 2;
+	overflow-x: auto;
+}
+
+.menu::-webkit-scrollbar {
+	-webkit-appearance: none;
+}
+
+.menu::-webkit-scrollbar:horizontal {
+	height: 4px;
+}
+
+.menu::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background-color: rgba(30, 42, 120, 0.2);
 }
 
 .secundary {
@@ -222,7 +235,13 @@
 	box-shadow: 0px 1px 2px #00000040, 0 -1px 2px #00000040;
 }
 
-@media screen and (min-width: 665px) {
+@media screen and (min-width: 620px) {
+	.menu {
+		justify-content: center;
+	}
+}
+
+@media screen and (min-width: 1020px) {
 	.menu {
 		width: fit-content;
 		/* flex: none; */

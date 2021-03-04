@@ -15,7 +15,7 @@ body::-webkit-scrollbar:vertical {
 
 body::-webkit-scrollbar-thumb {
 	border-radius: 5px;
-	background-color: var(--color-primary);
+	background-color: rgba(30, 42, 120, 0.2);
 }
 
 .btn {
@@ -49,6 +49,14 @@ body::-webkit-scrollbar-thumb {
 	transform-origin: center;
 	transform: scale(1.05);
 }
+
+/* .loadingButton {
+	width: 50px;
+} */
+
+/* .loadingButton svg {
+	position: absolute;
+} */
 
 body {
 	margin: 0;
