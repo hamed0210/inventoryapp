@@ -9,7 +9,7 @@ import useButtonLoader from 'hooks/useButtonLoader'
 const Login = ({ history }) => {
 	const dispatch = useDispatch()
 	const loginStore = useSelector((store) => store.login)
-	const [buttonLoad, setLoading] = useButtonLoader('Entrar', Styles)
+	const [buttonLoad, loading, setLoading] = useButtonLoader('Entrar')
 	const [datos, setDatos] = useState({
 		email: '',
 		pass: '',
@@ -40,7 +40,6 @@ const Login = ({ history }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		// setLoading(true)
 		dispatch(iniciarSesionAccion(datos, history, setLoading))
 	}
 
@@ -65,6 +64,7 @@ const Login = ({ history }) => {
 								placeholder='Correo electronico'
 								required
 								autoFocus
+								disabled={loading}
 							/>
 							<div className={Styles.input_password_container}>
 								<input
@@ -75,6 +75,7 @@ const Login = ({ history }) => {
 									id='pass'
 									placeholder='Contraseña'
 									required
+									disabled={loading}
 								/>
 								<span onClick={handlePassword} className={Styles.icon}>
 									<i className={`fas fa-eye`} />

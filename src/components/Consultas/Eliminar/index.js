@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import Styles from './eliminar.module.css'
+import useButtonLoader from 'hooks/useButtonLoader'
 
 const Eliminar = ({
 	history,
@@ -10,10 +11,11 @@ const Eliminar = ({
 	dispatchDelete,
 }) => {
 	const dispatch = useDispatch()
+	const [buttonLoad, loading, setLoading] = useButtonLoader('Eliminar')
 
 	const handleEliminar = () => {
-		setVerEliminar(false)
-		dispatch(dispatchDelete(dataEliminar, history))
+		// setVerEliminar(false)
+		dispatch(dispatchDelete(dataEliminar, history, setLoading, setVerEliminar))
 	}
 
 	const handleCancelar = () => {
@@ -30,12 +32,14 @@ const Eliminar = ({
 					<button
 						onClick={handleEliminar}
 						className={`${Styles.btn} ${Styles.btn_eliminar}`}
+						ref={buttonLoad}
 					>
 						Eliminar
 					</button>
 					<button
 						onClick={handleCancelar}
 						className={`${Styles.btn} ${Styles.btn_cancelar}`}
+						disabled={loading}
 					>
 						Cancelar
 					</button>

@@ -91,12 +91,20 @@ export const obtenerComprasAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
-		dispath({
-			type: OBTENER_COMPRAS_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_COMPRAS_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_COMPRAS_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_COMPRAS_ERROR,
@@ -109,10 +117,19 @@ export const obtenerComprasAccion = (history) => async (dispath) => {
 	}
 }
 
-export const nuevaCompraAccion = (data, history) => async (dispath) => {
+export const nuevaCompraAccion = (
+	data,
+	history,
+	setLoading,
+	setLoadingTable,
+	setResetForm
+) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
+		setLoading(true)
+		setLoadingTable(true)
+
 		const result = await axios.post(`${URI}${PORT}/api/compras`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
@@ -124,6 +141,11 @@ export const nuevaCompraAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setLoadingTable(false)
+		setResetForm(true)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVA_COMPRA_EXITO,
@@ -139,12 +161,24 @@ export const nuevaCompraAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: NUEVA_COMPRA_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: NUEVA_COMPRA_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: NUEVA_COMPRA_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+		setLoading(false)
+		setLoadingTable(false)
+		setResetForm(false)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVA_COMPRA_ERROR,
@@ -157,12 +191,16 @@ export const nuevaCompraAccion = (data, history) => async (dispath) => {
 	}
 }
 
-export const editarCompraAccion = (data, history) => async (
-	dispath,
-	getState
-) => {
+export const editarCompraAccion = (
+	data,
+	history,
+	setLoading,
+	handleVerEditarCerrar
+) => async (dispath, getState) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.delete(
 			`${URI}${PORT}/api/compras/${data.codido}`,
 			data,
@@ -186,6 +224,10 @@ export const editarCompraAccion = (data, history) => async (
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_COMPRA_MESSAGE_EXITO,
@@ -201,12 +243,24 @@ export const editarCompraAccion = (data, history) => async (
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_COMPRA_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_COMPRA_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_COMPRA_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_COMPRA_ERROR,
@@ -219,9 +273,16 @@ export const editarCompraAccion = (data, history) => async (
 	}
 }
 
-export const eliminarCompraAccion = (data, history) => async (dispath) => {
+export const eliminarCompraAccion = (
+	data,
+	history,
+	setLoading,
+	setVerEliminar
+) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.delete(
 			`${URI}${PORT}/api/compras/${data.item}`,
 			{
@@ -237,6 +298,10 @@ export const eliminarCompraAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_COMPRA_MESSAGE_EXITO,
@@ -252,12 +317,24 @@ export const eliminarCompraAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_COMPRA_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_COMPRA_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_COMPRA_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_COMPRA_ERROR,

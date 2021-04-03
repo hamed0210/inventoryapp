@@ -8,6 +8,7 @@ const ProductosAddComprasVentas = ({
 	data = [],
 	addProductosForm,
 	productoBorrado,
+	inputDisabled = false,
 }) => {
 	const [itemLists, setItemLists] = useState([])
 	const [loadingState, setLoadingState] = useState(false)
@@ -72,6 +73,7 @@ const ProductosAddComprasVentas = ({
 														onClick={(e) => handleButton(el, e)}
 														className={Styles.btn}
 														data-codigo={el.codigo}
+														disabled={inputDisabled}
 													>
 														<i
 															className={`${Styles.btn_edit} fas fa-plus-square`}

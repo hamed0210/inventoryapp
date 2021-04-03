@@ -39,11 +39,11 @@ function App({ history }) {
 						userStore.message = 'La sesion a caducado, inicia sesion nuevamente'
 						history.push('/login')
 					}
-					if (error.message === 'Network Error') {
-						setLoadingState(null)
-						userStore.message = 'Error de conexión con el servidor'
-						history.push('/login')
-					}
+					// if (error.message === 'Network Error') {
+					// 	setLoadingState(null)
+					// 	userStore.message = 'Error de conexión con el servidor'
+					// 	history.push('/login')
+					// }
 					console.log(error)
 				}
 			} else {

@@ -4,6 +4,7 @@ export { default as dataFormProveedores } from './dataForms/dataFormProveedores'
 export { default as dataFormUsuarios } from './dataForms/dataFormUsuarios'
 export { default as dataFormVentas } from './dataForms/dataFormVentas'
 export { default as dataFormCompras } from './dataForms/dataFormCompras'
+export { default as dataFormCategorias } from './dataForms/dataFormCategorias'
 
 export { default as dataConsultasProductos } from './dataConsultas/dataConsultasProductos'
 export { default as dataConsultasCategorias } from './dataConsultas/dataConsultasCategorias'

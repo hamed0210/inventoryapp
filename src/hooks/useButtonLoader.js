@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-const useButtonLoader = (defaultText = 'Enviar', Styles = '') => {
+const useButtonLoader = (defaultText = 'Enviar') => {
 	const [loading, setLoading] = useState(false)
 	const element = useRef(null)
 
@@ -8,15 +8,13 @@ const useButtonLoader = (defaultText = 'Enviar', Styles = '') => {
 		if (loading) {
 			element.current.disabled = true
 			element.current.innerHTML = `<i class='fas fa-circle-notch fa-spin'></i>`
-			element.current.classList.add(Styles.loadingButton)
 		} else {
 			element.current.disabled = false
 			element.current.innerHTML = defaultText
-			element.current.classList.remove(Styles.loadingButton)
 		}
-	}, [loading, defaultText, Styles])
+	}, [loading, defaultText])
 
-	return [element, setLoading]
+	return [element, loading, setLoading]
 }
 
 export default useButtonLoader

@@ -62,12 +62,20 @@ export const iniciarSesionAccion = (data, history, setLoading) => async (
 					message: '',
 				},
 			})
-			setLoading(false)
+			// setLoading(false)
 			saveLocalStorage(res.data.token)
 			history.push('/')
 		}
 	} catch (error) {
 		setLoading(false)
+		if (error.message === 'Network Error') {
+			dispath({
+				type: INICIAR_SESION_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		}
 		error.request.response &&
 			dispath({
 				type: INICIAR_SESION_ERROR,

@@ -20,7 +20,7 @@ const Consultas = ({
 	const [verEliminar, setVerEliminar] = useState(false)
 	const [dataEliminar, setDataEliminar] = useState({})
 	const [verEditar, setVerEditar] = useState(false)
-	const [dataEditar, setDataEditar] = useState()
+	const [dataEditar, setDataEditar] = useState('')
 
 	useEffect(() => {
 		data && setLoadingState(true)

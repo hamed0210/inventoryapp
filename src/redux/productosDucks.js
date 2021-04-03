@@ -105,12 +105,20 @@ export const obtenerProductosAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
-		dispath({
-			type: OBTENER_PRODUCTOS_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_PRODUCTOS_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_PRODUCTOS_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_PRODUCTOS_ERROR,
@@ -123,10 +131,17 @@ export const obtenerProductosAccion = (history) => async (dispath) => {
 	}
 }
 
-export const nuevoProductoAccion = (data, history) => async (dispath) => {
+export const nuevoProductoAccion = (
+	data,
+	history,
+	setLoading,
+	setResetForm
+) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
+		setLoading(true)
+
 		const result = await axios.post(`${URI}${PORT}/api/productos`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
@@ -138,6 +153,10 @@ export const nuevoProductoAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setResetForm(true)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVO_PRODUCTO_EXITO,
@@ -153,12 +172,23 @@ export const nuevoProductoAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: NUEVO_PRODUCTO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: NUEVO_PRODUCTO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: NUEVO_PRODUCTO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+		setLoading(false)
+		setResetForm(false)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVO_PRODUCTO_ERROR,
@@ -171,12 +201,16 @@ export const nuevoProductoAccion = (data, history) => async (dispath) => {
 	}
 }
 
-export const editarProductoAccion = (data, history) => async (
-	dispath,
-	getState
-) => {
+export const editarProductoAccion = (
+	data,
+	history,
+	setLoading,
+	handleVerEditarCerrar
+) => async (dispath, getState) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.put(
 			`${URI}${PORT}/api/productos/${data.codigo}`,
 			data,
@@ -200,6 +234,10 @@ export const editarProductoAccion = (data, history) => async (
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_PRODUCTO_MESSAGE_EXITO,
@@ -215,12 +253,24 @@ export const editarProductoAccion = (data, history) => async (
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_PRODUCTO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_PRODUCTO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_PRODUCTO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_PRODUCTO_ERROR,
@@ -233,9 +283,16 @@ export const editarProductoAccion = (data, history) => async (
 	}
 }
 
-export const eliminarProductoAccion = (data, history) => async (dispath) => {
+export const eliminarProductoAccion = (
+	data,
+	history,
+	setLoading,
+	setVerEliminar
+) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.delete(
 			`${URI}${PORT}/api/productos/${data.item}`,
 			{
@@ -251,6 +308,10 @@ export const eliminarProductoAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_PRODUCTO_MESSAGE_EXITO,
@@ -266,12 +327,24 @@ export const eliminarProductoAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_PRODUCTO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_PRODUCTO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_PRODUCTO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_PRODUCTO_ERROR,

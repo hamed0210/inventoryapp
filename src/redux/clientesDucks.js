@@ -91,12 +91,20 @@ export const obtenerClientesAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
-		dispath({
-			type: OBTENER_CLIENTES_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_CLIENTES_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_CLIENTES_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_CLIENTES_ERROR,
@@ -109,10 +117,17 @@ export const obtenerClientesAccion = (history) => async (dispath) => {
 	}
 }
 
-export const nuevoClienteAccion = (data, history) => async (dispath) => {
+export const nuevoClienteAccion = (
+	data,
+	history,
+	setLoading,
+	setResetForm
+) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
+		setLoading(true)
+
 		const result = await axios.post(`${URI}${PORT}/api/clientes`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
@@ -124,6 +139,10 @@ export const nuevoClienteAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setResetForm(true)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVO_CLIENTE_EXITO,
@@ -139,12 +158,24 @@ export const nuevoClienteAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: NUEVO_CLIENTE_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: NUEVO_CLIENTE_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: NUEVO_CLIENTE_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		setResetForm(false)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVO_CLIENTE_ERROR,
@@ -157,12 +188,16 @@ export const nuevoClienteAccion = (data, history) => async (dispath) => {
 	}
 }
 
-export const editarClienteAccion = (data, history) => async (
-	dispath,
-	getState
-) => {
+export const editarClienteAccion = (
+	data,
+	history,
+	setLoading,
+	handleVerEditarCerrar
+) => async (dispath, getState) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.put(
 			`${URI}${PORT}/api/clientes/${data.id}`,
 			data,
@@ -182,9 +217,12 @@ export const editarClienteAccion = (data, history) => async (
 			payload: {
 				array: clienteEditado,
 				message: result.data.message,
-				// message: `cliente con id ${data.id} editado correctamente`,
 			},
 		})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_CLIENTE_MESSAGE_EXITO,
@@ -200,12 +238,24 @@ export const editarClienteAccion = (data, history) => async (
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_CLIENTE_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_CLIENTE_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_CLIENTE_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_CLIENTE_ERROR,
@@ -218,9 +268,16 @@ export const editarClienteAccion = (data, history) => async (
 	}
 }
 
-export const eliminarClienteAccion = (data, history) => async (dispath) => {
+export const eliminarClienteAccion = (
+	data,
+	history,
+	setLoading,
+	setVerEliminar
+) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.delete(
 			`${URI}${PORT}/api/clientes/${data.item}`,
 			{
@@ -237,6 +294,10 @@ export const eliminarClienteAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_CLIENTE_MESSAGE_EXITO,
@@ -252,12 +313,24 @@ export const eliminarClienteAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_CLIENTE_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_CLIENTE_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_CLIENTE_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_CLIENTE_ERROR,

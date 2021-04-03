@@ -34,9 +34,9 @@
 	opacity: 0.3;
 }
 
-.btn:focus {
+/* .btn:focus {
 	transform: scale(0.98);
-}
+} */
 
 @media screen and (min-width: 450px) {
 	.inputGroup_container {

@@ -100,12 +100,20 @@ export const obtenerUsuariosAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
-		dispath({
-			type: OBTENER_USUARIOS_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_USUARIOS_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_USUARIOS_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_USUARIOS_ERROR,
@@ -118,10 +126,19 @@ export const obtenerUsuariosAccion = (history) => async (dispath) => {
 	}
 }
 
-export const nuevoUsuarioAccion = (data, history) => async (dispath) => {
+export const nuevoUsuarioAccion = (
+	data,
+	history,
+	setLoading,
+	setLoadingTable,
+	setResetForm
+) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
+		setLoading(true)
+		setLoadingTable(true)
+
 		const result = await axios.post(`${URI}${PORT}/api/users`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
@@ -133,6 +150,11 @@ export const nuevoUsuarioAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setLoadingTable(false)
+		setResetForm(true)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVO_USUARIO_EXITO,
@@ -148,12 +170,25 @@ export const nuevoUsuarioAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: NUEVO_USUARIO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: NUEVO_USUARIO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: NUEVO_USUARIO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		setLoadingTable(false)
+		setResetForm(false)
+
 		setTimeout(() => {
 			dispath({
 				type: NUEVO_USUARIO_ERROR,
@@ -166,12 +201,16 @@ export const nuevoUsuarioAccion = (data, history) => async (dispath) => {
 	}
 }
 
-export const editarUsuarioAccion = (data, history) => async (
-	dispath,
-	getState
-) => {
+export const editarUsuarioAccion = (
+	data,
+	history,
+	setLoading,
+	handleVerEditarCerrar
+) => async (dispath, getState) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.put(`${URI}${PORT}/api/users/${data.id}`, data, {
 			headers: {
 				authorization: `Bearer ${token}`,
@@ -189,6 +228,10 @@ export const editarUsuarioAccion = (data, history) => async (
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_USUARIO_MESSAGE_EXITO,
@@ -204,12 +247,24 @@ export const editarUsuarioAccion = (data, history) => async (
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_USUARIO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_USUARIO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_USUARIO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		handleVerEditarCerrar()
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_USUARIO_ERROR,
@@ -222,9 +277,16 @@ export const editarUsuarioAccion = (data, history) => async (
 	}
 }
 
-export const eliminarUsuarioAccion = (data, history) => async (dispath) => {
+export const eliminarUsuarioAccion = (
+	data,
+	history,
+	setLoading,
+	setVerEliminar
+) => async (dispath) => {
 	const token = getLocalStorage()
 	try {
+		setLoading(true)
+
 		const result = await axios.delete(`${URI}${PORT}/api/users/${data.item}`, {
 			headers: {
 				authorization: `Bearer ${token}`,
@@ -237,6 +299,10 @@ export const eliminarUsuarioAccion = (data, history) => async (dispath) => {
 				message: result.data.message,
 			},
 		})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_USUARIO_MESSAGE_EXITO,
@@ -252,12 +318,24 @@ export const eliminarUsuarioAccion = (data, history) => async (dispath) => {
 			dispath(cerrarSesionAccion(history, message))
 			return history.push('/login')
 		}
-		dispath({
-			type: ELIMINAR_USUARIO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: ELIMINAR_USUARIO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: ELIMINAR_USUARIO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+		setVerEliminar(false)
+
 		setTimeout(() => {
 			dispath({
 				type: ELIMINAR_USUARIO_ERROR,

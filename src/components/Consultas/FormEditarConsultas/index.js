@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import Styles from './formEditarConsultas.module.css'
+import useButtonLoader from 'hooks/useButtonLoader'
 
 const FormEditarConsultas = ({
 	history,
@@ -13,6 +14,7 @@ const FormEditarConsultas = ({
 	handleVerEditarCerrar,
 }) => {
 	const dispatch = useDispatch()
+	const [buttonLoad, loading, setLoading] = useButtonLoader()
 	const [datos, setDatos] = useState(data)
 
 	const handleInputChange = (e) => {
@@ -28,9 +30,7 @@ const FormEditarConsultas = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(dispatchEdit(datos, history))
-		handleVerEditarCerrar()
-		//e.target.reset()
+		dispatch(dispatchEdit(datos, history, setLoading, handleVerEditarCerrar))
 	}
 
 	return (
@@ -63,6 +63,7 @@ const FormEditarConsultas = ({
 														name={el.name}
 														id={el.id}
 														required={el.required}
+														disabled={loading}
 													>
 														{dataSelect &&
 															dataSelect.map((elementSelect, index) => {
@@ -106,6 +107,7 @@ const FormEditarConsultas = ({
 																	name={el.name}
 																	defaultChecked
 																	value={elementRadio.label}
+																	disabled={loading}
 																/>
 																<label
 																	className={Styles.radio_label}
@@ -123,6 +125,7 @@ const FormEditarConsultas = ({
 																	id={elementRadio.for}
 																	name={el.name}
 																	value={elementRadio.label}
+																	disabled={loading}
 																/>
 																<label
 																	className={Styles.radio_label}
@@ -152,6 +155,7 @@ const FormEditarConsultas = ({
 												autoFocus={el.autoFocus}
 												min='0'
 												value={datos[element]}
+												disabled={loading}
 											/>
 										</div>
 									)
@@ -166,6 +170,7 @@ const FormEditarConsultas = ({
 					<button
 						className={`btn btn_success ${Styles.btn_enviar}`}
 						type='submit'
+						ref={buttonLoad}
 					>
 						Enviar
 					</button>
@@ -173,6 +178,7 @@ const FormEditarConsultas = ({
 						onClick={handleCerrarEditar}
 						className={`btn ${Styles.btn_cancelar}`}
 						type='button'
+						disabled={loading}
 					>
 						Cancelar
 					</button>

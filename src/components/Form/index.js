@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
@@ -6,6 +6,7 @@ import Styles from './form.module.css'
 import FormSelectInput from './FormSelectInput'
 import Input from 'components/Form/Input'
 import SelectInputConsultas from 'components/Consultas/SelectInputConsultas'
+import useButtonLoader from 'hooks/useButtonLoader'
 
 const Form = ({
 	history,
@@ -22,6 +23,8 @@ const Form = ({
 	successSelectProps = '',
 }) => {
 	const dispatch = useDispatch()
+	const [buttonLoad, loading, setLoading] = useButtonLoader()
+	const [resetForm, setResetForm] = useState(false)
 	const id_user = useSelector((store) => store.login.user.persona.id)
 	const [datos, setDatos] = useState({
 		creado_por: id_user,
@@ -33,6 +36,13 @@ const Form = ({
 	const [selectInputAdd, setSelectInputAdd] = useState(false)
 	const [selectInputs, setSelectInputs] = useState(false)
 
+	useEffect(() => {
+		if (resetForm) {
+			document.querySelector(`.${Styles.form}`).reset()
+			setResetForm(false)
+		}
+	}, [resetForm])
+
 	const handleVerSelectAddCerrar = () => {
 		setSelectInputAdd(false)
 	}
@@ -43,8 +53,8 @@ const Form = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(dispatchNew(datos, history))
-		//e.target.reset()
+		dispatch(dispatchNew(datos, history, setLoading, setResetForm))
+		// resetForm && e.target.reset()
 	}
 
 	return (
@@ -58,10 +68,15 @@ const Form = ({
 						setSelectInputs={setSelectInputs}
 						datosInput={{ datos, setDatos }}
 						dispatchObtenerSelect={dispatchObtenerSelect}
+						inputDisabled={loading}
 					/>
 				</div>
 				<span className={Styles.separator}></span>
-				<button className={`btn btn_success ${Styles.btn}`} type='submit'>
+				<button
+					className={`btn btn_success ${Styles.btn}`}
+					type='submit'
+					ref={buttonLoad}
+				>
 					Enviar
 				</button>
 			</form>
@@ -71,6 +86,7 @@ const Form = ({
 					msgSelectProps={msgSelectProps}
 					successProps={successSelectProps}
 					dispatchNewSelect={dispatchNewSelect}
+					dispatchObtenerSelect={dispatchObtenerSelect}
 				/>
 			) : null}
 			{selectInputs ? (

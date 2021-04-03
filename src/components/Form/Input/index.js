@@ -1,4 +1,3 @@
-// import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import Styles from './input.module.css'
@@ -10,24 +9,11 @@ const Input = ({
 	setSelectInputAdd,
 	datosInput,
 	dispatchObtenerSelect,
+	inputDisabled = false,
 }) => {
 	const dispatch = useDispatch()
-	// const [cantidad, setCantidad] = useState(0)
-	// const [precio, setPrecio] = useState(0)
-	// const [total, setTotal] = useState(0)
-
-	// useEffect(() => {
-	// 	setTotal(cantidad * precio)
-	// 	if (cantidad !== 0) datosInput.datos.precio_total = total
-	// }, [cantidad, precio, datosInput, total])
 
 	const handleInputChange = (e) => {
-		// if (e.target.name === 'cantidad')
-		// 	e.target.value ? setCantidad(parseInt(e.target.value)) : setCantidad(0)
-
-		// if (e.target.name === 'precio_unidad')
-		// 	e.target.value ? setPrecio(parseInt(e.target.value)) : setPrecio(0)
-
 		datosInput.setDatos({
 			...datosInput.datos,
 			[e.target.name]: e.target.value,
@@ -57,6 +43,7 @@ const Input = ({
 							name={el.name}
 							id={el.id}
 							required={el.required}
+							disabled={inputDisabled}
 						>
 							<option>{el.placeholder}</option>
 							{dataSelect &&
@@ -74,6 +61,7 @@ const Input = ({
 									onClick={handleSelectAdd}
 									className={Styles.btn_add}
 									type='button'
+									disabled={inputDisabled}
 								>
 									<i className='fas fa-plus-square fa-lg' />
 								</button>
@@ -81,6 +69,7 @@ const Input = ({
 									onClick={handleSelectDelete}
 									className={Styles.btn_delete}
 									type='button'
+									disabled={inputDisabled}
 								>
 									<i className='fas fa-minus-square fa-lg' />
 								</button>
@@ -137,6 +126,7 @@ const Input = ({
 										name={el.name}
 										defaultChecked={element.checked}
 										value={element.label}
+										disabled={inputDisabled}
 									/>
 									<label className={Styles.radio_label} htmlFor={element.for}>
 										{element.label}
@@ -147,26 +137,6 @@ const Input = ({
 					</div>
 				</div>
 			)
-		// if (el.label === 'Total')
-		// 	return (
-		// 		<div key={index} className={Styles.inputGroup}>
-		// 			<label className={Styles.label} htmlFor={el.htmlFor}>
-		// 				{el.label}
-		// 			</label>
-		// 			<input
-		// 				// onChange={handleInputChange}
-		// 				className={Styles.input}
-		// 				type={el.type}
-		// 				id={el.id}
-		// 				name={el.name}
-		// 				placeholder={el.placeholder}
-		// 				required={el.required}
-		// 				autoFocus={el.autoFocus}
-		// 				value={total}
-		// 				disabled
-		// 			/>
-		// 		</div>
-		// 	)
 		return (
 			<div key={index} className={Styles.inputGroup}>
 				<label className={Styles.label} htmlFor={el.htmlFor}>
@@ -182,6 +152,7 @@ const Input = ({
 					required={el.required}
 					autoFocus={el.autoFocus}
 					min='0'
+					disabled={inputDisabled}
 				/>
 			</div>
 		)
