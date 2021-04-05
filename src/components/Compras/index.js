@@ -37,6 +37,7 @@ const Compras = ({ history }) => {
 					titleSelect={'Proveedor'}
 					dataSelect={proveedores}
 					setLoadingProps={setLoading}
+					type={'compra'}
 				/>
 			</div>
 			<ProductosAdd

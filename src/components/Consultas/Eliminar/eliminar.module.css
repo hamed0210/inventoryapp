@@ -31,14 +31,21 @@
 	border: none;
 	border-radius: 5px;
 	color: white;
-	background-color: black;
-	transition: opacity 0.3s ease;
+	transition: background-color 0.3s ease;
 }
 
-.btn:hover {
-	opacity: 0.9;
+.btn_cancelar {
+	background-color: rgb(17, 17, 17);
+}
+
+.btn_cancelar:hover {
+	background-color: black;
 }
 
 .btn_eliminar {
 	background-color: #d32f2f;
+}
+
+.btn_eliminar:hover {
+	background-color: #ad1c1c;
 }

@@ -135,10 +135,11 @@ export const nuevaVentaAccion = (
 				authorization: `Bearer ${token}`,
 			},
 		})
+
 		dispath({
 			type: NUEVA_VENTA_EXITO,
 			payload: {
-				message: result.data.message,
+				message: `${result.data.message} ${result.data.messageWarning}`,
 			},
 		})
 

@@ -190,10 +190,11 @@
 
 .btn_cancelar {
 	color: white;
-	background-color: black;
+	background-color: rgb(17, 17, 17);
 	transform-origin: center;
+	transition: background-color 0.3s ease;
 }
 
 .btn_cancelar:hover {
-	transform: scale(1.025);
+	background-color: black;
 }

@@ -43,6 +43,25 @@ const ProductosAddComprasVentas = ({
 		addProductosForm.setProductosList([...addProductosForm.productosList, item])
 	}
 
+	const handleStyleStock = (stock, codigo) => {
+		const codigos = document.querySelectorAll(`.${Styles.btn}`)
+		let StyleData = ''
+
+		if (stock > 10) StyleData = `${Styles.data}`
+		if (stock <= 10 && stock > 0)
+			StyleData = `${Styles.data} ${Styles.data_warning}`
+		if (stock === 0) {
+			codigos.forEach((el) => {
+				if (codigo === el.dataset.codigo) {
+					el.classList.add(Styles.disabled)
+				}
+			})
+			StyleData = `${Styles.data} ${Styles.data_danger}`
+		}
+
+		return StyleData
+	}
+
 	return (
 		<div className={Styles.container}>
 			<div className={Styles.filters}>
@@ -57,6 +76,7 @@ const ProductosAddComprasVentas = ({
 									<th className={Styles.title}>Nombre</th>
 									<th className={Styles.title}>Descripcion</th>
 									<th className={Styles.title}>Categoria</th>
+									<th className={Styles.title}>Stock</th>
 									<th className={Styles.title_btn}></th>
 								</tr>
 							</thead>
@@ -68,6 +88,9 @@ const ProductosAddComprasVentas = ({
 												<td className={Styles.data}>{el.nombre}</td>
 												<td className={Styles.data}>{el.descripcion}</td>
 												<td className={Styles.data}>{el.categoria}</td>
+												<td className={handleStyleStock(el.stock, el.codigo)}>
+													{el.stock}
+												</td>
 												<td className={Styles.btn_container}>
 													<button
 														onClick={(e) => handleButton(el, e)}
@@ -82,7 +105,6 @@ const ProductosAddComprasVentas = ({
 												</td>
 											</tr>
 										)
-										// return console.log(el)
 									})
 								) : (
 									<tr className={Styles.item}>

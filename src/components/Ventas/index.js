@@ -42,6 +42,7 @@ const Ventas = ({ history }) => {
 					titleSelect={'Cliente'}
 					dataSelect={clientes}
 					setLoadingProps={setLoading}
+					type={'venta'}
 				/>
 			</div>
 			<ProductosAdd

@@ -42,7 +42,7 @@
 	color: var(--color-label);
 }
 
-.input,
+.input_total,
 .input_select {
 	width: 60%;
 	padding: 5px 0 5px 10px;
@@ -51,13 +51,8 @@
 	background-color: #f4f4f4;
 }
 
-.input:focus,
 .input_select:focus {
 	outline-color: var(--color-primary);
-}
-
-.input::placeholder {
-	opacity: 0.6;
 }
 
 .input_select {
@@ -78,11 +73,35 @@
 	color: var(--color-label);
 }
 
-.producto_inputs {
+.producto_inputs_container {
 	display: flex;
 	align-items: center;
 	/* justify-content: space-between; */
 	width: 60%;
+}
+
+.producto_inputs {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin-top: 10px;
+}
+
+.producto_inputs:first-child {
+	width: 40%;
+	margin-right: 10px;
+}
+
+.label_cantidad,
+.label_precio {
+	position: absolute;
+	top: -18px;
+	left: 0;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--color-primary);
+	opacity: 0.6;
 }
 
 .input_cantidad,
@@ -93,13 +112,10 @@
 	background-color: #f4f4f4;
 }
 
-.input_cantidad {
-	width: 40%;
-	margin-right: 10px;
-}
-
-.input_precio {
-	width: 50%;
+.input_total:disabled,
+.input_precio:disabled {
+	background-color: #cdd5d5;
+	opacity: 0.75;
 }
 
 .btn_icon {
