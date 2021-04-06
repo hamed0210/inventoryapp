@@ -13,10 +13,10 @@ import { nuevaCompraAccion } from 'redux/comprasDucks'
 
 const Compras = ({ history }) => {
 	const dispatch = useDispatch()
-	const comprasMsg = useSelector((store) => store.compras.message)
-	const comprasActionSuccess = useSelector((store) => store.compras.success)
 	const proveedores = useSelector((store) => store.proveedores.array)
 	const productos = useSelector((store) => store.productos.array)
+	const comprasMsg = useSelector((store) => store.compras.message)
+	const comprasActionSuccess = useSelector((store) => store.compras.success)
 
 	const [loading, setLoading] = useState(false)
 	const [productosList, setProductosList] = useState([])
@@ -34,6 +34,7 @@ const Compras = ({ history }) => {
 					productos={{ productosList, setProductosList }}
 					setProductoBorrado={setProductoBorrado}
 					dispatchNew={nuevaCompraAccion}
+					dispathObtenerProductos={obtenerProductosAccion}
 					titleSelect={'Proveedor'}
 					dataSelect={proveedores}
 					setLoadingProps={setLoading}

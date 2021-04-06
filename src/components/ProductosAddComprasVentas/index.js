@@ -17,7 +17,9 @@ const ProductosAddComprasVentas = ({
 		data && setLoadingState(true)
 		data.length !== 0 &&
 			setItemLists(document.querySelectorAll(`.${Styles.item}`))
+	}, [data])
 
+	useEffect(() => {
 		const codigos = document.querySelectorAll(`.${Styles.btn}`)
 
 		if (addProductosForm.productosList.length !== 0)
@@ -36,7 +38,7 @@ const ProductosAddComprasVentas = ({
 					el.classList.remove(Styles.disabled)
 			})
 		}
-	}, [data, addProductosForm, productoBorrado])
+	}, [addProductosForm, productoBorrado])
 
 	const handleButton = (item, e) => {
 		e.target.classList.add(`${Styles.disabled}`)

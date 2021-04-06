@@ -37,6 +37,10 @@ const ItemConsultas = ({
 			data.map((el, index) => {
 				if (el.hasOwnProperty('fecha_creacion'))
 					el['fecha_creacion'] = el['fecha_creacion'].substr(0, 10)
+				if (el.hasOwnProperty('fecha_venta'))
+					el['fecha_venta'] = el['fecha_venta'].substr(0, 10)
+				if (el.hasOwnProperty('fecha_compra'))
+					el['fecha_compra'] = el['fecha_compra'].substr(0, 10)
 
 				for (const i in el) {
 					itemDataRender.push(

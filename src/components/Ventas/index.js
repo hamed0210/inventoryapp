@@ -39,6 +39,7 @@ const Ventas = ({ history }) => {
 					productos={{ productosList, setProductosList }}
 					setProductoBorrado={setProductoBorrado}
 					dispatchNew={nuevaVentaAccion}
+					dispathObtenerProductos={obtenerProductosAccion}
 					titleSelect={'Cliente'}
 					dataSelect={clientes}
 					setLoadingProps={setLoading}

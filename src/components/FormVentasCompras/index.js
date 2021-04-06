@@ -11,6 +11,7 @@ const FormVentasCompras = ({
 	productos,
 	setProductoBorrado,
 	dispatchNew,
+	dispathObtenerProductos,
 	dataSelect,
 	titleSelect,
 	setLoadingProps,
@@ -21,6 +22,8 @@ const FormVentasCompras = ({
 
 	const [buttonLoad, loading, setLoading] = useButtonLoader()
 	const [resetForm, setResetForm] = useState(false)
+	const [showFormError, setShowFormError] = useState(false)
+	const [selectError, setSelectError] = useState('')
 	const [cantidad, setCantidad] = useState(0)
 	const [precio, setPrecio] = useState(0)
 	const [total, setTotal] = useState(0)
@@ -33,6 +36,7 @@ const FormVentasCompras = ({
 
 	useEffect(() => {
 		sumarTotal()
+		setShowFormError(false)
 		if (productos.productosList.length === 0) {
 			setCantidad(0)
 			setPrecio(0)
@@ -42,6 +46,8 @@ const FormVentasCompras = ({
 
 	useEffect(() => {
 		let datosProductos = []
+		const selectvalue = document.querySelector(`.${Styles.input_select}`).value
+		const selectName = document.querySelector(`.${Styles.input_select}`).name
 		const productoList = document.querySelectorAll('.productos')
 		const cantidadList = document.querySelectorAll(`.${Styles.input_cantidad}`)
 		const precioList = document.querySelectorAll(`.${Styles.input_precio}`)
@@ -62,12 +68,14 @@ const FormVentasCompras = ({
 			type === 'compra' &&
 				setDatos({
 					id_comprador: id_user,
+					[selectName]: selectvalue,
 					productos: JSON.stringify(datosProductos),
 					precio_total: precioTotal,
 				})
 			type === 'venta' &&
 				setDatos({
 					id_vendedor: id_user,
+					[selectName]: selectvalue,
 					productos: JSON.stringify(datosProductos),
 					precio_total: precioTotal,
 				})
@@ -82,8 +90,10 @@ const FormVentasCompras = ({
 			productos.setProductosList([])
 			document.querySelector(`.${Styles.form}`).reset()
 			setResetForm(false)
+			setSelectError('')
+			dispatch(dispathObtenerProductos())
 		}
-	}, [resetForm, productos, type, id_user])
+	}, [resetForm, productos, type, id_user, dispatch, dispathObtenerProductos])
 
 	const sumarTotal = () => {
 		const nameCantidad = document.getElementsByName('cantidad')
@@ -113,6 +123,9 @@ const FormVentasCompras = ({
 			...datos,
 			[e.target.name]: e.target.value,
 		})
+		Number(e.target.value)
+			? setSelectError('')
+			: setSelectError(`Por favor ${e.target.value.toLowerCase()}`)
 	}
 
 	const handleInputChange = (item, e) => {
@@ -145,13 +158,28 @@ const FormVentasCompras = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(
-			dispatchNew(datos, history, setLoading, setLoadingProps, setResetForm)
-		)
+		const selectvalue = document.querySelector(`.${Styles.input_select}`).value
+
+		Number(selectvalue)
+			? datos.productos
+				? dispatch(
+						dispatchNew(
+							datos,
+							history,
+							setLoading,
+							setLoadingProps,
+							setResetForm
+						)
+				  )
+				: setShowFormError(true)
+			: setSelectError(`Por favor ${selectvalue.toLowerCase()}`)
 	}
 
 	return (
 		<form className={Styles.form} onSubmit={handleSubmit}>
+			{showFormError && (
+				<span className={Styles.form_error}>Por favor agregar productos</span>
+			)}
 			<div className={Styles.inputGroup_container}>
 				<div className={Styles.inputGroup}>
 					<label
@@ -160,24 +188,27 @@ const FormVentasCompras = ({
 					>
 						{titleSelect}
 					</label>
-					<select
-						onChange={handleSelectChange}
-						className={Styles.input_select}
-						name={`id_${titleSelect.toLowerCase()}`}
-						id={`id_${titleSelect.toLowerCase()}`}
-						required
-						disabled={loading}
-					>
-						<option>Selecione {titleSelect}</option>
-						{dataSelect &&
-							dataSelect.map((element, index) => {
-								return (
-									<option key={index} value={element.codigo || element.id}>
-										{element.nombre}
-									</option>
-								)
-							})}
-					</select>
+					<div className={Styles.select_container}>
+						<span className={Styles.select_error}>{selectError}</span>
+						<select
+							onChange={handleSelectChange}
+							className={Styles.input_select}
+							name={`id_${titleSelect.toLowerCase()}`}
+							id={`id_${titleSelect.toLowerCase()}`}
+							required
+							disabled={loading}
+						>
+							<option>Seleccione {titleSelect}</option>
+							{dataSelect &&
+								dataSelect.map((element, index) => {
+									return (
+										<option key={index} value={element.codigo || element.id}>
+											{element.nombre}
+										</option>
+									)
+								})}
+						</select>
+					</div>
 				</div>
 				<span className={Styles.preductos_label}>Productos</span>
 				<div className={Styles.productos_container}>
