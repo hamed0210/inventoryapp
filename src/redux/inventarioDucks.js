@@ -81,6 +81,13 @@ export const obtenerInventarioAccion = (history) => async (dispath) => {
 				authorization: `Bearer ${token}`,
 			},
 		})
+
+		// result.data.data.forEach((el) => {
+		// 	el['productos'] = JSON.parse(el['productos']).map((element) => {
+		// 		return `${element.producto} `
+		// 	})
+		// })
+
 		dispath({
 			type: OBTENER_INVENTARIO_EXITO,
 			payload: result.data.data,

@@ -31,9 +31,30 @@
 }
 
 .select_container {
+	position: relative;
 	display: flex;
 	align-items: center;
 	width: 60%;
+	transition: all 0.3s ease;
+}
+
+.select_container.showSelectError {
+	margin-top: 10px;
+}
+
+.select_error {
+	position: absolute;
+	display: none;
+	left: 10px;
+	top: -18px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #d32f2f;
+	opacity: 0.7;
+}
+
+.select_container.showSelectError .select_error {
+	display: inline;
 }
 
 .input_select {

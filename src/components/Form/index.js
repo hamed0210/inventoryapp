@@ -25,6 +25,7 @@ const Form = ({
 	const dispatch = useDispatch()
 	const [buttonLoad, loading, setLoading] = useButtonLoader()
 	const [resetForm, setResetForm] = useState(false)
+	const [showSelectError, setShowSelectError] = useState(false)
 	const id_user = useSelector((store) => store.login.user.persona.id)
 	const [datos, setDatos] = useState({
 		creado_por: id_user,
@@ -53,8 +54,12 @@ const Form = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		dispatch(dispatchNew(datos, history, setLoading, setResetForm))
-		// resetForm && e.target.reset()
+
+		const selectInput = document.querySelector(`select`)
+
+		selectInput.value.includes('Seleccione')
+			? setShowSelectError(true)
+			: dispatch(dispatchNew(datos, history, setLoading, setResetForm))
 	}
 
 	return (
@@ -69,6 +74,8 @@ const Form = ({
 						datosInput={{ datos, setDatos }}
 						dispatchObtenerSelect={dispatchObtenerSelect}
 						inputDisabled={loading}
+						showSelectError={showSelectError}
+						setShowSelectError={setShowSelectError}
 					/>
 				</div>
 				<span className={Styles.separator}></span>

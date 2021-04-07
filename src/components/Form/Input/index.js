@@ -10,6 +10,8 @@ const Input = ({
 	datosInput,
 	dispatchObtenerSelect,
 	inputDisabled = false,
+	showSelectError,
+	setShowSelectError,
 }) => {
 	const dispatch = useDispatch()
 
@@ -18,6 +20,16 @@ const Input = ({
 			...datosInput.datos,
 			[e.target.name]: e.target.value,
 		})
+	}
+
+	const handleSelectChange = (e) => {
+		if (!e.target.value.includes('Seleccione')) {
+			datosInput.setDatos({
+				...datosInput.datos,
+				[e.target.name]: e.target.value,
+			})
+			setShowSelectError(false)
+		} else setShowSelectError(true)
 	}
 
 	const handleSelectAdd = () => {
@@ -36,9 +48,18 @@ const Input = ({
 					<label className={Styles.label} htmlFor={el.htmlFor}>
 						{el.label}
 					</label>
-					<div className={Styles.select_container}>
+					<div
+						className={
+							!showSelectError
+								? Styles.select_container
+								: `${Styles.select_container} ${Styles.showSelectError}`
+						}
+					>
+						<span
+							className={Styles.select_error}
+						>{`Por favor ${el.placeholder}`}</span>
 						<select
-							onChange={handleInputChange}
+							onChange={handleSelectChange}
 							className={Styles.input_select}
 							name={el.name}
 							id={el.id}

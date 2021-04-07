@@ -44,7 +44,14 @@ const ItemConsultas = ({
 
 				for (const i in el) {
 					itemDataRender.push(
-						<td key={i} className={Styles.data}>
+						<td
+							key={i}
+							className={
+								i === 'productos'
+									? `${Styles.data} ${Styles.data_productos}`
+									: Styles.data
+							}
+						>
 							{el[i]}
 						</td>
 					)
