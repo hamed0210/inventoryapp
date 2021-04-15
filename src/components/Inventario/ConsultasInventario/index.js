@@ -49,7 +49,7 @@ const ConsultasInventario = ({
 	}, [dispatch, history])
 
 	useEffect(() => {
-		data && setLoadingState(true)
+		data.length !== 0 && setLoadingState(true)
 
 		let totalCompraSuma = 0
 		let cantCompras = 0
@@ -57,17 +57,18 @@ const ConsultasInventario = ({
 		let cantVentas = 0
 		let totalSuma = 0
 
-		data.forEach((el) => {
-			totalSuma += Number(el.precio)
-			if (el.tipo.includes('Compra')) {
-				totalCompraSuma += Number(el.precio)
-				cantCompras += 1
-			}
-			if (el.tipo.includes('Venta')) {
-				totalVentaSuma += Number(el.precio)
-				cantVentas += 1
-			}
-		})
+		data.length !== 0 &&
+			data.forEach((el) => {
+				totalSuma += Number(el.precio)
+				if (el.tipo.includes('Compra')) {
+					totalCompraSuma += Number(el.precio)
+					cantCompras += 1
+				}
+				if (el.tipo.includes('Venta')) {
+					totalVentaSuma += Number(el.precio)
+					cantVentas += 1
+				}
+			})
 
 		setTotalCompra(totalCompraSuma)
 		setCantCompras(cantCompras)

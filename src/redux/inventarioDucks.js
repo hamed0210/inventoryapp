@@ -42,7 +42,8 @@ export default function ventasReducer(state = dataInicial, action) {
 		case EDITAR_INVENTARIO_EXITO:
 			return {
 				...state,
-				array: action.payload,
+				array: action.payload.array,
+				message: action.payload.message,
 				success: true,
 			}
 		case EDITAR_INVENTARIO_ERROR:
@@ -148,7 +149,7 @@ export const editarInventarioAccion = (
 	setLoading,
 	setVerEditarForm,
 	setResetForm
-) => async (dispath) => {
+) => async (dispath, getState) => {
 	const token = getLocalStorage()
 	try {
 		setLoading(true)
@@ -163,9 +164,22 @@ export const editarInventarioAccion = (
 			}
 		)
 
+		result.data.data['codigo'] = result.data.data['codigo_compra']
+			? result.data.data['codigo_compra']
+			: result.data.data['codigo_venta']
+		delete result.data.data['codigo_compra']
+		delete result.data.data['codigo_venta']
+
+		const inventraioEditado = getState().inventario.array.map((el) => {
+			return el.id === result.data.data.id ? (el = result.data.data) : el
+		})
+
 		dispath({
-			type: OBTENER_INVENTARIO_EXITO,
-			payload: result.data.data,
+			type: EDITAR_INVENTARIO_EXITO,
+			payload: {
+				array: inventraioEditado,
+				message: result.data.message,
+			},
 		})
 
 		setLoading(false)

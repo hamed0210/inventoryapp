@@ -22,8 +22,6 @@ const FormEditarConsultasComprasInventario = ({
 	const [total, setTotal] = useState(0)
 	const [datos, setDatos] = useState([])
 
-	console.log(datos)
-
 	useEffect(() => {
 		if (cantidad !== 0) setTotal(cantidad * precio)
 		if (total !== 0) datos.precio_total = total

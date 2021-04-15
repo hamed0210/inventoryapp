@@ -10,7 +10,8 @@ const ItemConsultasIventario = ({
 	handleVerEditForm,
 }) => {
 	useEffect(() => {
-		data && setItemLists(document.querySelectorAll(`.${Styles.item}`))
+		data.length !== 0 &&
+			setItemLists(document.querySelectorAll(`.${Styles.item}`))
 	}, [data, setItemLists])
 
 	const handleEditButton = (item) => {
@@ -31,7 +32,7 @@ const ItemConsultasIventario = ({
 	const handleRender = () => {
 		let dataRender = []
 		let itemDataRender = []
-		if (data) {
+		if (data.length !== 0) {
 			data.map((el, index) => {
 				if (el.hasOwnProperty('fecha_creacion'))
 					el['fecha_creacion'] = el['fecha_creacion'].substr(0, 10)
