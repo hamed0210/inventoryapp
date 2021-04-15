@@ -43,25 +43,39 @@ const ItemConsultas = ({
 					el['fecha_compra'] = el['fecha_compra'].substr(0, 10)
 
 				for (const i in el) {
-					itemDataRender.push(
-						<td
-							key={i}
-							className={
-								i === 'productos'
-									? `${Styles.data} ${Styles.data_productos}`
-									: Styles.data
-							}
-						>
-							{el[i]}
-						</td>
-					)
+					if (i !== 'cantidad_ventas')
+						itemDataRender.push(
+							<td
+								key={i}
+								className={
+									i === 'productos'
+										? `${Styles.data} ${Styles.data_productos}`
+										: i === 'stock' && el.stock > 0 && el.stock <= 10
+										? `${Styles.data} ${Styles.stock_agotandose}`
+										: i === 'stock' && el.stock === 0
+										? `${Styles.data} ${Styles.stock_agotado}`
+										: Styles.data
+								}
+							>
+								{el[i]}
+							</td>
+						)
 				}
 				/*
 				  verificamos si los datos obtenidos contiene los datos del usuario registado para no pintarlos al consultar todos los usuarios regitrados ya que este tiene su propio componente (Perfil) para ver y editar sus datos
 				 */
 				if (el.id !== id_userStore) {
 					dataRender.push(
-						<tr key={index} className={Styles.item}>
+						<tr
+							key={index}
+							className={
+								el.stock > 0 && el.stock <= 10
+									? `${Styles.item_agotandose} ${Styles.item}`
+									: el.stock === 0
+									? `${Styles.item_agotado} ${Styles.item}`
+									: Styles.item
+							}
+						>
 							{itemDataRender}
 							<td className={Styles.data}>
 								<span className={Styles.btns}>

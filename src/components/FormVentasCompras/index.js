@@ -221,7 +221,9 @@ const FormVentasCompras = ({
 									className={`productos ${Styles.inputGroup}`}
 								>
 									<span className={Styles.producto_name}>
-										{`${el.nombre} ${el.descripcion}`}
+										{el.descripcion
+											? `${el.nombre} ${el.descripcion}`
+											: el.nombre}
 									</span>
 									<div className={Styles.producto_inputs_container}>
 										<div className={Styles.producto_inputs}>
@@ -233,7 +235,7 @@ const FormVentasCompras = ({
 												name='cantidad'
 												placeholder='Cantidad'
 												required
-												min='0'
+												min='1'
 												max={el.stock}
 												defaultValue='1'
 												disabled={loading}
@@ -250,7 +252,7 @@ const FormVentasCompras = ({
 												name='precio_unidad'
 												placeholder='Precio unidad'
 												required
-												min='0'
+												min='1'
 												defaultValue={type === 'venta' && el.precio_venta}
 												disabled={type === 'venta' ? true : loading}
 											/>

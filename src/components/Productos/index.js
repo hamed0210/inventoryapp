@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+import Styles from './productos.module.css'
 import MenuTab from 'components/MenuTab'
 import Form from 'components/Form'
 import Consultas from 'components/Consultas'
 import Message from 'components/Message'
 import {
 	dataFormProductos,
+	dataFormEditProductos,
 	dataConsultasProductos,
 	dataConsultasCategorias,
 } from 'components/DataForms'
@@ -39,6 +41,10 @@ const Productos = ({ history }) => {
 		(store) => store.categorias.success
 	)
 	const [components, setComponents] = useState('Nuevos')
+	const [totalProductos, setTotalProductos] = useState(0)
+	const [totalAgotandose, setTotalAgotandose] = useState(0)
+	const [totalAgotados, setTotalAgotados] = useState(0)
+	const [totalItems, setTotalItems] = useState(0)
 
 	useEffect(() => {
 		const fetchData = () => {
@@ -46,6 +52,23 @@ const Productos = ({ history }) => {
 		}
 		fetchData()
 	}, [dispatch, history])
+
+	useEffect(() => {
+		let cant_items = 0
+		let cant_agotandose = 0
+		let cant_agotados = 0
+		if (productos) {
+			setTotalProductos(productos.length)
+			productos.map((el) => {
+				if (el.stock > 0 && el.stock <= 10) cant_agotandose += 1
+				if (el.stock === 0) cant_agotados += 1
+				return (cant_items += el.stock)
+			})
+			setTotalItems(cant_items)
+			setTotalAgotandose(cant_agotandose)
+			setTotalAgotados(cant_agotados)
+		}
+	}, [productos])
 
 	/*
 		funcion enviada al componente menutab para pintar el componente deseado dependiendo del valor
@@ -80,14 +103,34 @@ const Productos = ({ history }) => {
 			)
 		if (components === 'Consultas')
 			return (
-				<Consultas
-					dataHeader={dataConsultasProductos}
-					dataFormEdit={dataFormProductos}
-					dataSelect={categorias}
-					data={productos}
-					dispatchEdit={editarProductoAccion}
-					dispatchDelete={eliminarProductoAccion}
-				/>
+				<>
+					<div className={Styles.container}>
+						<div className={Styles.data_container}>
+							<span className={Styles.title_data}>Total productos</span>
+							<span className={Styles.data}>{totalProductos}</span>
+						</div>
+						<div className={Styles.data_container}>
+							<span className={Styles.title_data}>Agotandose</span>
+							<span className={Styles.data}>{totalAgotandose}</span>
+						</div>
+						<div className={Styles.data_container}>
+							<span className={Styles.title_data}>Agotados</span>
+							<span className={Styles.data}>{totalAgotados}</span>
+						</div>
+						<div className={Styles.data_container}>
+							<span className={Styles.title_data}>Total items</span>
+							<span className={Styles.data}>{totalItems}</span>
+						</div>
+					</div>
+					<Consultas
+						dataHeader={dataConsultasProductos}
+						dataFormEdit={dataFormEditProductos}
+						dataSelect={categorias}
+						data={productos}
+						dispatchEdit={editarProductoAccion}
+						dispatchDelete={eliminarProductoAccion}
+					/>
+				</>
 			)
 	}
 

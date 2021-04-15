@@ -2,13 +2,26 @@ import Styles from './searchInput.module.css'
 
 const SearchInput = ({ itemLists }) => {
 	const handleSearch = (e) => {
+		let hasSearch = []
 		itemLists.forEach((el) => {
-			const id = el.getElementsByTagName('td')[0]
-			e.target.value !== ''
-				? id.innerHTML.toLowerCase().indexOf(e.target.value.toLowerCase()) > -1
-					? (el.style.display = 'flex')
-					: (el.style.display = 'none')
-				: (el.style.display = 'flex')
+			const dataList = el.childNodes
+
+			dataList.forEach((element, index) => {
+				if (e.target.value !== '') {
+					if (dataList.length - 1 !== index) {
+						element.innerHTML
+							.toLowerCase()
+							.includes(e.target.value.toLowerCase())
+							? hasSearch.push(el)
+							: (el.style.display = 'none')
+					}
+				} else el.style.display = 'flex'
+			})
+
+			hasSearch.length !== 0 &&
+				hasSearch.forEach((hasSearchItem) => {
+					hasSearchItem.style.display = 'flex'
+				})
 		})
 	}
 

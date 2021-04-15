@@ -6,9 +6,12 @@ export { default as dataFormVentas } from './dataForms/dataFormVentas'
 export { default as dataFormCompras } from './dataForms/dataFormCompras'
 export { default as dataFormCategorias } from './dataForms/dataFormCategorias'
 
+export { default as dataFormEditProductos } from './dataFormsEdit/dataFormEditProductos'
+
 export { default as dataConsultasProductos } from './dataConsultas/dataConsultasProductos'
 export { default as dataConsultasCategorias } from './dataConsultas/dataConsultasCategorias'
 export { default as dataConsultasClientes } from './dataConsultas/dataConsultasClientes'
 export { default as dataConsultasProveedores } from './dataConsultas/dataConsultasProveedores'
 export { default as dataConsultasUsuarios } from './dataConsultas/dataConsultasUsuarios'
 export { default as dataConsultasVentas } from './dataConsultas/dataConsultasVentas'
+export { default as dataConsultasInventario } from './dataConsultas/dataConsultasInventario'

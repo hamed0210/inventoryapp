@@ -66,8 +66,23 @@
 	font-size: 14px;
 }
 
-.title:nth-last-child(1) {
+.title:nth-child(1) {
+	width: 15%;
+}
+
+.title:nth-child(2) {
 	width: 50%;
+}
+
+.title:nth-child(3),
+.title:nth-child(5),
+.title:nth-child(6),
+.title:nth-child(7) {
+	width: 60%;
+}
+
+.title:nth-last-child(1) {
+	width: 30%;
 }
 
 .item {
@@ -89,17 +104,19 @@
 	border-right: thin solid rgba(0, 0, 0, 0.1);
 }
 
+.pagination_totals_container {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 0 0 10px;
+	margin-top: 10px;
+}
+
 .pagination_container {
 	display: flex;
-	align-items: center;
-	margin-top: 10px;
-	padding: 0 10px;
-	/* font-size: 14px; */
-	/* background-color: red; */
 }
 
 .pagination_item {
-	height: 100%;
 	margin: 0 10px;
 	opacity: 0.4;
 }
@@ -127,8 +144,59 @@
 	cursor: pointer;
 }
 
+.totals_container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.total_compra_container,
+.total_venta_container {
+	font-size: 13px;
+	font-weight: 600;
+	opacity: 0.5;
+}
+
+.title_total_compra,
+.title_total_venta,
+.title_total {
+	margin-right: 10px;
+}
+
+.total_container {
+	font-size: 18px;
+	font-weight: 600;
+	color: #3d5ccc;
+}
+
+@media screen and (min-width: 590px) {
+	.totals_container {
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.total_compra_container,
+	.total_venta_container {
+		margin-right: 20px;
+	}
+}
+
+@media screen and (min-width: 850px) {
+	.total_compra_container,
+	.total_venta_container {
+		font-size: 16px;
+		margin-right: 50px;
+	}
+	.total_container {
+		font-size: 20px;
+	}
+}
+
 @media screen and (min-width: 1207px) {
 	.result {
 		width: 100%;
+	}
+	.pagination_totals_container {
+		padding: 0 30px 0 10px;
 	}
 }

@@ -2,6 +2,7 @@ const dataConsultas = [
 	{ title: 'Código' },
 	{ title: 'Nombre' },
 	{ title: 'Descripción' },
+	{ title: 'Medidas' },
 	{ title: 'Categoría' },
 	{ title: 'Stock' },
 	{ title: 'Stock minimo' },

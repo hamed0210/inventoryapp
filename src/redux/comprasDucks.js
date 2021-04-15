@@ -16,6 +16,8 @@ const dataInicial = {
 // Types
 const OBTENER_COMPRAS_EXITO = 'OBTENER_COMPRAS_EXITO'
 const OBTENER_COMPRAS_ERROR = 'OBTENER_COMPRAS_ERROR'
+const OBTENER_COMPRA_EXITO = 'OBTENER_COMPRA_EXITO'
+const OBTENER_COMPRA_ERROR = 'OBTENER_COMPRA_ERROR'
 const NUEVA_COMPRA_EXITO = 'NUEVA_COMPRA_EXITO'
 const NUEVA_COMPRA_ERROR = 'NUEVA_COMPRA_ERROR'
 const ELIMINAR_COMPRA_EXITO = 'ELIMINAR_COMPRA_EXITO'
@@ -31,6 +33,16 @@ export default function comprasReducer(state = dataInicial, action) {
 				array: action.payload,
 			}
 		case OBTENER_COMPRAS_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
+			}
+		case OBTENER_COMPRA_EXITO:
+			return {
+				...state,
+				array: action.payload,
+			}
+		case OBTENER_COMPRA_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
@@ -108,6 +120,50 @@ export const obtenerComprasAccion = (history) => async (dispath) => {
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_COMPRAS_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
+export const obtenerCompraAccion = (history, data) => async (dispath) => {
+	const token = getLocalStorage()
+	try {
+		const result = await axios.get(`${URI}${PORT}/api/compras/${data}`, {
+			headers: {
+				authorization: `Bearer ${token}`,
+			},
+		})
+		dispath({
+			type: OBTENER_COMPRA_EXITO,
+			payload: result.data.data,
+		})
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+		}
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_COMPRA_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_COMPRA_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+		setTimeout(() => {
+			dispath({
+				type: OBTENER_COMPRA_ERROR,
 				payload: {
 					message: '',
 				},

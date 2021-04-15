@@ -69,35 +69,52 @@ const Consultas = ({
 			<div className={Styles.result_container}>
 				<div className={Styles.result}>
 					{loadingState ? (
-						<table className={Styles.table}>
-							<thead>
-								<tr className={Styles.header}>
-									{dataHeader.map((el, index) => {
-										return (
-											<th key={index} className={Styles.title}>
-												{el.title}
-											</th>
-										)
-									})}
-								</tr>
-							</thead>
-							<tbody>
-								{data.length !== 0 ? (
-									<Item
-										data={data}
-										setItemLists={setItemLists}
-										handleVerEliminar={handleVerEliminar}
-										handleVerEditar={handleVerEditar}
-									/>
-								) : (
-									<tr className={Styles.item}>
-										<td className={Styles.data}>
-											{data.message ? data.message : 'No hay datos registrados'}
-										</td>
-									</tr>
-								)}
-							</tbody>
-						</table>
+						<>
+							<div className={Styles.table_container}>
+								<table className={Styles.table}>
+									<thead>
+										<tr className={Styles.header}>
+											{dataHeader.map((el, index) => {
+												return (
+													<th key={index} className={Styles.title}>
+														{el.title}
+													</th>
+												)
+											})}
+										</tr>
+									</thead>
+									<tbody>
+										{data.length !== 0 ? (
+											<Item
+												data={data}
+												setItemLists={setItemLists}
+												handleVerEliminar={handleVerEliminar}
+												handleVerEditar={handleVerEditar}
+											/>
+										) : (
+											<tr className={Styles.item}>
+												<td className={Styles.data}>
+													{data.message
+														? data.message
+														: 'No hay datos registrados'}
+												</td>
+											</tr>
+										)}
+									</tbody>
+								</table>
+							</div>
+							{/* <div className={Styles.pagination_container}>
+								<span className={Styles.previous_btn}>
+									<i className='fas fa-angle-left' />
+								</span>
+								<span className={Styles.pagination_item}>1</span>
+								<span
+									className={`${Styles.next_btn} ${Styles.pagination_click}`}
+								>
+									<i className='fas fa-angle-right' />
+								</span>
+							</div> */}
+						</>
 					) : (
 						<Preloader />
 					)}

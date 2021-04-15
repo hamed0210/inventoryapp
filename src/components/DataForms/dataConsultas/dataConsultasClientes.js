@@ -5,6 +5,8 @@ const dataConsultas = [
 	{ title: 'Celular' },
 	{ title: 'Direccion' },
 	{ title: 'Ciudad' },
+	{ title: 'Compras' },
+	{ title: 'Total' },
 	{ title: '' },
 ]
 

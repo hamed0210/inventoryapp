@@ -11,6 +11,10 @@
 	z-index: 3;
 }
 
+.container_productos {
+	top: -110px;
+}
+
 .error_container,
 .message_success_container {
 	position: absolute;
@@ -100,6 +104,13 @@
 	font-size: 15px;
 	color: var(--color-primary);
 	background-color: #f4f4f4;
+}
+
+.input:disabled,
+.input_select:disabled,
+.file_container:disabled {
+	background-color: #cdd5d5;
+	opacity: 0.75;
 }
 
 .input:focus,
@@ -197,4 +208,10 @@
 
 .btn_cancelar:hover {
 	background-color: black;
+}
+
+@media screen and (min-width: 378px) {
+	.container_productos {
+		top: -80px;
+	}
 }

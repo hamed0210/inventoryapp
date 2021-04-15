@@ -11,11 +11,15 @@ const dataInicial = {
 	array: [],
 	message: '',
 	success: false,
+	count: 0,
+	offset: 0,
 }
 
 // Types
 const OBTENER_INVENTARIO_EXITO = 'OBTENER_INVENTARIO_EXITO'
 const OBTENER_INVENTARIO_ERROR = 'OBTENER_INVENTARIO_ERROR'
+const EDITAR_INVENTARIO_EXITO = 'EDITAR_INVENTARIO_EXITO'
+const EDITAR_INVENTARIO_ERROR = 'EDITAR_INVENTARIO_ERROR'
 // const NUEVA_VENTA_EXITO = 'NUEVA_VENTA_EXITO'
 // const NUEVA_VENTA_ERROR = 'NUEVA_VENTA_ERROR'
 // const ELIMINAR_VENTA_EXITO = 'ELIMINAR_VENTA_EXITO'
@@ -34,6 +38,18 @@ export default function ventasReducer(state = dataInicial, action) {
 			return {
 				...state,
 				message: action.payload.message,
+			}
+		case EDITAR_INVENTARIO_EXITO:
+			return {
+				...state,
+				array: action.payload,
+				success: true,
+			}
+		case EDITAR_INVENTARIO_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
+				success: false,
 			}
 		// case NUEVA_VENTA_EXITO:
 		// 	return {
@@ -82,11 +98,13 @@ export const obtenerInventarioAccion = (history) => async (dispath) => {
 			},
 		})
 
-		// result.data.data.forEach((el) => {
-		// 	el['productos'] = JSON.parse(el['productos']).map((element) => {
-		// 		return `${element.producto} `
-		// 	})
-		// })
+		result.data.data.forEach((el) => {
+			el['codigo'] = el['codigo_compra']
+				? el['codigo_compra']
+				: el['codigo_venta']
+			delete el['codigo_compra']
+			delete el['codigo_venta']
+		})
 
 		dispath({
 			type: OBTENER_INVENTARIO_EXITO,
@@ -98,12 +116,20 @@ export const obtenerInventarioAccion = (history) => async (dispath) => {
 			const message = 'La sesion a caducado, inicia sesion nuevamente'
 			dispath(cerrarSesionAccion(history, message))
 		}
-		dispath({
-			type: OBTENER_INVENTARIO_ERROR,
-			payload: {
-				message: JSON.parse(error.request.response).message,
-			},
-		})
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_INVENTARIO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_INVENTARIO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_INVENTARIO_ERROR,
@@ -115,6 +141,191 @@ export const obtenerInventarioAccion = (history) => async (dispath) => {
 		console.log(error.request)
 	}
 }
+
+export const editarInventarioAccion = (
+	data,
+	history,
+	setLoading,
+	setVerEditarForm,
+	setResetForm
+) => async (dispath) => {
+	const token = getLocalStorage()
+	try {
+		setLoading(true)
+
+		const result = await axios.put(
+			`${URI}${PORT}/api/inventario/${data.codigo}`,
+			data,
+			{
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			}
+		)
+
+		dispath({
+			type: OBTENER_INVENTARIO_EXITO,
+			payload: result.data.data,
+		})
+
+		setLoading(false)
+		setResetForm(true)
+		setVerEditarForm(false)
+
+		setTimeout(() => {
+			dispath({
+				type: EDITAR_INVENTARIO_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+		}
+		if (error.message === 'Network Error') {
+			dispath({
+				type: EDITAR_INVENTARIO_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: EDITAR_INVENTARIO_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+
+		setLoading(false)
+
+		setTimeout(() => {
+			dispath({
+				type: EDITAR_INVENTARIO_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
+// export const obtenerInventarioConsultasAccion = (history) => async (
+// 	dispath,
+// 	getState
+// ) => {
+// 	const token = getLocalStorage()
+// 	const { offset } = getState().inventario
+
+// 	try {
+// 		const result = await axios.get(
+// 			`${URI}${PORT}/api/inventario_consults?offset=${offset}`,
+// 			{
+// 				headers: {
+// 					authorization: `Bearer ${token}`,
+// 				},
+// 			}
+// 		)
+
+// 		// result.data.data.forEach((el) => {
+// 		// 	el['productos'] = JSON.parse(el['productos']).map((element) => {
+// 		// 		return `${element.producto} `
+// 		// 	})
+// 		// })
+
+// 		dispath({
+// 			type: OBTENER_INVENTARIO_EXITO,
+// 			payload: result.data.data,
+// 		})
+// 	} catch (error) {
+// 		if (error.request.status === 401) {
+// 			removeLocalStorage()
+// 			const message = 'La sesion a caducado, inicia sesion nuevamente'
+// 			dispath(cerrarSesionAccion(history, message))
+// 		}
+// 		if (error.message === 'Network Error') {
+// 			dispath({
+// 				type: OBTENER_INVENTARIO_ERROR,
+// 				payload: {
+// 					message: 'Error de conexión con el servidor',
+// 				},
+// 			})
+// 		} else
+// 			dispath({
+// 				type: OBTENER_INVENTARIO_ERROR,
+// 				payload: {
+// 					message: JSON.parse(error.request.response).message,
+// 				},
+// 			})
+// 		setTimeout(() => {
+// 			dispath({
+// 				type: OBTENER_INVENTARIO_ERROR,
+// 				payload: {
+// 					message: '',
+// 				},
+// 			})
+// 		}, 5000)
+// 		console.log(error.request)
+// 	}
+// }
+
+// export const siguienteInventarioAccion = (history) => async (
+// 	dispath,
+// 	getState
+// ) => {
+// 	const token = getLocalStorage()
+// 	let { offset } = getState().inventario
+// 	offset = offset + 10
+// 	try {
+// 		const result = await axios.get(
+// 			`${URI}${PORT}/api/inventario?offset=${offset}`,
+// 			{
+// 				headers: {
+// 					authorization: `Bearer ${token}`,
+// 				},
+// 			}
+// 		)
+
+// 		dispath({
+// 			type: OBTENER_INVENTARIO_EXITO,
+// 			payload: result.data.data,
+// 		})
+// 	} catch (error) {
+// 		if (error.request.status === 401) {
+// 			removeLocalStorage()
+// 			const message = 'La sesion a caducado, inicia sesion nuevamente'
+// 			dispath(cerrarSesionAccion(history, message))
+// 		}
+// 		if (error.message === 'Network Error') {
+// 			dispath({
+// 				type: OBTENER_INVENTARIO_ERROR,
+// 				payload: {
+// 					message: 'Error de conexión con el servidor',
+// 				},
+// 			})
+// 		} else
+// 			dispath({
+// 				type: OBTENER_INVENTARIO_ERROR,
+// 				payload: {
+// 					message: JSON.parse(error.request.response).message,
+// 				},
+// 			})
+// 		setTimeout(() => {
+// 			dispath({
+// 				type: OBTENER_INVENTARIO_ERROR,
+// 				payload: {
+// 					message: '',
+// 				},
+// 			})
+// 		}, 5000)
+// 		console.log(error.request)
+// 	}
+// }
 
 // export const nuevaVentaAccion = (data, history) => async (dispath) => {
 // 	const token = getLocalStorage()

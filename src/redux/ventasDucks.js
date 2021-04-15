@@ -15,6 +15,8 @@ const dataInicial = {
 
 // Types
 const OBTENER_VENTAS_EXITO = 'OBTENER_VENTAS_EXITO'
+const OBTENER_VENTA_ERROR = 'OBTENER_VENTA_ERROR'
+const OBTENER_VENTA_EXITO = 'OBTENER_VENTA_EXITO'
 const OBTENER_VENTAS_ERROR = 'OBTENER_VENTAS_ERROR'
 const NUEVA_VENTA_EXITO = 'NUEVA_VENTA_EXITO'
 const NUEVA_VENTA_ERROR = 'NUEVA_VENTA_ERROR'
@@ -31,6 +33,16 @@ export default function ventasReducer(state = dataInicial, action) {
 				array: action.payload,
 			}
 		case OBTENER_VENTAS_ERROR:
+			return {
+				...state,
+				message: action.payload.message,
+			}
+		case OBTENER_VENTA_EXITO:
+			return {
+				...state,
+				array: action.payload,
+			}
+		case OBTENER_VENTA_ERROR:
 			return {
 				...state,
 				message: action.payload.message,
@@ -108,6 +120,50 @@ export const obtenerVentasAccion = (history) => async (dispath) => {
 		setTimeout(() => {
 			dispath({
 				type: OBTENER_VENTAS_ERROR,
+				payload: {
+					message: '',
+				},
+			})
+		}, 5000)
+		console.log(error.request)
+	}
+}
+
+export const obtenerVentaAccion = (history, data) => async (dispath) => {
+	const token = getLocalStorage()
+	try {
+		const result = await axios.get(`${URI}${PORT}/api/ventas/${data}`, {
+			headers: {
+				authorization: `Bearer ${token}`,
+			},
+		})
+		dispath({
+			type: OBTENER_VENTA_EXITO,
+			payload: result.data.data,
+		})
+	} catch (error) {
+		if (error.request.status === 401) {
+			removeLocalStorage()
+			const message = 'La sesion a caducado, inicia sesion nuevamente'
+			dispath(cerrarSesionAccion(history, message))
+		}
+		if (error.message === 'Network Error') {
+			dispath({
+				type: OBTENER_VENTA_ERROR,
+				payload: {
+					message: 'Error de conexión con el servidor',
+				},
+			})
+		} else
+			dispath({
+				type: OBTENER_VENTA_ERROR,
+				payload: {
+					message: JSON.parse(error.request.response).message,
+				},
+			})
+		setTimeout(() => {
+			dispath({
+				type: OBTENER_VENTA_ERROR,
 				payload: {
 					message: '',
 				},

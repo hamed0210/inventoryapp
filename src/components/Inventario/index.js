@@ -2,14 +2,10 @@ import { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import Consultas from 'components/Consultas'
+import Consultas from 'components/Inventario/ConsultasInventario'
 import Message from 'components/Message'
-import { dataFormVentas, dataConsultasVentas } from 'components/DataForms'
-import {
-	obtenerInventarioAccion,
-	// eliminarVentaAccion,
-	// editarVentaAccion,
-} from 'redux/inventarioDucks'
+import { dataFormVentas, dataConsultasInventario } from 'components/DataForms'
+import { obtenerInventarioAccion } from 'redux/inventarioDucks'
 
 const Inventario = ({ history }) => {
 	const dispatch = useDispatch()
@@ -26,7 +22,7 @@ const Inventario = ({ history }) => {
 	return (
 		<>
 			<Consultas
-				dataHeader={dataConsultasVentas}
+				dataHeader={dataConsultasInventario}
 				dataFormEdit={dataFormVentas}
 				data={inventario}
 				// dispatchEdit={editarVentaAccion}

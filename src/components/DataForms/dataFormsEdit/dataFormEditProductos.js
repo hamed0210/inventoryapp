@@ -1,4 +1,4 @@
-const dataFormProductos = {
+const dataFormEditProductos = {
 	title: 'Productos',
 	inputs: [
 		{
@@ -54,6 +54,16 @@ const dataFormProductos = {
 			btns: true,
 		},
 		{
+			label: 'Stock',
+			placeholder: 'Escriba stock minimo del producto',
+			type: 'number',
+			htmlFor: 'stock',
+			id: 'stock',
+			name: 'stock',
+			required: true,
+			autoFocus: false,
+		},
+		{
 			label: 'Stock Minimo',
 			placeholder: 'Escriba stock minimo del producto',
 			type: 'number',
@@ -73,17 +83,7 @@ const dataFormProductos = {
 			required: true,
 			autoFocus: false,
 		},
-		// {
-		// 	label: 'Imagen',
-		// 	accept: '.png, .jpg, .jpeg',
-		// 	type: 'file',
-		// 	htmlFor: 'img',
-		// 	id: 'img',
-		// 	name: 'img',
-		// 	required: true,
-		// 	autoFocus: false,
-		// },
 	],
 }
 
-export default dataFormProductos
+export default dataFormEditProductos

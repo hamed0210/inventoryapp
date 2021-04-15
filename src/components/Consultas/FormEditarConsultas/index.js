@@ -34,7 +34,13 @@ const FormEditarConsultas = ({
 	}
 
 	return (
-		<div className={Styles.container}>
+		<div
+			className={
+				datos.medidas && datos.stock
+					? `${Styles.container} ${Styles.container_productos}`
+					: Styles.container
+			}
+		>
 			<form className={Styles.form} onSubmit={handleSubmit}>
 				<div className={Styles.inputGroup_container}>
 					{
@@ -47,7 +53,7 @@ const FormEditarConsultas = ({
 							*/
 							return Object.keys(datos).map((element, i) => {
 								/*
-								 los datos en dataFormEdit estan ordenados de igual forma a como esta ordenado los resultados de las peticiones a la api y los pintamos igualando sus posiciones en el arreglo
+								los datos en dataFormEdit estan ordenados de igual forma a como esta ordenado los resultados de las peticiones a la api y los pintamos igualando sus posiciones en el arreglo
 								*/
 								if (index === i) {
 									if (el.type === 'select')
@@ -139,6 +145,26 @@ const FormEditarConsultas = ({
 												</div>
 											</div>
 										)
+									if (el.name === 'stock')
+										return (
+											<div key={index} className={Styles.inputGroup}>
+												<label className={Styles.label} htmlFor={el.htmlFor}>
+													{el.label}
+												</label>
+												<input
+													key={i}
+													onChange={handleInputChange}
+													className={Styles.input}
+													type={el.type}
+													id={el.id}
+													name={el.name}
+													required={el.required}
+													min='0'
+													value={datos[element]}
+													disabled
+												/>
+											</div>
+										)
 									return (
 										<div key={index} className={Styles.inputGroup}>
 											<label className={Styles.label} htmlFor={el.htmlFor}>
@@ -152,7 +178,6 @@ const FormEditarConsultas = ({
 												id={el.id}
 												name={el.name}
 												required={el.required}
-												autoFocus={el.autoFocus}
 												min='0'
 												value={datos[element]}
 												disabled={loading}
