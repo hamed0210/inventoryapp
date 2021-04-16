@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import Styles from './infoInventario.module.css'
-import { TrendingUpSVG, TrendingDownSVG } from 'components/SVGIcons'
+import {
+	TrendingUpSVG,
+	TrendingDownSVG,
+	TrendingEqualSVG,
+} from 'components/SVGIcons'
 
 const InfoInventario = ({
 	totalCompra = 0,
@@ -105,7 +109,9 @@ const InfoInventario = ({
 						<span className={Styles.diferencia_title}>Diferencia</span>
 						<span
 							className={
-								totalDiferencia > 0
+								totalDiferencia === 0
+									? `totales_info ${Styles.diferencia_total} ${Styles.diferencia_igaul}`
+									: totalDiferencia > 0
 									? `totales_info ${Styles.diferencia_total} ${Styles.diferencia_mas}`
 									: `totales_info ${Styles.diferencia_total} ${Styles.diferencia_menos}`
 							}
@@ -116,7 +122,9 @@ const InfoInventario = ({
 						</span>
 					</div>
 					<span className={Styles.diferencia_icon}>
-						{totalDiferencia > 0 ? (
+						{totalDiferencia === 0 ? (
+							<TrendingEqualSVG tam={35} />
+						) : totalDiferencia > 0 ? (
 							<TrendingUpSVG tam={40} />
 						) : (
 							<TrendingDownSVG tam={40} />

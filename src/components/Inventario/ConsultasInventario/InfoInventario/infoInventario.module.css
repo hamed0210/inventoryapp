@@ -2,14 +2,13 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* justify-content: center; */
 }
 
 .totales_diferencia_container {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
 }
 
 .ventas_container,
@@ -17,14 +16,14 @@
 	position: relative;
 	display: flex;
 	align-items: center;
-	/* min-width: fit-content; */
-	padding: 10px 10px 10px 25px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
+	padding: 0.625rem 0.625rem 0.625rem 1.563rem;
+	border-radius: 0.313rem;
+	box-shadow: 0.063rem 0.063rem 0.25rem #00000040,
+		-0.063rem -0.063rem 0.25rem #00000040;
 }
 
 .ventas_container {
-	margin-bottom: 15px;
+	margin-bottom: 0.938rem;
 }
 
 .compras_container::after,
@@ -33,17 +32,17 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 10px;
+	width: 0.625rem;
 	height: 100%;
-	border-radius: 5px 0 0 5px;
+	border-radius: 0.313rem 0 0 0.313rem;
 }
 
 .ventas_container::after {
-	background-color: #4fa98d;
+	background-color: var(--color-success);
 }
 
 .compras_container::after {
-	background-color: #d32f2f;
+	background-color: var(--color-danger);
 }
 
 .compras_title_cantidad,
@@ -53,7 +52,7 @@
 	flex-direction: column;
 	align-items: center;
 	width: 25%;
-	margin-right: 30px;
+	margin-right: 1.875rem;
 }
 
 .compras_title_cantidad::after,
@@ -61,65 +60,67 @@
 	content: '';
 	position: absolute;
 	top: 0;
-	right: -15px;
-	width: 1px;
+	right: -0.938rem;
+	width: 0.063rem;
 	height: 100%;
-	background-color: black;
+	background-color: var(--color-title);
 	opacity: 0.3;
 }
 
 .diferencia_title,
 .compras_title,
 .ventas_title {
-	font-size: 12px;
+	font-size: 0.75rem;
 	font-weight: bold;
 	text-transform: uppercase;
-	opacity: 0.3;
+	color: var(--color-title);
+	opacity: 0.7;
 }
 
 .compras_title,
 .ventas_title {
 	position: absolute;
-	top: -8px;
+	top: -0.375rem;
+	font-size: 0.625rem;
 }
 
 .compras_cantidad,
 .ventas_cantidad {
-	margin-top: 5px;
-	font-size: 20px;
+	margin-top: 0.313rem;
+	font-size: 1.25rem;
 	font-weight: bold;
-	color: #6f86d6;
+	color: var(--color-secundary);
 }
 
 .diferencia_total,
 .compras_total,
 .ventas_total {
 	min-width: max-content;
-	font-size: 18px;
+	font-size: 1.125rem;
 	font-weight: bold;
 }
 
 .compras_total {
 	width: 75%;
 	text-align: center;
-	color: #d32f2f;
+	color: var(--color-danger);
 }
 
 .ventas_total {
 	width: 75%;
 	text-align: center;
-	color: #4fa98d;
+	color: var(--color-success);
 }
 
 .diferencia_container {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	padding: 10px 15px;
-	margin-top: 15px;
-	/* margin-left: 10px; */
-	border-radius: 5px;
-	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
+	padding: 0.625rem 0.938rem;
+	margin-top: 0.938rem;
+	border-radius: 0.313rem;
+	box-shadow: 0.063rem 0.063rem 0.25rem #00000040,
+		-0.063rem -0.063rem 0.25rem #00000040;
 }
 
 .diferencia_title_total {
@@ -129,16 +130,19 @@
 }
 
 .diferencia_total {
-	margin-top: 5px;
-	/* font-size: 18px; */
+	margin-top: 0.313rem;
 }
 
 .diferencia_mas {
-	color: #4fa98d;
+	color: var(--color-success);
 }
 
 .diferencia_menos {
-	color: #d32f2f;
+	color: var(--color-danger);
+}
+
+.diferencia_igaul {
+	color: var(--color-title);
 }
 
 .diferencia_icon {
@@ -151,21 +155,21 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding: 10px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
+	padding: 0.625rem;
+	border-radius: 0.313rem;
+	box-shadow: 0.063rem 0.063rem 0.25rem #00000040,
+		-0.063rem -0.063rem 0.25rem #00000040;
 }
 
 .productos_container {
-	margin-bottom: 20px;
+	margin-bottom: 1.25rem;
 }
 
 .title {
-	/* margin-bottom: 10px; */
-	font-size: 14px;
+	font-size: 0.75rem;
 	font-weight: bold;
-	color: #6f86d6;
-	opacity: 0.7;
+	color: var(--color-secundary);
+	opacity: 0.6;
 }
 
 .table {
@@ -177,11 +181,12 @@
 	display: flex;
 	justify-content: space-between;
 	min-width: max-content;
-	padding: 0 5px;
-	margin: 10px 0 5px;
-	font-size: 14px;
-	border-bottom: thin solid black;
-	opacity: 0.3;
+	padding: 0 0.313rem;
+	margin: 0.625rem 0 0.313rem;
+	font-size: 0.875rem;
+	border-bottom: thin solid var(--color-title);
+	color: var(--color-title);
+	opacity: 0.6;
 }
 
 .table_header th {
@@ -205,21 +210,20 @@
 	justify-content: space-between;
 	align-items: center;
 	min-width: max-content;
-	padding: 0 5px;
-	margin-bottom: 5px;
-	border-radius: 5px;
+	padding: 0 0.313rem;
+	margin-bottom: 0.313rem;
+	border-radius: 0.313rem;
+	color: var(--color-title);
 }
 
 .table_body:nth-child(even) {
-	background-color: rgba(222, 227, 227, 0.6);
+	background-color: rgba(222, 227, 227, 0.5);
 }
 
 .table_body td {
 	width: 100%;
-	padding: 2px 0;
+	padding: 0.125rem 0;
 	text-align: center;
-	font-weight: bold;
-	opacity: 0.5;
 }
 
 .table_body_null {
@@ -240,7 +244,8 @@
 	min-width: fit-content;
 }
 
-@media screen and (min-width: 430px) {
+/* 430px */
+@media screen and (min-width: 26.875rem) {
 	.container {
 		flex-direction: row;
 		flex-wrap: wrap;
@@ -256,49 +261,56 @@
 
 	.ventas_container,
 	.compras_container {
-		width: 230px;
+		width: 14.375rem;
 	}
 
 	.diferencia_container {
 		flex-direction: column;
 		justify-content: space-around;
 		margin-top: 0;
-		margin-left: 15px;
+		margin-left: 0.938rem;
 	}
 
 	.diferencia_total {
-		margin-bottom: 15px;
+		margin-bottom: 0.938rem;
 	}
 
 	.productos_container,
 	.clientes_container {
-		width: 320px;
+		width: 20rem;
+	}
+
+	.diferencia_igaul {
+		transform: scale(1.25) translateY(0.438rem);
 	}
 }
 
-@media screen and (min-width: 660px) {
+/* 660px */
+@media screen and (min-width: 41.25rem) {
 	.productos_container,
 	.clientes_container {
-		width: 300px;
+		width: 18.75rem;
 	}
 
 	.productos_container {
 		margin-bottom: 0;
-		margin-right: 10px;
+		margin-right: 0.625rem;
 	}
 }
 
-@media screen and (min-width: 720px) {
+/*  720px */
+@media screen and (min-width: 45rem) {
 	.productos_container,
 	.clientes_container {
-		width: 320px;
+		width: 20rem;
 	}
 }
 
-@media screen and (min-width: 1120px) {
+/* 1120px */
+@media screen and (min-width: 70rem) {
 	.totales_diferencia_container {
 		width: fit-content;
-		margin: 0 20px;
+		margin: 0 1.25rem;
 		order: 2;
 	}
 

@@ -5,24 +5,25 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin-top: 15px;
+	margin-top: 0.938rem;
 }
 
 .inputGroup_container {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	padding: 30px 15px 20px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
+	padding: 1.875rem 0.938rem 1.25rem;
+	border-radius: 0.313rem;
+	box-shadow: 0.063rem 0.063rem 0.25rem #00000040,
+		-0.063rem -0.063rem 0.25rem #00000040;
 }
 
 .separator {
 	display: flex;
 	width: 100%;
-	height: 1px;
-	margin: 30px 0 20px 0;
-	background-color: var(--color-primary);
+	height: 0.063rem;
+	margin: 1.875rem 0 1.25rem 0;
+	background-color: var(--color-title);
 	opacity: 0.3;
 }
 
@@ -34,7 +35,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 15px;
+	margin-bottom: 0.938rem;
 }
 
 .label,
@@ -45,10 +46,10 @@
 
 .input_total,
 .input_select {
-	padding: 5px 0 5px 10px;
+	padding: 0.313rem 0 0.313rem 0.625rem;
 	border: none;
-	border-radius: 5px;
-	background-color: #f4f4f4;
+	border-radius: 0.313rem;
+	background-color: var(--background-secundary);
 }
 
 .input_total,
@@ -65,21 +66,21 @@
 	position: absolute;
 	min-width: max-content;
 	font-weight: 600;
-	color: #d32f2f;
+	color: var(--color-danger);
 	opacity: 0.7;
 }
 
 .form_error {
-	top: -30px;
+	top: -1.875rem;
 	left: 25%;
-	font-size: 14px;
+	font-size: 0.875rem;
 	transform: translateX(-25%);
 }
 
 .select_error {
 	left: 0;
-	top: -18px;
-	font-size: 12px;
+	top: -1.125rem;
+	font-size: 0.75rem;
 }
 
 .input_select:focus {
@@ -92,16 +93,17 @@
 }
 
 .productos_container {
-	padding: 10px 5px 0;
-	border-radius: 5px;
-	margin-bottom: 15px;
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2), -1px -1px 2px rgba(0, 0, 0, 0.2);
+	padding: 0.625rem 0.313rem 0;
+	border-radius: 0.313rem;
+	margin-bottom: 0.938rem;
+	box-shadow: 0.063rem 0.063rem 0.125rem rgba(0, 0, 0, 0.2),
+		-0.063rem -0.063rem 0.125rem rgba(0, 0, 0, 0.2);
 }
 
 .preductos_label {
 	display: flex;
 	width: 100%;
-	margin-bottom: 15px;
+	margin-bottom: 0.938rem;
 	color: var(--color-label);
 }
 
@@ -116,20 +118,20 @@
 	position: relative;
 	display: flex;
 	width: 50%;
-	margin-top: 10px;
+	margin-top: 0.625rem;
 }
 
 .producto_inputs:first-child {
 	width: 30%;
-	margin-right: 10px;
+	margin-right: 0.625rem;
 }
 
 .label_cantidad,
 .label_precio {
 	position: absolute;
-	top: -18px;
+	top: -1.125rem;
 	left: 0;
-	font-size: 12px;
+	font-size: 0.75rem;
 	font-weight: 600;
 	color: var(--color-primary);
 	opacity: 0.6;
@@ -138,15 +140,15 @@
 .input_cantidad,
 .input_precio {
 	width: 100%;
-	padding: 5px 0 5px 10px;
+	padding: 0.313rem 0 0.313rem 0.625rem;
 	border: none;
-	border-radius: 5px;
-	background-color: #f4f4f4;
+	border-radius: 0.313rem;
+	background-color: var(--background-secundary);
 }
 
 .input_total:disabled,
 .input_precio:disabled {
-	background-color: #cdd5d5;
+	background-color: var(--color-disabled);
 	opacity: 0.75;
 }
 
@@ -154,11 +156,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 20px;
-	height: 20px;
-	margin-left: 5px;
-	border-radius: 3px;
-	background-color: #d32f2f;
+	width: 1.25rem;
+	height: 1.25rem;
+	margin-left: 0.313rem;
+	border-radius: 0.188rem;
+	background-color: var(--color-danger);
 	cursor: pointer;
 }
 
@@ -170,8 +172,8 @@
 	fill: white;
 }
 
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 28.125rem) {
 	.inputGroup_container {
-		width: 400px;
+		width: 25rem;
 	}
 }

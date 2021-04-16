@@ -89,7 +89,7 @@ function FormSelectInput({
 					</button>
 					<button
 						onClick={handleCancel}
-						className={`btn ${Styles.btn_cancelar}`}
+						className={`btn btn_cancel ${Styles.btn}`}
 						type='button'
 						disabled={loading}
 					>

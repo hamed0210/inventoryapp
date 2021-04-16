@@ -5,7 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import Consultas from 'components/Inventario/ConsultasInventario'
 import Message from 'components/Message'
 import { dataFormVentas, dataConsultasInventario } from 'components/DataForms'
-import { obtenerInventarioAccion } from 'redux/inventarioDucks'
+import {
+	obtenerInventarioAccion,
+	eliminarInventarioAccion,
+} from 'redux/inventarioDucks'
 
 const Inventario = ({ history }) => {
 	const dispatch = useDispatch()
@@ -25,8 +28,7 @@ const Inventario = ({ history }) => {
 				dataHeader={dataConsultasInventario}
 				dataFormEdit={dataFormVentas}
 				data={inventario}
-				// dispatchEdit={editarVentaAccion}
-				// dispatchDelete={eliminarVentaAccion}
+				dispatchDelete={eliminarInventarioAccion}
 			/>
 			{inventarioMsg !== '' && (
 				<Message

@@ -301,6 +301,7 @@ export const eliminarProductoAccion = (
 				},
 			}
 		)
+
 		dispath({
 			type: ELIMINAR_PRODUCTO_EXITO,
 			payload: {

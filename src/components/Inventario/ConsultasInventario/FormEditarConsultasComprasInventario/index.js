@@ -230,7 +230,7 @@ const FormEditarConsultasComprasInventario = ({
 					</button>
 					<button
 						onClick={handleCerrarEditar}
-						className={`btn ${Styles.btn_cancelar}`}
+						className={`btn btn_cancel ${Styles.btn}`}
 						type='button'
 						disabled={loading}
 					>

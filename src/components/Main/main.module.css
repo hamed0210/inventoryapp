@@ -1,15 +1,16 @@
 .container {
 	position: relative;
 	width: 100%;
-	max-width: 1366px;
+	max-width: 85.375rem;
 	min-height: 100%;
 	height: fit-content;
-	padding: 110px 25px 20px;
+	padding: 6.875rem 1.563rem 1.25rem;
 	margin: auto;
 }
 
-@media screen and (min-width: 1020px) {
+/* 1020px */
+@media screen and (min-width: 63.75rem) {
 	.container {
-		padding-top: 70px;
+		padding-top: 4.375rem;
 	}
 }

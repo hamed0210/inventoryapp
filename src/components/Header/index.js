@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 
 import Styles from './header.module.css'
-import { BtnAvatarSVG, NotificationSVG } from '../SVGIcons'
+import { BtnAvatarSVG } from '../SVGIcons'
 import Menu from '../Menu'
 import { cerrarSesionAccion } from 'redux/loginDucks'
 // import avatar from 'assets/avatar.png'
@@ -13,17 +13,16 @@ function Header({ history }) {
 	const dispatch = useDispatch()
 	const { user } = useSelector((store) => store.login)
 	const [profile, setProfile] = useState(false)
-	const [notificaciones, setNotificaciones] = useState(false)
+	// const [notificaciones, setNotificaciones] = useState(false)
 
 	const handleMenuProfile = () => {
 		profile ? setProfile(false) : setProfile(true)
-		setNotificaciones(false)
 	}
 
-	const handleNotificaciones = () => {
-		notificaciones ? setNotificaciones(false) : setNotificaciones(true)
-		setProfile(false)
-	}
+	// const handleNotificaciones = () => {
+	// 	notificaciones ? setNotificaciones(false) : setNotificaciones(true)
+	// 	setProfile(false)
+	// }
 
 	const handleProfile = () => {
 		history.push('/perfil')
@@ -45,7 +44,7 @@ function Header({ history }) {
 					<Menu />
 				</div>
 				<div className={Styles.secundary}>
-					<div onClick={handleNotificaciones} className={Styles.notifications}>
+					{/* <div onClick={handleNotificaciones} className={Styles.notifications}>
 						<NotificationSVG />
 						{notificaciones ? (
 							<div className={Styles.notificacion_container}>
@@ -55,12 +54,12 @@ function Header({ history }) {
 								</ul>
 							</div>
 						) : null}
-					</div>
+					</div> */}
 					<span className={Styles.separator}></span>
 					<div className={Styles.avatar_container}>
-						<div className={Styles.name}>
+						<span className={Styles.name}>
 							{user ? user.persona.nombres : null}
-						</div>
+						</span>
 						{/* <div className={Styles.avatar}>
 						<img src={avatar} alt='' />
 					</div> */}
@@ -68,20 +67,28 @@ function Header({ history }) {
 							onClick={handleMenuProfile}
 							className={Styles.btn_avatar_container}
 						>
-							<div className={Styles.btn_avatar}>
+							<span className={Styles.btn_avatar}>
 								<BtnAvatarSVG />
-							</div>
+							</span>
 							{profile ? (
 								<div className={Styles.profile_container}>
 									<ul className={Styles.profile_menu}>
 										<li onClick={handleProfile} className={Styles.profile_item}>
-											perfil
+											<i
+												className={`fas fa-user ${Styles.profile_item_icon}`}
+											/>
+											<span className={Styles.profile_item_title}>Perfil</span>
 										</li>
 										<li
 											onClick={handleCerrarSesion}
 											className={Styles.profile_item}
 										>
-											cerrar sesion
+											<i
+												className={`fas fa-sign-out-alt ${Styles.profile_item_icon}`}
+											/>
+											<span className={Styles.profile_item_title}>
+												Cerrar sesión
+											</span>
 										</li>
 									</ul>
 								</div>

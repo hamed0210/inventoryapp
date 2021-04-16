@@ -7,19 +7,19 @@
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
-	margin: 20px 0;
-	padding: 1px 5px;
+	margin: 1.25rem 0;
+	padding: 0.063rem 0.313rem;
 	overflow: hidden;
 }
 
 .result_container {
 	width: 100%;
-	padding: 5px 0;
+	padding: 0.313rem 0;
 }
 
 .result {
 	width: 100%;
-	padding: 0 10px;
+	padding: 0 0.625rem;
 }
 
 .table_container {
@@ -32,20 +32,17 @@
 }
 
 .table_container::-webkit-scrollbar:horizontal {
-	height: 6px;
+	height: 0.375rem;
 }
 
 .table_container::-webkit-scrollbar-thumb {
-	background-color: #797979;
-	border-radius: 5px;
+	background-color: var(--color-title);
+	border-radius: 0.313rem;
 }
 
 .table {
-	width: 1280px;
-	/* width: 100%; */
+	width: 80rem;
 	border-collapse: collapse;
-	/* margin-left: auto;
-	margin-right: auto; */
 }
 
 .header {
@@ -53,17 +50,16 @@
 	justify-content: space-between;
 	align-items: center;
 	min-width: max-content;
-	/* margin-bottom: 5px; */
-	padding: 4px 0;
-	border-radius: 5px;
+	padding: 0.25rem 0;
+	border-radius: 0.313rem;
 	color: var(--background-primary);
-	background-color: #6f86d6;
+	background-color: var(--color-secundary);
 }
 
 .title {
 	width: 100%;
 	text-align: center;
-	font-size: 14px;
+	font-size: 0.875rem;
 }
 
 .title:nth-child(1) {
@@ -90,8 +86,8 @@
 	display: flex;
 	align-items: center;
 	width: 100%;
-	padding: 5px 0;
-	border-radius: 5px;
+	padding: 0.313rem 0;
+	border-radius: 0.313rem;
 	border: thin solid rgba(0, 0, 0, 0.1);
 	transition: all 0.5s ease;
 }
@@ -99,7 +95,7 @@
 .data {
 	width: 100%;
 	height: 100%;
-	font-size: 14px;
+	font-size: 0.875rem;
 	text-align: center;
 	border-right: thin solid rgba(0, 0, 0, 0.1);
 }
@@ -108,8 +104,8 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	padding: 0 0 0 10px;
-	margin-top: 10px;
+	padding: 0 0 0 0.625rem;
+	margin-top: 0.625rem;
 }
 
 .pagination_container {
@@ -117,7 +113,7 @@
 }
 
 .pagination_item {
-	margin: 0 10px;
+	margin: 0 0.625rem;
 	opacity: 0.4;
 }
 
@@ -127,11 +123,11 @@
 }
 
 .previous_btn {
-	margin-right: 2px;
+	margin-right: 0.125rem;
 }
 
 .next_btn {
-	margin-left: 2px;
+	margin-left: 0.125rem;
 }
 
 .previous_btn path,
@@ -152,7 +148,7 @@
 
 .total_compra_container,
 .total_venta_container {
-	font-size: 13px;
+	font-size: 0.813rem;
 	font-weight: 600;
 	opacity: 0.5;
 }
@@ -160,16 +156,17 @@
 .title_total_compra,
 .title_total_venta,
 .title_total {
-	margin-right: 10px;
+	margin-right: 0.625rem;
 }
 
 .total_container {
-	font-size: 18px;
+	font-size: 1.125rem;
 	font-weight: 600;
-	color: #3d5ccc;
+	color: var(--color-secundary);
 }
 
-@media screen and (min-width: 590px) {
+/* 590px */
+@media screen and (min-width: 36.875rem) {
 	.totals_container {
 		flex-direction: row;
 		align-items: center;
@@ -177,26 +174,28 @@
 
 	.total_compra_container,
 	.total_venta_container {
-		margin-right: 20px;
+		margin-right: 1.25rem;
 	}
 }
 
-@media screen and (min-width: 850px) {
+/* 850px */
+@media screen and (min-width: 53.125rem) {
 	.total_compra_container,
 	.total_venta_container {
-		font-size: 16px;
-		margin-right: 50px;
+		font-size: 1rem;
+		margin-right: 3.125rem;
 	}
 	.total_container {
-		font-size: 20px;
+		font-size: 1.25rem;
 	}
 }
 
-@media screen and (min-width: 1207px) {
+/* 1207px */
+@media screen and (min-width: 75.438rem) {
 	.result {
 		width: 100%;
 	}
 	.pagination_totals_container {
-		padding: 0 30px 0 10px;
+		padding: 0 1.875rem 0 0.625rem;
 	}
 }

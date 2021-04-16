@@ -5,15 +5,14 @@
 	/* justify-content: space-between; */
 	/* min-width: max-content; */
 	width: 100%;
-	padding: 5px 0;
-	border-radius: 5px;
+	padding: 0.313rem 0;
+	border-radius: 0.313rem;
 	border: thin solid rgba(0, 0, 0, 0.1);
 	transition: background-color 0.5s ease;
+	color: var(--color-label);
 }
 
 .item:hover {
-	/* transform: scale(1.014);
-	transform-origin: center; */
 	background-color: rgba(222, 227, 227, 0.45);
 }
 
@@ -23,24 +22,24 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	border-radius: 5px;
-	opacity: 0.8;
+	border-radius: 0.313rem;
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 .item_agotandose::after {
-	border: thin solid #f9aa33;
-	/* background-color: rgba(249, 170, 51); */
+	border: thin solid var(--color-warning);
 }
 
 .item_agotado::after {
-	/* background-color: #d32f2f; */
-	border: thin solid #d32f2f;
+	border: thin solid var(--color-danger);
 }
 
+.data_null,
 .data {
 	width: 100%;
 	height: 100%;
-	font-size: 14px;
+	font-size: 0.875rem;
 	text-align: center;
 	border-right: thin solid rgba(0, 0, 0, 0.1);
 }
@@ -69,18 +68,19 @@
 	left: 50%;
 	width: 20%;
 	height: 100%;
-	border-radius: 5px;
-	background-color: #f9aa33;
+	border-radius: 0.313rem;
+	background-color: var(--color-warning);
 	transform: translateX(-50%);
+	opacity: 0.85;
 	z-index: -1;
 }
 
 .stock_agotandose::after {
-	background-color: #f9aa33;
+	background-color: var(--color-warning);
 }
 
 .stock_agotado::after {
-	background-color: #d32f2f;
+	background-color: var(--color-danger);
 }
 
 .btns {
@@ -95,8 +95,8 @@
 .btn {
 	position: relative;
 	height: 100%;
-	font-size: 16px;
-	margin: 0 5px;
+	font-size: 1rem;
+	margin: 0 0.313rem;
 	cursor: pointer;
 }
 
@@ -115,10 +115,10 @@
 }
 
 .btn_edit path {
-	width: 30px;
-	fill: #f9aa33;
+	width: 1.875rem;
+	fill: var(--color-warning);
 }
 
 .btn_delete path {
-	fill: #d32f2f;
+	fill: var(--color-danger);
 }

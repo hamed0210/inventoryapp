@@ -31,14 +31,14 @@ const Eliminar = ({
 				<div className={Styles.btns_container}>
 					<button
 						onClick={handleEliminar}
-						className={`${Styles.btn} ${Styles.btn_eliminar}`}
+						className={`btn btn_delete ${Styles.btn}`}
 						ref={buttonLoad}
 					>
 						Eliminar
 					</button>
 					<button
 						onClick={handleCancelar}
-						className={`${Styles.btn} ${Styles.btn_cancelar}`}
+						className={`btn btn_cancel ${Styles.btn}`}
 						disabled={loading}
 					>
 						Cancelar

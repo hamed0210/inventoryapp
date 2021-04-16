@@ -7,9 +7,10 @@
 
 .perfil_container {
 	position: relative;
-	width: 300px;
-	border-radius: 5px;
-	box-shadow: 1px 2px 4px #00000040, -1px -1px 4px #00000040;
+	width: 18.75rem;
+	border-radius: 0.313rem;
+	box-shadow: 0.063rem 0.125rem 0.25rem #00000040,
+		-0.063rem -0.063rem 0.25rem #00000040;
 }
 
 .avatar {
@@ -17,10 +18,10 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* height: 130px; */
-	height: 100px;
-	border-top-right-radius: 5px;
-	border-top-left-radius: 5px;
+	/* height: 11.875rem; */
+	height: 6.25rem;
+	border-top-right-radius: 0.313rem;
+	border-top-left-radius: 0.313rem;
 	/* background-color: var(--color-primary); */
 	background-image: url('../../assets/login_fondo.svg');
 	background-repeat: no-repeat;
@@ -29,8 +30,8 @@
 }
 
 .avatar img {
-	width: 100px;
-	height: 100px;
+	width: 6.25rem;
+	height: 6.25rem;
 	border-radius: 50%;
 	z-index: 1;
 }
@@ -40,24 +41,24 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 115px;
-	height: 115px;
+	width: 10.938rem;
+	height: 10.938rem;
 	border: 3px solid white;
 	border-radius: 50%;
 	transform: translateX(-50%) translateY(-50%);
 } */
 
 .datos_container {
-	padding: 20px 15px;
+	padding: 1.25rem 0.938rem;
 }
 
 .input_edit {
 	width: 100%;
-	padding: 2px 0 2px 5px;
+	padding: 0.125rem 0 0.125rem 0.313rem;
 	border: none;
-	border-radius: 5px;
-	border: 2px solid #1e2a7870;
-	font-size: 14px;
+	border-radius: 0.313rem;
+	border: 0.125rem solid #1e2a7870;
+	font-size: 0.875rem;
 	color: var(--color-primary);
 }
 
@@ -68,13 +69,13 @@
 .nombres_container {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 30px;
+	margin-bottom: 1.875rem;
 }
 
 .input_group_edit {
 	display: flex;
 	width: 100%;
-	margin-bottom: 5px;
+	margin-bottom: 0.313rem;
 }
 
 .input_group_edit .input_edit {
@@ -86,21 +87,20 @@
 }
 
 .nombres {
-	font-size: 15px;
+	font-size: 0.938rem;
 	color: var(--color-primary);
 	opacity: 0.8;
 }
 
 .correo {
-	color: #4a4a4a;
-	opacity: 0.7;
+	color: var(--color-title);
 }
 
 .datos {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	margin-bottom: 5px;
+	margin-bottom: 0.313rem;
 }
 
 .dato_label,
@@ -110,7 +110,7 @@
 }
 
 .dato_label {
-	color: #4a4a4a;
+	color: var(--color-title);
 }
 
 .dato {
@@ -121,19 +121,18 @@
 
 .btn_editar {
 	position: absolute;
-	top: 5px;
-	right: 5px;
-	padding: 10px;
+	top: 0.313rem;
+	right: 0.313rem;
+	padding: 0.625rem;
 	border: none;
 	border-radius: 50%;
 	background-color: white;
-	/* box-shadow: 1px 2px 4px #00000040, -1px -1px 4px #00000040; */
 	transition: all 0.3s ease;
 	z-index: 2;
 }
 
 .btn_editar:hover {
-	box-shadow: 0 0 6px #00000040;
+	box-shadow: 0 0 0.375rem #00000040;
 	transform: scale(1.05);
 }
 
@@ -142,57 +141,34 @@
 }
 
 .btn_editar path {
-	fill: #f9aa33;
+	fill: var(--color-warning);
 }
 
 .btn_pass {
-	padding: 1px 0;
-	border-radius: 5px;
-	border: solid 2px #4fa98d;
-	color: #4fa98d;
-	transition: all 0.3s ease;
+	width: 100%;
+	font-size: 0.83em;
+	padding: 0.063rem 0;
 	opacity: 1;
-}
-
-.btn_pass:focus {
-	outline: none;
-}
-
-.btn_pass:hover {
-	color: #f4f4f4;
-	background-color: #4fa98d;
 }
 
 .btns_edit {
 	display: flex;
 	width: 100%;
-	margin-top: 20px;
+	margin-top: 1.25rem;
 }
 
-.btn_enviar {
+.btn {
 	width: 100%;
-	margin-right: 5px;
-	color: var(--background-primary);
-	background-color: #4fa98d;
-}
-
-.btn_cancelar {
-	width: 100%;
-	color: var(--background-primary);
-	background-color: var(--color-label);
-}
-
-.btn_cancelar:hover,
-.btn_enviar:hover {
-	transform: scale(1.025);
+	margin: 0 0.313rem;
 }
 
 .change_pass_container {
 	position: relative;
-	margin-top: 20px;
-	padding: 30px 20px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 4px #00000040, -1px -1px 4px #00000040;
+	margin-top: 1.25rem;
+	padding: 1.875rem 1.25rem;
+	border-radius: 0.313rem;
+	box-shadow: 0.063rem 0.063rem 0.25rem #00000040,
+		-0.063rem -0.063rem 0.25rem #00000040;
 }
 
 .change_pass_form {
@@ -212,14 +188,14 @@
 	display: flex;
 	align-items: center;
 	position: relative;
-	margin-bottom: 10px;
+	margin-bottom: 0.625rem;
 }
 
 .icon {
 	position: absolute;
 	height: 100%;
 	top: 0;
-	right: 10px;
+	right: 0.625rem;
 	cursor: pointer;
 }
 
@@ -239,44 +215,35 @@
 
 .input {
 	width: 100%;
-	padding: 5px 0 5px 10px;
+	padding: 0.313rem 0 0.313rem 0.625rem;
 	border: none;
-	border-radius: 5px;
-	border: 2px solid #1e2a7870;
+	border-radius: 0.313rem;
 	color: var(--color-primary);
+	background-color: var(--background-secundary);
 }
 
 .input:focus {
 	outline-color: var(--color-primary);
 }
 
+.input::placeholder {
+	opacity: 0.6;
+}
+
 .btns_change_pass {
 	display: flex;
 	width: 100%;
-	margin-top: 10px;
+	margin-top: 0.625rem;
 }
 
-.btn {
-	width: 100%;
-}
-
-.btn:hover {
-	transform: scale(1.025);
-}
-
-.btn_change_pass_cancel {
-	margin-left: 5px;
-	color: var(--background-primary);
-	background-color: var(--color-label);
-}
-
-@media screen and (min-width: 615px) {
+/* 615px*/
+@media screen and (min-width: 38.438rem) {
 	.container {
 		flex-direction: row;
 		justify-content: center;
 	}
 
 	.change_pass_container {
-		margin-left: 20px;
+		margin-left: 1.25rem;
 	}
 }

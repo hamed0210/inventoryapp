@@ -2,14 +2,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 25px 0 10px;
+	padding: 1.563rem 0 0.625rem;
 }
 
 .item {
 	position: relative;
-	height: 10px;
-	width: 10px;
-	margin: 0 3px;
+	height: 0.625rem;
+	width: 0.625rem;
+	margin: 0 0.188rem;
 	border-radius: 50%;
 	background-color: var(--color-primary);
 	animation: moveit 1.8s infinite;
@@ -42,9 +42,9 @@
 		transform: translateY(-15px);
 	}
 	70% {
-		transform: translateY(3px);
+		transform: translateY(0.188rem);
 	}
 	85% {
-		transform: translateY(-3px);
+		transform: translateY(-0.188rem);
 	}
 }

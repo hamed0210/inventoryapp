@@ -193,7 +193,7 @@ const FormEditarConsultas = ({
 				</div>
 				<div className={`${Styles.btns_container}`}>
 					<button
-						className={`btn btn_success ${Styles.btn_enviar}`}
+						className={`btn btn_success ${Styles.btn}`}
 						type='submit'
 						ref={buttonLoad}
 					>
@@ -201,7 +201,7 @@ const FormEditarConsultas = ({
 					</button>
 					<button
 						onClick={handleCerrarEditar}
-						className={`btn ${Styles.btn_cancelar}`}
+						className={`btn btn_cancel ${Styles.btn}`}
 						type='button'
 						disabled={loading}
 					>

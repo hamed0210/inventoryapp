@@ -98,7 +98,7 @@ const ItemConsultas = ({
 				} else {
 					dataRender.push(
 						<tr key={0} className={Styles.item}>
-							<td className={Styles.data}>{'No hay datos registrados'}</td>
+							<td className={Styles.data_null}>{'No hay datos registrados'}</td>
 						</tr>
 					)
 				}

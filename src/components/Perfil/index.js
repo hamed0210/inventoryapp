@@ -206,7 +206,7 @@ const Perfil = () => {
 								<h5 className={Styles.dato_label}>Contraseña</h5>
 								<button
 									onClick={handleChangePass}
-									className={`${Styles.dato} ${Styles.btn_pass}`}
+									className={`btn btn_basic ${Styles.btn_pass}`}
 									type='button'
 								>
 									Cambiar
@@ -215,12 +215,15 @@ const Perfil = () => {
 						) : null}
 						{editar ? (
 							<div className={Styles.btns_edit}>
-								<button className={`btn ${Styles.btn_enviar}`} type='submit'>
+								<button
+									className={`btn btn_success ${Styles.btn}`}
+									type='submit'
+								>
 									Enviar
 								</button>
 								<button
 									onClick={handleEditCancel}
-									className={`btn ${Styles.btn_cancelar}`}
+									className={`btn btn_cancel ${Styles.btn}`}
 									type='button'
 								>
 									Cancelar
@@ -272,7 +275,7 @@ const Perfil = () => {
 							</button>
 							<button
 								onClick={handleChangePassCancel}
-								className={`btn ${Styles.btn} ${Styles.btn_change_pass_cancel}`}
+								className={`btn btn_cancel ${Styles.btn}`}
 								type='button'
 							>
 								Cancelar

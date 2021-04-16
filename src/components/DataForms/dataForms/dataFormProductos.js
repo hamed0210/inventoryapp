@@ -2,17 +2,6 @@ const dataFormProductos = {
 	title: 'Productos',
 	inputs: [
 		{
-			// input: 'input',
-			label: 'Código',
-			placeholder: 'Escriba código del producto',
-			type: 'text',
-			htmlFor: 'codigo',
-			id: 'codigo',
-			name: 'codigo',
-			required: true,
-			autoFocus: true,
-		},
-		{
 			label: 'Nombre',
 			placeholder: 'Escriba nombre del producto',
 			type: 'text',
@@ -20,7 +9,7 @@ const dataFormProductos = {
 			id: 'nombre',
 			name: 'nombre',
 			required: true,
-			autoFocus: false,
+			autoFocus: true,
 		},
 		{
 			label: 'Descripción',

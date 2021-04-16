@@ -75,12 +75,14 @@ const SelectInputConsultas = ({
 		<div className={Styles.container}>
 			{handleMessage()}
 			{verEditar && (
-				<FormEditarConsultas
-					dataFormEdit={dataFormEdit}
-					data={dataEditar}
-					dispatchEdit={dispatchEdit}
-					handleVerEditarCerrar={handleCancel}
-				/>
+				<div className={Styles.editar_container}>
+					<FormEditarConsultas
+						dataFormEdit={dataFormEdit}
+						data={dataEditar}
+						dispatchEdit={dispatchEdit}
+						handleVerEditarCerrar={handleCancel}
+					/>
+				</div>
 			)}
 			{verEliminar && (
 				<Eliminar
@@ -91,7 +93,7 @@ const SelectInputConsultas = ({
 			)}
 			<div className={Styles.cerrar_container}>
 				<button onClick={handleCerrar} className={Styles.btn_cerrar}>
-					<i className={`fas fa-window-close`}></i>
+					<span className={Styles.btn_cerrar_icon}></span>
 				</button>
 			</div>
 			<div className={Styles.filters}>
