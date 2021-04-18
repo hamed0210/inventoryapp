@@ -81,15 +81,15 @@ export const obtenerUsuariosAccion = (history) => async (dispath) => {
 				authorization: `Bearer ${token}`,
 			},
 		})
-		result.data.data.map((el) => {
-			el['id'] = el['persona'].id
-			el['nombres'] = el['persona'].nombres
-			el['apellidos'] = el['persona'].apellidos
-			el['cel'] = el['persona'].cel
-			el['dir'] = el['persona'].dir
-			el['ciudad'] = el['persona'].ciudad
-			return delete el['persona']
-		})
+		// result.data.data.map((el) => {
+		// 	el['id'] = el['persona'].id
+		// 	el['nombres'] = el['persona'].nombres
+		// 	el['apellidos'] = el['persona'].apellidos
+		// 	el['cel'] = el['persona'].cel
+		// 	el['dir'] = el['persona'].dir
+		// 	el['ciudad'] = el['persona'].ciudad
+		// 	return delete el['persona']
+		// })
 		dispath({
 			type: OBTENER_USUARIOS_EXITO,
 			payload: result.data.data,
@@ -130,14 +130,12 @@ export const nuevoUsuarioAccion = (
 	data,
 	history,
 	setLoading,
-	setLoadingTable,
 	setResetForm
 ) => async (dispath) => {
 	const token = getLocalStorage()
 
 	try {
 		setLoading(true)
-		setLoadingTable(true)
 
 		const result = await axios.post(`${URI}${PORT}/api/users`, data, {
 			headers: {
@@ -152,7 +150,6 @@ export const nuevoUsuarioAccion = (
 		})
 
 		setLoading(false)
-		setLoadingTable(false)
 		setResetForm(true)
 
 		setTimeout(() => {
@@ -186,7 +183,6 @@ export const nuevoUsuarioAccion = (
 			})
 
 		setLoading(false)
-		setLoadingTable(false)
 		setResetForm(false)
 
 		setTimeout(() => {

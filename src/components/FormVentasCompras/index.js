@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
@@ -18,11 +18,14 @@ const FormVentasCompras = ({
 	type,
 }) => {
 	const dispatch = useDispatch()
-	const id_user = useSelector((store) => store.login.user.persona.id)
+	const id_user = useSelector((store) => store.login.user.id)
+	const elementForm = useRef(null)
 
 	const [buttonLoad, loading, setLoading] = useButtonLoader()
 	const [resetForm, setResetForm] = useState(false)
 	const [showFormError, setShowFormError] = useState(false)
+	const [showPrecioError, setShowPrecioError] = useState(false)
+	const [precioVentaError, setPrecioVentaError] = useState(0)
 	const [selectError, setSelectError] = useState('')
 	const [cantidad, setCantidad] = useState(0)
 	const [precio, setPrecio] = useState(0)
@@ -88,7 +91,7 @@ const FormVentasCompras = ({
 			type === 'compra' && setDatos({ id_comprador: id_user })
 			type === 'venta' && setDatos({ id_vendedor: id_user })
 			productos.setProductosList([])
-			document.querySelector(`.${Styles.form}`).reset()
+			elementForm.current.reset()
 			setResetForm(false)
 			setSelectError('')
 			dispatch(dispathObtenerProductos())
@@ -130,7 +133,18 @@ const FormVentasCompras = ({
 
 	const handleInputChange = (item, e) => {
 		if (e.target.name === 'cantidad')
-			if (item.stock - e.target.value < 0) e.target.value = item.stock
+			if (type === 'Venta')
+				if (item.stock - e.target.value < 0) e.target.value = item.stock
+
+		if (e.target.name === 'precio_unidad')
+			if (item.precio_venta < e.target.value) {
+				setPrecioVentaError(item.precio_venta)
+				setShowPrecioError(true)
+			} else {
+				setPrecioVentaError(0)
+				setShowPrecioError(false)
+			}
+
 		sumarTotal()
 		addProductToListData(datos, setDatos, Styles)
 	}
@@ -160,23 +174,24 @@ const FormVentasCompras = ({
 		e.preventDefault()
 		const selectvalue = document.querySelector(`.${Styles.input_select}`).value
 
-		Number(selectvalue)
-			? datos.productos
-				? dispatch(
-						dispatchNew(
-							datos,
-							history,
-							setLoading,
-							setLoadingProps,
-							setResetForm
-						)
-				  )
-				: setShowFormError(true)
-			: setSelectError(`Por favor ${selectvalue.toLowerCase()}`)
+		if (!showPrecioError)
+			Number(selectvalue)
+				? datos.productos
+					? dispatch(
+							dispatchNew(
+								datos,
+								history,
+								setLoading,
+								setLoadingProps,
+								setResetForm
+							)
+					  )
+					: setShowFormError(true)
+				: setSelectError(`Por favor ${selectvalue.toLowerCase()}`)
 	}
 
 	return (
-		<form className={Styles.form} onSubmit={handleSubmit}>
+		<form className={Styles.form} onSubmit={handleSubmit} ref={elementForm}>
 			{showFormError && (
 				<span className={Styles.form_error}>Por favor agregar productos</span>
 			)}
@@ -212,6 +227,12 @@ const FormVentasCompras = ({
 				</div>
 				<span className={Styles.preductos_label}>Productos</span>
 				<div className={Styles.productos_container}>
+					{showPrecioError && (
+						<span className={Styles.error_productos}>
+							{`Precio de compra es mayor al precio de venta ${precioVentaError}, esto generara
+							perdidas`}
+						</span>
+					)}
 					{productos.productosList.length !== 0 ? (
 						productos.productosList.map((el, index) => {
 							return (
@@ -228,18 +249,32 @@ const FormVentasCompras = ({
 									<div className={Styles.producto_inputs_container}>
 										<div className={Styles.producto_inputs}>
 											<span className={Styles.label_cantidad}>Cantidad</span>
-											<input
-												onChange={(e) => handleInputChange(el, e)}
-												className={Styles.input_cantidad}
-												type='number'
-												name='cantidad'
-												placeholder='Cantidad'
-												required
-												min='1'
-												max={el.stock}
-												defaultValue='1'
-												disabled={loading}
-											/>
+											{type === 'Venta' ? (
+												<input
+													onChange={(e) => handleInputChange(el, e)}
+													className={Styles.input_cantidad}
+													type='number'
+													name='cantidad'
+													placeholder='Cantidad'
+													required
+													min='1'
+													max={el.stock}
+													defaultValue='1'
+													disabled={loading}
+												/>
+											) : (
+												<input
+													onChange={(e) => handleInputChange(el, e)}
+													className={Styles.input_cantidad}
+													type='number'
+													name='cantidad'
+													placeholder='Cantidad'
+													required
+													min='1'
+													defaultValue='1'
+													disabled={loading}
+												/>
+											)}
 										</div>
 										<div className={Styles.producto_inputs}>
 											<span

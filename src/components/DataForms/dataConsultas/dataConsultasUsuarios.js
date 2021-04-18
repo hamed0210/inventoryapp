@@ -1,12 +1,12 @@
 const dataConsultas = [
-	{ title: 'Email' },
-	{ title: 'Role' },
 	{ title: 'ID' },
+	{ title: 'Email' },
 	{ title: 'Nombre' },
 	{ title: 'Apellidos' },
-	{ title: 'Celular' },
 	{ title: 'Direccion' },
 	{ title: 'Ciudad' },
+	{ title: 'Celular' },
+	{ title: 'Role' },
 	{ title: '' },
 ]
 

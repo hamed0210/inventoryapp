@@ -44,12 +44,14 @@ const ConsultasInventario = ({
 
 	useEffect(() => {
 		dispatch(obtenerProveedoresAccion(history))
-		dispatch(obtenerClientesAccion(history))
-		dispatch(obtenerProductosAccion(history))
-	}, [dispatch, history])
+		if (verEliminar === false) {
+			dispatch(obtenerClientesAccion(history))
+			dispatch(obtenerProductosAccion(history))
+		}
+	}, [verEliminar, dispatch, history])
 
 	useEffect(() => {
-		data.length !== 0 && setLoadingState(true)
+		data && setLoadingState(true)
 
 		let totalCompraSuma = 0
 		let cantCompras = 0

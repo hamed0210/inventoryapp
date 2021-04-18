@@ -57,9 +57,7 @@ function Header({ history }) {
 					</div> */}
 					<span className={Styles.separator}></span>
 					<div className={Styles.avatar_container}>
-						<span className={Styles.name}>
-							{user ? user.persona.nombres : null}
-						</span>
+						<span className={Styles.name}>{user ? user.nombres : null}</span>
 						{/* <div className={Styles.avatar}>
 						<img src={avatar} alt='' />
 					</div> */}

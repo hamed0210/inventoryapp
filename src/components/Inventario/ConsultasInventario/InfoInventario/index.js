@@ -154,7 +154,7 @@ const InfoInventario = ({
 						) : (
 							<tr className={Styles.table_body}>
 								<td className={Styles.table_body_null}>
-									No hay productos registrados
+									No hay productos con ventas registradas
 								</td>
 							</tr>
 						)}
@@ -187,7 +187,7 @@ const InfoInventario = ({
 						) : (
 							<tr className={Styles.table_body}>
 								<td className={Styles.table_body_null}>
-									No hay clientes registrados
+									No hay clientes con compras registradas
 								</td>
 							</tr>
 						)}

@@ -13,13 +13,13 @@ const Perfil = () => {
 		pass: '',
 	})
 	const [datos, setDatos] = useState({
-		nombres: userStore.user.persona.nombres,
-		apellidos: userStore.user.persona.apellidos,
+		nombres: userStore.user.nombres,
+		apellidos: userStore.user.apellidos,
 		email: userStore.user.email,
-		id: userStore.user.persona.id,
-		dir: userStore.user.persona.dir,
-		ciudad: userStore.user.persona.ciudad,
-		cel: userStore.user.persona.cel,
+		id: userStore.user.id,
+		dir: userStore.user.dir,
+		ciudad: userStore.user.ciudad,
+		cel: userStore.user.cel,
 		role: userStore.user.role,
 	})
 	// const style = {

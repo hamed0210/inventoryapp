@@ -9,7 +9,7 @@ const ItemConsultas = ({
 	handleVerEliminar,
 	handleVerEditar,
 }) => {
-	const id_userStore = useSelector((store) => store.login.user.persona.id)
+	const id_userStore = useSelector((store) => store.login.user.id)
 
 	useEffect(() => {
 		data && setItemLists(document.querySelectorAll(`.${Styles.item}`))
@@ -95,13 +95,15 @@ const ItemConsultas = ({
 							</td>
 						</tr>
 					)
-				} else {
+				} else if (data.length === 1)
 					dataRender.push(
-						<tr key={0} className={Styles.item}>
-							<td className={Styles.data_null}>{'No hay datos registrados'}</td>
+						<tr key={'k'} className={Styles.item}>
+							<td className={Styles.data_null}>
+								{'No hay otros usuarios registrados'}
+							</td>
 						</tr>
 					)
-				}
+
 				itemDataRender = []
 				return dataRender
 			})

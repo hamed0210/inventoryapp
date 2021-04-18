@@ -31,7 +31,7 @@ function App({ history }) {
 						}
 					)
 					userStore.user = result.data.user
-					if (userStore.user.codigo) setLoadingState(true)
+					if (userStore.user.id) setLoadingState(true)
 				} catch (error) {
 					if (error.request.status === 401) {
 						setLoadingState(null)
@@ -57,7 +57,7 @@ function App({ history }) {
 	return loadingState !== false ? (
 		<main className={Styles.conatiner_body}>
 			<Switch>
-				{userStore.user.codigo ? (
+				{userStore.user.id ? (
 					<>
 						<Header />
 						<Main />

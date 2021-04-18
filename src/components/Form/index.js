@@ -26,7 +26,7 @@ const Form = ({
 	const [buttonLoad, loading, setLoading] = useButtonLoader()
 	const [resetForm, setResetForm] = useState(false)
 	const [showSelectError, setShowSelectError] = useState(false)
-	const id_user = useSelector((store) => store.login.user.persona.id)
+	const id_user = useSelector((store) => store.login.user.id)
 	const [datos, setDatos] = useState({
 		creado_por: id_user,
 	})
@@ -57,7 +57,7 @@ const Form = ({
 
 		const selectInput = document.querySelector(`select`)
 
-		selectInput.value.includes('Seleccione')
+		selectInput && selectInput.value.includes('Seleccione')
 			? setShowSelectError(true)
 			: dispatch(dispatchNew(datos, history, setLoading, setResetForm))
 	}

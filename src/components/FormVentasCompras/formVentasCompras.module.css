@@ -93,11 +93,23 @@
 }
 
 .productos_container {
+	position: relative;
 	padding: 0.625rem 0.313rem 0;
 	border-radius: 0.313rem;
 	margin-bottom: 0.938rem;
 	box-shadow: 0.063rem 0.063rem 0.125rem rgba(0, 0, 0, 0.2),
 		-0.063rem -0.063rem 0.125rem rgba(0, 0, 0, 0.2);
+}
+
+.error_productos {
+	position: absolute;
+	top: -2.813rem;
+	right: 0;
+	width: 65%;
+	font-size: 0.75rem;
+	text-align: right;
+	color: var(--color-danger);
+	opacity: 0.8;
 }
 
 .preductos_label {

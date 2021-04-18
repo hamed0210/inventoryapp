@@ -157,8 +157,16 @@ const FormEditarConsultasComprasInventario = ({
 											{dataEditar.productos.length ===
 											JSON.parse(datos.productos).length
 												? dataEditar.productos[index].includes(',')
-													? dataEditar.productos[index].replace(',', '')
-													: dataEditar.productos[index]
+													? dataEditar.productos[index]
+															.slice(
+																dataEditar.productos[index].split(' ')[0]
+																	.length + 1
+															)
+															.replace(',', '')
+													: dataEditar.productos[index].slice(
+															dataEditar.productos[index].split(' ')[0].length +
+																1
+													  )
 												: dataEditar.productos[index]}
 										</span>
 										<div className={Styles.producto_inputs_container}>

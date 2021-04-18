@@ -36,7 +36,6 @@ const ItemConsultasIventario = ({
 			data.map((el, index) => {
 				if (el.hasOwnProperty('fecha_creacion'))
 					el['fecha_creacion'] = el['fecha_creacion'].substr(0, 10)
-
 				for (const i in el) {
 					itemDataRender.push(
 						<td
@@ -47,7 +46,7 @@ const ItemConsultasIventario = ({
 									: Styles.data
 							}
 						>
-							{el[i]}
+							{i === 'id' ? index + 1 : el[i]}
 						</td>
 					)
 				}
@@ -63,7 +62,7 @@ const ItemConsultasIventario = ({
 									<i className={`${Styles.btn_edit} fas fa-edit`}></i>
 								</span>
 								<span
-									onClick={() => handleDeleteButton(el.codigo || el.id)}
+									onClick={() => handleDeleteButton(el.id)}
 									className={Styles.btn}
 								>
 									<i className={`${Styles.btn_delete} fas fa-trash-alt`}></i>
